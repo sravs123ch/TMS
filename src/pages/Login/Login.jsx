@@ -146,7 +146,7 @@ const Login = () => {
   //   }
   // };
 
-  const handleLogin = async (e) => {
+const handleLogin = (e) => {
   e.preventDefault();
   setIsLoading(true);
   setErrors({ username: "", password: "", general: "" });
@@ -158,10 +158,12 @@ const Login = () => {
   setErrors(newErrors);
   if (Object.keys(newErrors).length > 0) {
     setIsLoading(false);
+    console.log("Validation errors, no toast");
     return;
   }
 
-  // Simulate login delay
+  console.log("Validation passed, showing toast...");
+
   setTimeout(() => {
     toast.success("Login successful!", {
       position: "top-right",
@@ -174,8 +176,9 @@ const Login = () => {
 
     setIsLoading(false);
     navigate("/dashboard");
-  }, 4000);
+  }, 2000);
 };
+
 
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
