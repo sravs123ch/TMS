@@ -116,7 +116,7 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Outlet } from "react-router-dom";
 // import Navigation from "./Navigation/navbar";
-import Layout from "./layout/Layout";
+import Layout from './layout/Layout';
 // Lazy load pages
 const Login = lazy(() => import("./pages/Login/Login"));
 const Dashboard = lazy(() => import("./pages/DashBoard/dashboard"));
