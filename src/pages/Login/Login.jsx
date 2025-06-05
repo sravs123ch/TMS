@@ -80,71 +80,102 @@ const Login = () => {
     fetchLocationData();
   }, []);
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setErrors({ username: "", password: "", general: "" });
+
+  //   const newErrors = {};
+  //   if (!username.trim()) newErrors.username = "Username is required";
+  //   if (!password) newErrors.password = "Password is required";
+
+  //   setErrors(newErrors);
+  //   if (Object.keys(newErrors).length > 0) {
+  //     setIsLoading(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await login(
+  //       username,
+  //       password,
+  //       locationData.ip,
+  //       locationData.lat,
+  //       locationData.long
+  //     );
+
+  //     if (response) {
+  //       sessionStorage.setItem("userData", JSON.stringify(response.userMaster));
+  //       sessionStorage.setItem("authToken", response.token);
+  //       sessionStorage.setItem("plantId", response.userMaster.plantID);
+  //       sessionStorage.setItem("userId", response.userMaster.userID);
+
+  //       toast.success("Login successful!", {
+  //         position: "top-right",
+  //         autoClose: 2000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //       });
+
+  //       // Check if password reset is required
+  //       if (response.userMaster.isReset === true) {
+  //         setTimeout(() => navigate("/profile/password-change"), 2000);
+  //       } else {
+  //         setTimeout(() => navigate("/dashboard"), 2000);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //     const errorMessage =
+  //       error.response?.data?.header?.messages?.[0]?.messageText ||
+  //       "Login failed";
+  //     const currentFailedAttempts = error.response?.data?.failedAttempts || 0;
+
+  //     setFailedAttempts(currentFailedAttempts);
+  //     setErrors((prev) => ({ ...prev, general: errorMessage }));
+
+  //     toast.error(errorMessage, {
+  //       position: "top-right",
+  //       autoClose: currentFailedAttempts < 0 ? 5000 : 3000,
+  //       hideProgressBar: false,
+  //     });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrors({ username: "", password: "", general: "" });
+  e.preventDefault();
+  setIsLoading(true);
+  setErrors({ username: "", password: "", general: "" });
 
-    const newErrors = {};
-    if (!username.trim()) newErrors.username = "Username is required";
-    if (!password) newErrors.password = "Password is required";
+  const newErrors = {};
+  if (!username.trim()) newErrors.username = "Username is required";
+  if (!password) newErrors.password = "Password is required";
 
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) {
-      setIsLoading(false);
-      return;
-    }
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length > 0) {
+    setIsLoading(false);
+    return;
+  }
 
-    try {
-      const response = await login(
-        username,
-        password,
-        locationData.ip,
-        locationData.lat,
-        locationData.long
-      );
+  // Simulate login delay
+  setTimeout(() => {
+    toast.success("Login successful!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
 
-      if (response) {
-        sessionStorage.setItem("userData", JSON.stringify(response.userMaster));
-        sessionStorage.setItem("authToken", response.token);
-        sessionStorage.setItem("plantId", response.userMaster.plantID);
-        sessionStorage.setItem("userId", response.userMaster.userID);
-
-        toast.success("Login successful!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-
-        // Check if password reset is required
-        if (response.userMaster.isReset === true) {
-          setTimeout(() => navigate("/profile/password-change"), 2000);
-        } else {
-          setTimeout(() => navigate("/dashboard"), 2000);
-        }
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      const errorMessage =
-        error.response?.data?.header?.messages?.[0]?.messageText ||
-        "Login failed";
-      const currentFailedAttempts = error.response?.data?.failedAttempts || 0;
-
-      setFailedAttempts(currentFailedAttempts);
-      setErrors((prev) => ({ ...prev, general: errorMessage }));
-
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: currentFailedAttempts < 0 ? 5000 : 3000,
-        hideProgressBar: false,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    setIsLoading(false);
+    navigate("/dashboard");
+  }, 4000);
+};
 
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
@@ -553,11 +584,11 @@ const Login = () => {
                     className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? (
+                    {/* {showPassword ? (
                       <FaEyeSlash className="h-5 w-5 text-[var(--color-gray-dark)]" />
                     ) : (
                       <FaEye className="h-5 w-5 text-[var(--color-gray-dark)]" />
-                    )}
+                    )} */}
                   </span>
                 </div>
                 {errors.password && (
