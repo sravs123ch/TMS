@@ -3,3 +3,14 @@
   to = "http://82.180.147.10:7002/api/"
   status = 200
   force = true
+  
+[[headers]]
+  for = "/**/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/**/*.jsx"
+  [headers.values]
+    Content-Type = "application/javascript"
+
