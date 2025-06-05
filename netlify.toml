@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://your-backend-url.com/:splat"
+  to = "http://82.180.147.10:7002/api/"
   status = 200
   force = true
