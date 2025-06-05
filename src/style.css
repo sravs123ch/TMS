@@ -1,0 +1,56 @@
+:root {
+  /* Brown color palette */
+  --primary-color: #127c96;
+  --secondary-color: #127c96;
+  --light-color: #127c96;
+
+  /* Neutral colors */
+  --color-white: #fff;
+  --color-gray-light: #f1f5f9;
+  --color-gray-medium: #e2e8f0;
+  --color-gray-dark: #64748b;
+
+  /* Error/Alert colors */
+  --color-error-light: #fecaca;
+  --color-error-dark: #dc2626;
+}
+
+.main-container {
+  @apply px-0 sm:px-0 lg:px-8 pt-0 mt-0 p-6 rounded-lg transition-all duration-300;
+}
+.body-container {
+  @apply flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center;
+}
+
+.heading {
+  @apply text-2xl font-semibold text-[--primary-color];
+}
+
+/* You can also define utility classes if needed */
+.bg-brown-primary {
+  background-color: var(--color-brown-primary);
+}
+
+.text-brown-primary {
+  color: var(--color-brown-primary);
+}
+
+.border-brown-primary {
+  border-color: var(--color-brown-primary);
+}
+
+.icon-btn {
+  @apply p-1 rounded transition-colors duration-200;
+}
+
+.icon-btn.edit {
+  @apply text-blue-600 hover:text-blue-800;
+}
+
+.icon-btn.delete {
+  @apply text-red-600 hover:text-red-800;
+}
+
+.icon-md {
+  @apply w-4 h-4; 
+}
