@@ -79,17 +79,6 @@ const AddDepartment = () => {
           onSubmit={handleSubmit}
           className="p-8"
         >
-          {/* Loading indicator */}
-          {loading && (
-            <div className="progress mb-4 h-1 w-full">
-              <div
-                className="progress-bar progress-bar-striped progress-bar-animated bg-blue-500 h-full"
-                role="progressbar"
-                style={{ width: '100%' }}
-              />
-            </div>
-          )}
-
           <h3 className="heading">
             Add Department
           </h3>

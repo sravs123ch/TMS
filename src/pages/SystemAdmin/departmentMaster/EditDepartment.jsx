@@ -112,12 +112,6 @@ const EditDepartment = () => {
       />
       <div className="main-container p-8">
         <form onSubmit={handleSubmit}>
-          {loading && (
-            <div className="w-full h-1 bg-gray-200 mb-4">
-              <div className="h-full bg-blue-600 animate-pulse" style={{ width: '100%' }} />
-            </div>
-          )}
-
           <h3 className="text-2xl font-semibold text-gray-900 mb-8 border-b border-gray-200 pb-2">Edit Department</h3>
 
           <InputField
