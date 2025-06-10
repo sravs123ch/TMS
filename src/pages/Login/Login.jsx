@@ -37,29 +37,13 @@ const Login = () => {
     lat: "0",
     long: "0",
   });
+  const [showAnimation, setShowAnimation] = useState(false);
 
-  const features = [
-    {
-      icon: "🎓",
-      title: "Course Management",
-      description: "Organize and track all training programs",
-    },
-    {
-      icon: "📊",
-      title: "Progress Tracking",
-      description: "Monitor learner progress and completion",
-    },
-    {
-      icon: "👨‍💻",
-      title: "Instructor Tools",
-      description: "Manage classes and materials efficiently",
-    },
-    {
-      icon: "📄",
-      title: "Certification Support",
-      description: "Issue certificates upon course completion",
-    },
-  ];
+  useEffect(() => {
+    // Delay animation load after initial render
+    const timer = setTimeout(() => setShowAnimation(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Fetch location data when component mounts
   useEffect(() => {
@@ -146,39 +130,38 @@ const Login = () => {
     }
   };
 
-// const handleLogin = (e) => {
-//   e.preventDefault();
-//   setIsLoading(true);
-//   setErrors({ username: "", password: "", general: "" });
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setErrors({ username: "", password: "", general: "" });
 
-//   const newErrors = {};
-//   if (!username.trim()) newErrors.username = "Username is required";
-//   if (!password) newErrors.password = "Password is required";
+  //   const newErrors = {};
+  //   if (!username.trim()) newErrors.username = "Username is required";
+  //   if (!password) newErrors.password = "Password is required";
 
-//   setErrors(newErrors);
-//   if (Object.keys(newErrors).length > 0) {
-//     setIsLoading(false);
-//     console.log("Validation errors, no toast");
-//     return;
-//   }
+  //   setErrors(newErrors);
+  //   if (Object.keys(newErrors).length > 0) {
+  //     setIsLoading(false);
+  //     console.log("Validation errors, no toast");
+  //     return;
+  //   }
 
-//   console.log("Validation passed, showing toast...");
+  //   console.log("Validation passed, showing toast...");
 
-//   setTimeout(() => {
-//     toast.success("Login successful!", {
-//       position: "top-right",
-//       autoClose: 2000,
-//       hideProgressBar: false,
-//       closeOnClick: true,
-//       pauseOnHover: true,
-//       draggable: true,
-//     });
+  //   setTimeout(() => {
+  //     toast.success("Login successful!", {
+  //       position: "top-right",
+  //       autoClose: 2000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //     });
 
-//     setIsLoading(false);
-//     navigate("/dashboard");
-//   }, 2000);
-// };
-
+  //     setIsLoading(false);
+  //     navigate("/dashboard");
+  //   }, 2000);
+  // };
 
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
@@ -308,15 +291,16 @@ const Login = () => {
       {/* Background Layer */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[var(--color-white)] opacity-90" />
-
-        <div className="absolute top-0 -left-10 z-10 opacity-50 w-3/4 h-full">
-          <DotLottieReact
-            src={AnimationFile}
-            loop={true}
-            autoplay={true}
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {showAnimation && (
+          <div className="absolute top-0 -left-10 z-10 opacity-50 w-3/4 h-full">
+            <DotLottieReact
+              src={AnimationFile}
+              loop={true}
+              autoplay={true}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
       </div>
 
       {/* Mobile Top Logo */}
@@ -528,8 +512,7 @@ const Login = () => {
           </div>
         </div> */}
 
-
-          <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-primary md:bg-transparent">
+        <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-primary md:bg-transparent">
           <div className="bg-primary rounded-2xl p-8 w-full max-w-md shadow-lg border border-[var(--color-gray-medium)]">
             <div className="mb-8 text-center">
               <h2 className="text-2xl font-bold text-white">
@@ -538,7 +521,6 @@ const Login = () => {
             </div>
 
             <form onSubmit={handleLogin} className="space-y-6">
-             
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white">
                   Username
@@ -564,7 +546,6 @@ const Login = () => {
                 )}
               </div>
 
-           
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-medium text-white">
@@ -613,7 +594,6 @@ const Login = () => {
                 </div>
               )}
 
-  
               <div className="flex justify-end">
                 <button
                   type="button"
@@ -625,7 +605,6 @@ const Login = () => {
                 </button>
               </div>
 
-        
               <button
                 type="submit"
                 className="w-full py-3 px-4 bg-white text-primary font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary isabled:opacity-50"

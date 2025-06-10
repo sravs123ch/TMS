@@ -112,19 +112,22 @@
 
 // export default App;
 
-
 import { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Outlet } from "react-router-dom";
 // import Navigation from "./Navigation/navbar";
-import Layout from './layout/Layout';
+import Layout from "./layout/Layout";
 // Lazy load pages
 const Login = lazy(() => import("./pages/Login/Login"));
 const Dashboard = lazy(() => import("./pages/DashBoard/dashboard"));
 const UserMaster = lazy(() =>
   import("./pages/SystemAdmin/userMaster/UserMaster")
 );
-const AddUser = lazy(() => import("./pages/SystemAdmin/userMaster/AddUser"));
-
+const UserMasterAddUser = lazy(() =>
+  import("./pages/SystemAdmin/userMaster/AddUser")
+);
+const UserMasterEditUser = lazy(() =>
+  import("./pages/SystemAdmin/userMaster/EditUser")
+);
 // Fallback spinner
 const fallbackSpinner = (
   <div
@@ -170,12 +173,7 @@ const AppWithNavigation = () => {
           </Suspense>
         }
       />
-      <Route
-        element={
-          <Layout
-          />
-        }
-      >
+      <Route element={<Layout />}>
         <Route
           path="/dashboard"
           element={
@@ -196,7 +194,15 @@ const AppWithNavigation = () => {
           path="/system-admin/user-master/add-user"
           element={
             <Suspense fallback={fallbackSpinner}>
-              <AddUser />
+              <UserMasterAddUser />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/system-admin/user-master/edit-user"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <UserMasterEditUser />
             </Suspense>
           }
         />

@@ -571,14 +571,9 @@ const AddUser = () => {
         draggable
         pauseOnHover
       />
-       <div className="main-container">
-        <form
-          onSubmit={handleSubmit}
-          className=" p-8"
-        >
-          <h3 className="heading">
-            Add User Master
-          </h3>
+      <div className="main-container">
+        <form onSubmit={handleSubmit} className="p-8">
+          <h3 className="heading">Add User Master</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <InputField
@@ -858,7 +853,6 @@ const AddUser = () => {
 
 export default AddUser;
 
-
 // import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { toast, ToastContainer } from "react-toastify";
@@ -974,7 +968,7 @@ export default AddUser;
 //     try {
 //       // Simulate API call success
 //       toast.success("User created successfully!");
-      
+
 //       setTimeout(() => {
 //         navigate("/system-admin/user-master");
 //       }, 2000);
