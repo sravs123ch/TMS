@@ -653,10 +653,10 @@ const EditUser = () => {
         draggable
         pauseOnHover
       />
-      <div className="main-container p-8">
+      <div className="main-container">
         <form onSubmit={handleSubmit}>
-          <h3 className="text-2xl font-semibold text-gray-900 mb-8">Edit User Master</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <h3 className="heading">Edit User Master</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-4">
             <EnhancedInputField
               label="First Name"
               name="FirstName"

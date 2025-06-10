@@ -17,6 +17,7 @@ module.exports = {
           light: "var(--color-error-light)",
           dark: "var(--color-error-dark)",
         },
+      
       },
       keyframes: {
         spin: {

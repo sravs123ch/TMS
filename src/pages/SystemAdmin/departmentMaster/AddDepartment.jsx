@@ -77,13 +77,12 @@ const AddDepartment = () => {
     <div className="main-container">
         <form 
           onSubmit={handleSubmit}
-          className="p-8"
         >
           <h3 className="heading">
             Add Department
           </h3>
           
-          <div className="mb-4 mt-4">
+          <div className="mb-4 mt-6">
             <InputField
               label="Department Name"
               name="departmentName"

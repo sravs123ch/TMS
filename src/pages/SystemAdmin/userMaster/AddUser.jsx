@@ -572,7 +572,7 @@ const AddUser = () => {
         pauseOnHover
       />
       <div className="main-container">
-        <form onSubmit={handleSubmit} className="p-8">
+        <form onSubmit={handleSubmit}>
           <h3 className="heading">Add User Master</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

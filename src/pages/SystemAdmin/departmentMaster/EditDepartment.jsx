@@ -110,10 +110,10 @@ const EditDepartment = () => {
         draggable
         pauseOnHover
       />
-      <div className="main-container p-8">
+      <div className="main-container">
         <form onSubmit={handleSubmit}>
-          <h3 className="text-2xl font-semibold text-gray-900 mb-8 border-b border-gray-200 pb-2">Edit Department</h3>
-
+        <h3 className="heading">Edit Department</h3>
+ <div className="mb-4 mt-6">
           <InputField
             label="Department Name"
             name="departmentName"
@@ -122,7 +122,7 @@ const EditDepartment = () => {
             placeholder="Enter Department Name"
             required
           />
-
+</div>
           <div className="flex justify-end gap-4 mt-8">
            
             <button

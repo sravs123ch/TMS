@@ -149,7 +149,6 @@ const DepartmentMaster = () => {
       />
 
       <div className="main-container ">
-        <div className="bg-white rounded-xl p-5 font-sans text-black flex flex-col h-full overflow-hidden box-border">
           <div className="flex justify-between items-center flex-wrap gap-4">
             <h2 className="heading">Department Master</h2>
             <div className="flex gap-2.5 flex-wrap">
@@ -227,7 +226,7 @@ const DepartmentMaster = () => {
               </Table>
             </TableContainer>
           </div>
-        </div>
+    
       </div>
 
       {showDeleteModal && (
