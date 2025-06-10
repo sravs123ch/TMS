@@ -54,3 +54,7 @@
 .icon-md {
   @apply w-4 h-4; 
 }
+
+ .btn-cancel {
+    @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium;
+  }

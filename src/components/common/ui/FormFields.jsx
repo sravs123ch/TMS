@@ -182,3 +182,59 @@ export const RadioGroup = ({ label, name, value, onChange, options }) => (
     </div>
   </div>
 );
+
+
+export const EnhancedInputField = ({
+  label,
+  name,
+  value,
+  onChange,
+  type = "text",
+  required,
+  error,
+  pattern,
+  title,
+  placeholder,
+  readOnly,
+  asTextarea,
+  rows = 4,
+}) => (
+  <div className="flex flex-col mb-4">
+    <label className="text-sm font-medium text-gray-900 mb-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    {asTextarea ? (
+      <textarea
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        placeholder={placeholder}
+        rows={rows}
+        className={`w-full p-2 border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm ${
+          error ? "ring-1 ring-red-500" : ""
+        }`}
+      />
+    ) : (
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+        pattern={pattern}
+        title={title}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        className={`w-full p-2 border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm ${
+          error ? "ring-1 ring-red-500" : ""
+        } ${readOnly ? "bg-gray-100 cursor-not-allowed" : ""}`}
+      />
+    )}
+    {error && <span className="text-red-500 text-xs mt-1">{error}</span>}
+  </div>
+);
