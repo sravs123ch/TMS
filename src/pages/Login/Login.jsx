@@ -80,104 +80,104 @@ const Login = () => {
     fetchLocationData();
   }, []);
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   setErrors({ username: "", password: "", general: "" });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrors({ username: "", password: "", general: "" });
 
-  //   const newErrors = {};
-  //   if (!username.trim()) newErrors.username = "Username is required";
-  //   if (!password) newErrors.password = "Password is required";
+    const newErrors = {};
+    if (!username.trim()) newErrors.username = "Username is required";
+    if (!password) newErrors.password = "Password is required";
 
-  //   setErrors(newErrors);
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setIsLoading(false);
-  //     return;
-  //   }
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setIsLoading(false);
+      return;
+    }
 
-  //   try {
-  //     const response = await login(
-  //       username,
-  //       password,
-  //       locationData.ip,
-  //       locationData.lat,
-  //       locationData.long
-  //     );
+    try {
+      const response = await login(
+        username,
+        password,
+        locationData.ip,
+        locationData.lat,
+        locationData.long
+      );
 
-  //     if (response) {
-  //       sessionStorage.setItem("userData", JSON.stringify(response.userMaster));
-  //       sessionStorage.setItem("authToken", response.token);
-  //       sessionStorage.setItem("plantId", response.userMaster.plantID);
-  //       sessionStorage.setItem("userId", response.userMaster.userID);
+      if (response) {
+        sessionStorage.setItem("userData", JSON.stringify(response.userMaster));
+        sessionStorage.setItem("authToken", response.token);
+        sessionStorage.setItem("plantId", response.userMaster.plantID);
+        sessionStorage.setItem("userId", response.userMaster.userID);
 
-  //       toast.success("Login successful!", {
-  //         position: "top-right",
-  //         autoClose: 2000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //       });
+        toast.success("Login successful!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
 
-  //       // Check if password reset is required
-  //       if (response.userMaster.isReset === true) {
-  //         setTimeout(() => navigate("/profile/password-change"), 2000);
-  //       } else {
-  //         setTimeout(() => navigate("/dashboard"), 2000);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     const errorMessage =
-  //       error.response?.data?.header?.messages?.[0]?.messageText ||
-  //       "Login failed";
-  //     const currentFailedAttempts = error.response?.data?.failedAttempts || 0;
+        // Check if password reset is required
+        if (response.userMaster.isReset === true) {
+          setTimeout(() => navigate("/profile/password-change"), 2000);
+        } else {
+          setTimeout(() => navigate("/dashboard"), 2000);
+        }
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      const errorMessage =
+        error.response?.data?.header?.messages?.[0]?.messageText ||
+        "Login failed";
+      const currentFailedAttempts = error.response?.data?.failedAttempts || 0;
 
-  //     setFailedAttempts(currentFailedAttempts);
-  //     setErrors((prev) => ({ ...prev, general: errorMessage }));
+      setFailedAttempts(currentFailedAttempts);
+      setErrors((prev) => ({ ...prev, general: errorMessage }));
 
-  //     toast.error(errorMessage, {
-  //       position: "top-right",
-  //       autoClose: currentFailedAttempts < 0 ? 5000 : 3000,
-  //       hideProgressBar: false,
-  //     });
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: currentFailedAttempts < 0 ? 5000 : 3000,
+        hideProgressBar: false,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-const handleLogin = (e) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setErrors({ username: "", password: "", general: "" });
+// const handleLogin = (e) => {
+//   e.preventDefault();
+//   setIsLoading(true);
+//   setErrors({ username: "", password: "", general: "" });
 
-  const newErrors = {};
-  if (!username.trim()) newErrors.username = "Username is required";
-  if (!password) newErrors.password = "Password is required";
+//   const newErrors = {};
+//   if (!username.trim()) newErrors.username = "Username is required";
+//   if (!password) newErrors.password = "Password is required";
 
-  setErrors(newErrors);
-  if (Object.keys(newErrors).length > 0) {
-    setIsLoading(false);
-    console.log("Validation errors, no toast");
-    return;
-  }
+//   setErrors(newErrors);
+//   if (Object.keys(newErrors).length > 0) {
+//     setIsLoading(false);
+//     console.log("Validation errors, no toast");
+//     return;
+//   }
 
-  console.log("Validation passed, showing toast...");
+//   console.log("Validation passed, showing toast...");
 
-  setTimeout(() => {
-    toast.success("Login successful!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
+//   setTimeout(() => {
+//     toast.success("Login successful!", {
+//       position: "top-right",
+//       autoClose: 2000,
+//       hideProgressBar: false,
+//       closeOnClick: true,
+//       pauseOnHover: true,
+//       draggable: true,
+//     });
 
-    setIsLoading(false);
-    navigate("/dashboard");
-  }, 2000);
-};
+//     setIsLoading(false);
+//     navigate("/dashboard");
+//   }, 2000);
+// };
 
 
   const handleForgotSubmit = async (e) => {
