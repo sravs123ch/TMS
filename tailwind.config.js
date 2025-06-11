@@ -8,6 +8,7 @@ module.exports = {
         secondary: "var(--secondary-color)",
         light: "var(--light-color)",
         white: "var(--color-white)",
+        inputFieldlabelColor:"black",
         gray: {
           light: "var(--color-gray-light)",
           medium: "var(--color-gray-medium)",
@@ -17,7 +18,6 @@ module.exports = {
           light: "var(--color-error-light)",
           dark: "var(--color-error-dark)",
         },
-      
       },
       keyframes: {
         spin: {
