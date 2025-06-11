@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createDesignation } from "../../../services/systemAdmin/DesignationMasterService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Spinner from "../../../components/common/Spinner";
 import { InputField } from "../../../components/common/ui/FormFields";
 
 const AddDesignation = () => {
@@ -65,7 +65,12 @@ const AddDesignation = () => {
       <form onSubmit={handleSubmit}>
         <h3 className="heading">Add Designation</h3>
 
-        <div className="mb-4 mt-4">
+        <div className="relative mt-6 mb-6">
+            {loading && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50">
+                <Spinner/>
+              </div>
+            )}
           <InputField
             label="Designation Name"
             name="DesignationName"

@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from '../../../components/common/Modal';
 import { InputField, EnhancedInputField } from '../../../components/common/ui/FormFields';
-
+import Spinner from "../../../components/common/Spinner";
 const EditDepartment = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -147,7 +147,12 @@ const EditDepartment = () => {
         <Modal
           title="Reason for Change"
           message={
-            <div>
+            <div className="relative">
+              {loading && (
+                <div className="absolute inset-0 bg-white bg-opacity-60 z-10 flex items-center justify-center">
+                  <Spinner />
+                </div>
+              )}
               <p className="mb-4">Please provide a reason for updating the department "{formData.departmentName}"</p>
               <EnhancedInputField
                 name="reasonForChange"

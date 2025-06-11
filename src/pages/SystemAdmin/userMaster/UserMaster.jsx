@@ -25,7 +25,7 @@ import {
 } from "../../../components/common/Table/CustomTablePagination";
 import TableRow from "@mui/material/TableRow";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
-
+import Spinner from "../../../components/common/Spinner";
 const UserMaster = () => {
   const navigate = useNavigate();
   const { setUserId, setUserDetails } = useContext(UserContext);
@@ -232,9 +232,7 @@ const UserMaster = () => {
               {loading ? (
                 <StyledTableRow>
                   <StyledTableCell colSpan={5}>
-                    <div className="flex justify-center p-4">
-                      <div className="loader"></div>
-                    </div>
+                       <Spinner />
                   </StyledTableCell>
                 </StyledTableRow>
               ) : users.length > 0 ? (

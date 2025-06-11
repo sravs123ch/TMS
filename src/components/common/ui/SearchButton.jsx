@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-
+import { FaPlus } from "react-icons/fa";
 const SearchAddBar = ({
   searchTerm,
   onSearchChange,
   onAddClick,
   searchPlaceholder = "Search...",
-  addButtonText = "+ Add",
+  addButtonText = "Add",
 }) => {
   return (
     <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
@@ -18,8 +18,9 @@ const SearchAddBar = ({
       />
       <button
         onClick={onAddClick}
-        className="w-full sm:w-auto bg-[--primary-color] transition-colors text-white text-sm px-5 py-2 rounded-md font-medium"
+        className="w-full sm:w-auto bg-[--primary-color] transition-colors text-white text-sm px-5 py-2 rounded-md font-medium flex items-center justify-center gap-2"
       >
+        <FaPlus className="text-sm" />
         {addButtonText}
       </button>
     </div>

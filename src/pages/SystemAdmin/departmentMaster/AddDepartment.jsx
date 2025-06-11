@@ -4,7 +4,7 @@ import { createDepartment } from '../../../services/systemAdmin/DepartmentMaster
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { InputField } from "../../../components/common/ui/FormFields";
-
+import Spinner from "../../../components/common/Spinner";
 const AddDepartment = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -82,7 +82,12 @@ const AddDepartment = () => {
             Add Department
           </h3>
           
-          <div className="mb-4 mt-6">
+          <div className="relative mt-6 mb-6">
+            {loading && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50">
+                <Spinner/>
+              </div>
+            )}
             <InputField
               label="Department Name"
               name="departmentName"

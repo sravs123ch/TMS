@@ -24,6 +24,7 @@ import {
 import Modal from "../../../components/common/Modal";
 import TableRow from "@mui/material/TableRow";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
+import Spinner from "../../../components/common/Spinner";
 const DepartmentMaster = () => {
   const navigate = useNavigate();
   const [departments, setDepartments] = useState([]);
@@ -172,7 +173,7 @@ const DepartmentMaster = () => {
                   {isLoading ? (
                     <StyledTableRow>
                       <StyledTableCell colSpan={2} className="text-center py-5">
-                        <div className="border-4 border-gray-200 border-t-teal-600 rounded-full w-10 h-10 animate-spin mx-auto"></div>
+                       <Spinner />
                       </StyledTableCell>
                     </StyledTableRow>
                   ) : departments.length > 0 ? (

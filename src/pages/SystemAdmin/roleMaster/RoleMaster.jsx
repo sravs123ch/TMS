@@ -6,7 +6,7 @@ import { FcCancel } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { RoleContext } from "../../../context/RoleContext";
 import { fetchAllRoles, deleteRole } from "../../../services/systemAdmin/RoleMasterService";
-
+import Spinner from "../../../components/common/Spinner";
 import Modal from "../../../components/common/Modal";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
 import TableRow from "@mui/material/TableRow";
@@ -162,7 +162,7 @@ const RoleMaster = () => {
                 {isLoading ? (
                   <StyledTableRow>
                     <StyledTableCell colSpan={2} className="text-center py-5">
-                      <div className="border-4 border-gray-200 border-t-teal-600 rounded-full w-10 h-10 animate-spin mx-auto"></div>
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
                 ) : roles.length > 0 ? (

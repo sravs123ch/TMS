@@ -99,6 +99,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [isMinimized, setIsMinimized] = useState(false);
+const [timeLeft, setTimeLeft] = useState(0); 
 
   useEffect(() => {
     const userData = localStorage.getItem("userData");

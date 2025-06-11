@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "../../../components/common/Modal";
 import { InputField } from "../../../components/common/ui/FormFields";
-
+import Spinner from "../../../components/common/Spinner";
 const EditDesignation = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -138,7 +138,12 @@ const EditDesignation = () => {
         <Modal
           title="Reason for Change"
           message={
-            <div>
+           <div className="relative">
+              {loading && (
+                <div className="absolute inset-0 bg-white bg-opacity-60 z-10 flex items-center justify-center">
+                  <Spinner />
+                </div>
+              )}
               <p className="text-gray-700">
                 Please provide a reason for updating the designation "
                 {formData.DesignationName}"

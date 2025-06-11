@@ -1,5 +1,5 @@
-import { useState, useEffect, Suspense, lazy } from "react";
-import { Routes, Route, useLocation, Outlet } from "react-router-dom";
+import {Suspense, lazy } from "react";
+import { Routes, Route} from "react-router-dom";
 // import Navigation from "./Navigation/navbar";
 import Layout from "./layout/Layout";
 // Lazy load pages
@@ -29,8 +29,8 @@ const EditDesignation = lazy(() => import('./pages/SystemAdmin/designationMaster
 
 // Role Master
 const RoleMaster = lazy(() => import('./pages/SystemAdmin/roleMaster/RoleMaster'));
-// const AddRole = lazy(() => import('./pages/systemAdmin/roleMaster/addRoleMaster/AddRole.jsx'));
-// const EditRole = lazy(() => import('./pages/systemAdmin/roleMaster/editRoleMaster/EditRole.jsx'));
+const AddRole = lazy(() => import('./pages/SystemAdmin/roleMaster/AddRoleMaster'));
+const EditRole = lazy(() => import('./pages/SystemAdmin/roleMaster/EditRoleMaster'));
 // Fallback spinner
 const fallbackSpinner = (
   <div
@@ -49,23 +49,6 @@ const App = () => {
 };
 
 const AppWithNavigation = () => {
-  const location = useLocation();
-  const [isNavbarOpen, setIsNavbarOpen] = useState(true);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setIsNavbarOpen(false);
-      } else {
-        setIsNavbarOpen(true);
-      }
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <Routes>
       <Route
@@ -147,7 +130,7 @@ const AppWithNavigation = () => {
               <RoleMaster/>
             </Suspense>
           }/>
-          {/* <Route path='/system-admin/role-master/add-role' element={
+          <Route path='/system-admin/role-master/add-role' element={
             <Suspense fallback={fallbackSpinner}>
               <AddRole/>
             </Suspense>
@@ -156,7 +139,7 @@ const AppWithNavigation = () => {
             <Suspense fallback={fallbackSpinner}>
               <EditRole/>
             </Suspense>
-          }/> */}
+          }/>
 
       </Route>
     </Routes>
