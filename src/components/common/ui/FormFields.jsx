@@ -14,7 +14,7 @@ export const InputField = ({
   placeholder,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-inputFieldlabelColor">
+    <label className="text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <input
@@ -48,7 +48,7 @@ export const PasswordInput = ({
   error,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-inputFieldlabelColor">
+    <label className="text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <div className="relative">
@@ -90,7 +90,7 @@ export const CustomAsyncSelect = ({
   required,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-inputFieldlabelColor">
+    <label className="text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <AsyncSelect
@@ -163,12 +163,12 @@ export const CustomAsyncSelect = ({
 
 export const RadioGroup = ({ label, name, value, onChange, options }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-gray-900 mb-1">{label}</label>
+    <label className="text-inputFieldLabelSize font-medium text-gray-900 mb-1">{label}</label>
     <div className="flex items-center gap-4">
       {options.map((option) => (
         <label
           key={option.value}
-          className="flex items-center text-sm font-medium text-gray-900 cursor-pointer"
+          className="flex items-center text-inputFieldLabelSize font-medium text-gray-900 cursor-pointer"
         >
           <input
             type="radio"
@@ -200,7 +200,7 @@ export const EnhancedInputField = ({
   rows = 4,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-gray-900 mb-1">
+    <label className="text-inputFieldLabelSize font-medium text-gray-900 mb-1">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     {asTextarea ? (
