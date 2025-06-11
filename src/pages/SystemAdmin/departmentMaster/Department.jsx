@@ -148,8 +148,8 @@ const DepartmentMaster = () => {
         pauseOnHover
       />
 
-      <div className="main-container ">
-          <div className="flex justify-between items-center flex-wrap gap-4">
+      <div className="main-container">
+         <div className="body-container">
             <h2 className="heading">Department Master</h2>
             <div className="flex gap-2.5 flex-wrap">
               <SearchAddBar
@@ -160,7 +160,6 @@ const DepartmentMaster = () => {
             </div>
           </div>
 
-          <div className="mt-5 flex-grow h-[70%] overflow-auto relative scrollbar-thin scrollbar-thumb-teal-600 scrollbar-track-gray-100 pb-5">
             <TableContainer component={Paper} className="shadow-none">
               <Table stickyHeader aria-label="department table">
                 <TableHead>
@@ -226,8 +225,6 @@ const DepartmentMaster = () => {
               </Table>
             </TableContainer>
           </div>
-    
-      </div>
 
       {showDeleteModal && (
         <Modal

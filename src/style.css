@@ -16,12 +16,14 @@
 }
 
 .main-container {
-  @apply px-0 sm:px-0 lg:px-8 pt-0 mt-0 p-6 rounded-lg transition-all duration-300;
+  @apply px-0 sm:px-0 lg:px-2 pt-0 mt-0 rounded-lg transition-all duration-300;
 }
 .body-container {
-  @apply flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center;
+  @apply flex justify-between items-center mb-6;
 }
-
+.container {
+  @apply bg-white rounded-xl p-1 font-sans text-black flex flex-col h-full overflow-hidden box-border;
+}
 .heading {
   @apply text-2xl font-semibold text-[--primary-color];
 }

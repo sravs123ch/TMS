@@ -206,8 +206,9 @@ const UserMaster = () => {
         />
       )}
 
-      <div className="main-container ">
-        <div className="flex justify-between items-center mb-4">
+      <div className="main-container">
+          <div className="container">
+        <div className="body-container">
           <h2 className="heading">User Master</h2>
           <SearchAddBar
             searchTerm={searchTerm}
@@ -305,6 +306,7 @@ const UserMaster = () => {
             </TableFooter>
           </Table>
         </TableContainer>
+      </div>
       </div>
     </>
   );

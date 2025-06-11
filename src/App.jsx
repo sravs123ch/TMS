@@ -21,6 +21,16 @@ const DepartmentMaster = lazy(() => import('./pages/SystemAdmin/departmentMaster
 const AddDepartment = lazy(() => import('./pages/SystemAdmin/departmentMaster/AddDepartment'));
 const EditDepartment = lazy(() => import('./pages/SystemAdmin/departmentMaster/EditDepartment'));
 
+
+// Designation Master
+const DesignationMaster = lazy(() => import('./pages/SystemAdmin/designationMaster/DesignatureMaster'));
+const AddDesignation = lazy(() => import('./pages/SystemAdmin/designationMaster/AddDesignature'));
+const EditDesignation = lazy(() => import('./pages/SystemAdmin/designationMaster/EditDesignature'));
+
+// Role Master
+const RoleMaster = lazy(() => import('./pages/SystemAdmin/roleMaster/RoleMaster'));
+// const AddRole = lazy(() => import('./pages/systemAdmin/roleMaster/addRoleMaster/AddRole.jsx'));
+// const EditRole = lazy(() => import('./pages/systemAdmin/roleMaster/editRoleMaster/EditRole.jsx'));
 // Fallback spinner
 const fallbackSpinner = (
   <div
@@ -114,6 +124,40 @@ const AppWithNavigation = () => {
               <EditDepartment/>
             </Suspense>
           }/>
+            {/* Designation Master */}
+          <Route path='/system-admin/designation-master' element={
+            <Suspense fallback={fallbackSpinner}>
+              <DesignationMaster/>
+            </Suspense>
+          }/>
+          <Route path='/system-admin/designation-master/add-designation' element={
+            <Suspense fallback={fallbackSpinner}>
+              <AddDesignation/>
+            </Suspense>
+          }/>
+          <Route path='/system-admin/designation-master/edit-designation' element={
+            <Suspense fallback={fallbackSpinner}>
+              <EditDesignation/>
+            </Suspense>
+          }/>
+
+             {/* Role Master */}
+          <Route path='/system-admin/role-master' element={
+            <Suspense fallback={fallbackSpinner}>
+              <RoleMaster/>
+            </Suspense>
+          }/>
+          {/* <Route path='/system-admin/role-master/add-role' element={
+            <Suspense fallback={fallbackSpinner}>
+              <AddRole/>
+            </Suspense>
+          }/>
+          <Route path='/system-admin/role-master/edit-role' element={
+            <Suspense fallback={fallbackSpinner}>
+              <EditRole/>
+            </Suspense>
+          }/> */}
+
       </Route>
     </Routes>
   );
