@@ -5,22 +5,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
-  fetchUsersBasicInfo,
   createUserBasicInfo,
   fetchUsersWithSearch,
 } from "../../../services/systemAdmin/UserMasterService";
-import {
-  fetchAllDepartments,
-  fetchDepartmentsWithSearch,
-} from "../../../services/systemAdmin/DepartmentMasterService";
-import {
-  fetchAllDesignations,
-  fetchDesignationsWithSearch,
-} from "../../../services/systemAdmin/DesignationMasterService";
-import {
-  fetchAllRoles,
-  fetchRolesWithSearch,
-} from "../../../services/systemAdmin/RoleMasterService";
+import { fetchDepartmentsWithSearch } from "../../../services/systemAdmin/DepartmentMasterService";
+import { fetchDesignationsWithSearch } from "../../../services/systemAdmin/DesignationMasterService";
+import { fetchRolesWithSearch } from "../../../services/systemAdmin/RoleMasterService";
 import {
   InputField,
   PasswordInput,
@@ -619,20 +609,21 @@ const AddUser = () => {
             required
           />
 
-          <InputField
-            label="Employee ID"
-            name="EmployeeID"
-            value={formData.EmployeeID}
-            onChange={handleChange}
-            required
-          />
-
-          <InputField
-            label="Category Type"
-            name="CategoryType"
-            value={formData.CategoryType}
-            onChange={handleChange}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <InputField
+              label="Employee ID"
+              name="EmployeeID"
+              value={formData.EmployeeID}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Category Type"
+              name="CategoryType"
+              value={formData.CategoryType}
+              onChange={handleChange}
+            />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <CustomAsyncSelect
