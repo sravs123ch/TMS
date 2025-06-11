@@ -14,7 +14,7 @@ export const InputField = ({
   placeholder,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-gray-900 mb-1">
+    <label className="text-sm font-medium text-inputFieldlabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <input
@@ -41,13 +41,14 @@ export const PasswordInput = ({
   name,
   value,
   onChange,
+
   showPassword,
   toggleShowPassword,
   required,
   error,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-gray-900 mb-1">
+    <label className="text-sm font-medium text-inputFieldlabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <div className="relative">
@@ -89,7 +90,7 @@ export const CustomAsyncSelect = ({
   required,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-sm font-medium text-gray-900 mb-1">
+    <label className="text-sm font-medium text-inputFieldlabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <AsyncSelect
@@ -182,7 +183,6 @@ export const RadioGroup = ({ label, name, value, onChange, options }) => (
     </div>
   </div>
 );
-
 
 export const EnhancedInputField = ({
   label,
