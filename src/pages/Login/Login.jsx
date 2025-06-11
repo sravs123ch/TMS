@@ -130,38 +130,6 @@ const Login = () => {
     }
   };
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   setErrors({ username: "", password: "", general: "" });
-
-  //   const newErrors = {};
-  //   if (!username.trim()) newErrors.username = "Username is required";
-  //   if (!password) newErrors.password = "Password is required";
-
-  //   setErrors(newErrors);
-  //   if (Object.keys(newErrors).length > 0) {
-  //     setIsLoading(false);
-  //     console.log("Validation errors, no toast");
-  //     return;
-  //   }
-
-  //   console.log("Validation passed, showing toast...");
-
-  //   setTimeout(() => {
-  //     toast.success("Login successful!", {
-  //       position: "top-right",
-  //       autoClose: 2000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //     });
-
-  //     setIsLoading(false);
-  //     navigate("/dashboard");
-  //   }, 2000);
-  // };
 
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
@@ -309,18 +277,18 @@ const Login = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 flex flex-1 w-full">
-        {/* Left Panel */}
-        <div className="flex-1 p-8 lg:p-12 hidden md:block">
+      <div className="relative z-20 flex flex-1 gap-80 w-full">
+        
+        <div className="flex-1 pl-8 -mt-7  hidden md:block ">
           <div className="flex flex-col h-full">
-            {/* Logo */}
+           
             <div className="mb-0">
-              <div className="h-32 w-32 rounded-lg flex items-center justify-center font-bold">
+              <div className="h-32 w-32 rounded-lg flex items-center  font-bold">
                 <img src={logo} alt="Logo" />
               </div>
             </div>
 
-            {/* Heading */}
+           
             <div className="max-w-xl">
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
                 Welcome to <br />
@@ -331,186 +299,10 @@ const Login = () => {
               </p>
             </div>
 
-            {/* Features */}
-            {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-20">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-4 bg-[var(--color-white)] rounded-xl p-4 shadow-sm border border-[var(--color-gray-medium)]"
-                >
-                  <div className="text-[var(--primary-color)] text-2xl shrink-0">
-                    {feature.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-[var(--primary-color)] font-semibold text-lg mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-[var(--color-gray-dark)] text-sm">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
 
-        {/* <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-[var(--color-white)] md:bg-transparent">
-          <div className="bg-[var(--color-white)] rounded-2xl p-8 w-full max-w-md shadow-lg border border-[var(--color-gray-medium)]">
-            <div className="mb-8 text-center">
-              <h2 className="text-2xl font-bold text-primary">
-                Sign In to Your Account
-              </h2>
-            </div>
-
-            <form onSubmit={handleLogin} className="space-y-6">
-             
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-[var(--color-gray-dark)]">
-                  Username
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <HiMail className="h-5 w-5 text-[var(--color-gray-dark)]" />
-                  </div>
-                  <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full pl-10 pr-3 py-3 border border-[var(--color-gray-medium)] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                    placeholder="Enter Username"
-                    required
-                    autoFocus
-                  />
-                </div>
-                {errors.username && (
-                  <div className="p-3 bg-[var(--color-error-light)] text-[var(--color-error-dark)] rounded-lg text-sm">
-                    ⚠ {errors.username}
-                  </div>
-                )}
-              </div>
-
-           
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <label className="text-sm font-medium text-[var(--color-gray-dark)]">
-                    Password
-                  </label>
-                </div>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <HiLockClosed className="h-5 w-5 text-[var(--color-gray-dark)]" />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-3 border border-[var(--color-gray-medium)] rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                    placeholder="••••••••"
-                    required
-                  />
-                  <span
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <FaEyeSlash className="h-5 w-5 text-[var(--color-gray-dark)]" />
-                    ) : (
-                      <FaEye className="h-5 w-5 text-[var(--color-gray-dark)]" />
-                    )}
-                  </span>
-                </div>
-                {errors.password && (
-                  <div className="p-3 bg-[var(--color-error-light)] text-[var(--color-error-dark)] rounded-lg text-sm">
-                    ⚠ {errors.password}
-                  </div>
-                )}
-              </div>
-
-              {errors.general && (
-                <div className="p-3 bg-[var(--color-error-light)] text-[var(--color-error-dark)] rounded-lg text-sm">
-                  {errors.general}
-                </div>
-              )}
-              {failedAttempts > 0 && (
-                <div className="p-3 bg-[var(--color-error-light)] text-[var(--color-error-dark)] rounded-lg text-sm">
-                  ⚠️ {failedAttempts}{" "}
-                  {failedAttempts === 1 ? "attempt" : "attempts"} remaining
-                </div>
-              )}
-
-  
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setShowForgotModal(true)}
-                  className="text-sm font-medium text-primary hover:underline"
-                  disabled={isLoading}
-                >
-                  Forgot password?
-                </button>
-              </div>
-
         
-              <button
-                type="submit"
-                className="w-full py-3 px-4 bg-primary text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary isabled:opacity-50"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <span className="flex items-center justify-center">
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Signing in...
-                  </span>
-                ) : (
-                  "Sign In"
-                )}
-              </button>
-
-              {failedAttempts < 0 && (
-                <button
-                  type="button"
-                  className="w-full py-3 px-4 bg-[var(--color-gray-medium)] hover:bg-[var(--color-gray-dark)] text-[var(--color-white)] font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-gray-dark)] disabled:opacity-50"
-                  onClick={() => setShowResetModal(true)}
-                  disabled={isLoading}
-                >
-                  Request Password Reset
-                </button>
-              )}
-            </form>
-
-            <div className="mt-8 text-center text-sm text-[var(--color-gray-dark)]">
-              <p>
-                Don't have an account?{" "}
-                <button
-                  onClick={() => navigate("/register")}
-                  className="font-medium text-primary hover:underline"
-                >
-                  Request access
-                </button>
-              </p>
-            </div>
-          </div>
-        </div> */}
 
         <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-primary md:bg-transparent">
           <div className="bg-primary rounded-2xl p-8 w-full max-w-md shadow-lg border border-[var(--color-gray-medium)]">
