@@ -3,12 +3,21 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontSize: {
+        inputFieldLabelSize: "1rem",
+      },
       colors: {
         primary: "var(--primary-color)",
         secondary: "var(--secondary-color)",
         light: "var(--light-color)",
         white: "var(--color-white)",
-        inputFieldlabelColor:"black",
+        inputFieldLabelColor: "black",
+        submit: "",
+        cancel: {
+          50:"#a64932",
+          100:"#FF0000"
+        },
+
         gray: {
           light: "var(--color-gray-light)",
           medium: "var(--color-gray-medium)",
@@ -19,6 +28,7 @@ module.exports = {
           dark: "var(--color-error-dark)",
         },
       },
+
       keyframes: {
         spin: {
           "0%": { transform: "rotate(0deg)" },
