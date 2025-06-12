@@ -5,7 +5,10 @@ import { FaEdit } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { RoleContext } from "../../../context/RoleContext";
-import { fetchAllRoles, deleteRole } from "../../../services/systemAdmin/RoleMasterService";
+import {
+  fetchAllRoles,
+  deleteRole,
+} from "../../../services/systemAdmin/RoleMasterService";
 import Spinner from "../../../components/common/Spinner";
 import Modal from "../../../components/common/Modal";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
@@ -51,7 +54,11 @@ const RoleMaster = () => {
     const loadRoles = async () => {
       setIsLoading(true);
       try {
-        const data = await fetchAllRoles(page + 1, rowsPerPage, debouncedSearchTerm);
+        const data = await fetchAllRoles(
+          page + 1,
+          rowsPerPage,
+          debouncedSearchTerm
+        );
         const message = data.header?.messages?.[0];
 
         if (message?.messageLevel?.toLowerCase() === "warning") {
@@ -87,7 +94,9 @@ const RoleMaster = () => {
 
   const handleEdit = (role) => {
     setRoleDetails(role.roleID, role.roleName, role.description);
-    navigate("/system-admin/role-master/edit-role", { state: { roleData: role } });
+    navigate("/system-admin/role-master/edit-role", {
+      state: { roleData: role },
+    });
   };
 
   const handleDelete = (role) => {
@@ -100,9 +109,11 @@ const RoleMaster = () => {
       const result = await deleteRole(selectedRole.roleID);
       if (result.header?.errorCount === 0) {
         toast.success("Role deleted successfully");
-        setRefreshKey(prev => prev + 1);
+        setRefreshKey((prev) => prev + 1);
       } else {
-        toast.error(result.header?.messages?.[0]?.messageText || "Failed to delete role");
+        toast.error(
+          result.header?.messages?.[0]?.messageText || "Failed to delete role"
+        );
       }
     } catch (err) {
       toast.error("Error deleting role");
@@ -141,14 +152,15 @@ const RoleMaster = () => {
       />
 
       <div className="main-container">
-        <div className="body-container">
-          <h2 className="heading">Role Master</h2>
-          <SearchAddBar
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-            onAddClick={handleAddClick}
-          />
-        </div>
+        <div className="tableWhiteCardContainer">
+          <div className="body-container">
+            <h2 className="heading">Role Master</h2>
+            <SearchAddBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+              onAddClick={handleAddClick}
+            />
+          </div>
 
           <TableContainer component={Paper} className="shadow-none">
             <Table stickyHeader aria-label="role table">
@@ -214,7 +226,7 @@ const RoleMaster = () => {
             </Table>
           </TableContainer>
         </div>
-
+      </div>
 
       {showDeleteModal && (
         <Modal

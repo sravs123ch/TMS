@@ -45,7 +45,11 @@ const PlantAssignment = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const data = await fetchAllPlantsAssign(currentPage + 1, rowsPerPage, debouncedSearchTerm);
+        const data = await fetchAllPlantsAssign(
+          currentPage + 1,
+          rowsPerPage,
+          debouncedSearchTerm
+        );
         if (data?.header?.errorCount === 0) {
           setPlants(data.plantAssignments || []);
           setTotalRecords(data.totalRecord || 0);
@@ -66,7 +70,12 @@ const PlantAssignment = () => {
 
   const handleEdit = (plant) => {
     const fullName = `${plant.firstName} ${plant.lastName}`;
-    setPlantAssignDetails(plant.plantAssignmentID, plant.userID, fullName, plant.plantIDs);
+    setPlantAssignDetails(
+      plant.plantAssignmentID,
+      plant.userID,
+      fullName,
+      plant.plantIDs
+    );
     navigate("/system-admin/plant-assignment/edit-plant-assignment");
   };
 
@@ -80,74 +89,81 @@ const PlantAssignment = () => {
     <>
       <ToastContainer position="top-right" autoClose={1500} />
       <div className="main-container">
-        <div className="body-container">
-           <h3 className="heading">Plant Assignment</h3>
-          <SearchAddBar
-            searchValue={searchTerm}
-            onSearchChange={(e) => setSearchTerm(e.target.value)}
-            onAddClick={() => navigate("/system-admin/plant-assignment/add-plant-assignment")}
-          />
-        </div>
+        {/* White card container */}
+        <div className="tableWhiteCardContainer">
+          <div className="tableHeaderLayout">
+            <h3 className="heading">Plant Assignment</h3>
+            <SearchAddBar
+              searchValue={searchTerm}
+              onSearchChange={(e) => setSearchTerm(e.target.value)}
+              onAddClick={() =>
+                navigate("/system-admin/plant-assignment/add-plant-assignment")
+              }
+            />
+          </div>
 
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <StyledTableRow>
-                <StyledTableCell>Full Name</StyledTableCell>
-                <StyledTableCell>Plant Name</StyledTableCell>
-                <StyledTableCell>Actions</StyledTableCell>
-              </StyledTableRow>
-            </TableHead>
-            <TableBody>
-              {isLoading ? (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
                 <StyledTableRow>
-                  <StyledTableCell colSpan={3}>     
-                      <Spinner />
-                  </StyledTableCell>
+                  <StyledTableCell>Full Name</StyledTableCell>
+                  <StyledTableCell>Plant Name</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
                 </StyledTableRow>
-              ) : plants.length > 0 ? (
-                plants.map((assignment, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell>
-                      {`${assignment.firstName || "N/A"} ${assignment.lastName || "N/A"}`}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {assignment.plantName || "Not Assigned"}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      <button
-                        onClick={() => handleEdit(assignment)}
-                        className="icon-btn edit"
-                        title="Edit Plant Assignment"
-                      >
-                        <FaEdit size={18} />
-                      </button>
+              </TableHead>
+              <TableBody>
+                {isLoading ? (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={3}>
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
-                ))
-              ) : (
+                ) : plants.length > 0 ? (
+                  plants.map((assignment, index) => (
+                    <StyledTableRow key={index}>
+                      <StyledTableCell>
+                        {`${assignment.firstName || "N/A"} ${
+                          assignment.lastName || "N/A"
+                        }`}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {assignment.plantName || "Not Assigned"}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <button
+                          onClick={() => handleEdit(assignment)}
+                          className="icon-btn edit"
+                          title="Edit Plant Assignment"
+                        >
+                          <FaEdit size={18} />
+                        </button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={3} align="center">
+                      No records found.
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+              <TableFooter>
                 <StyledTableRow>
-                  <StyledTableCell colSpan={3} align="center">
-                    No records found.
-                  </StyledTableCell>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={totalRecords}
+                    rowsPerPage={rowsPerPage}
+                    page={currentPage}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
                 </StyledTableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <StyledTableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  count={totalRecords}
-                  rowsPerPage={rowsPerPage}
-                  page={currentPage}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                />
-              </StyledTableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
     </>
   );

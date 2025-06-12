@@ -128,89 +128,94 @@ const PasswordReset = () => {
   return (
     <>
       <ToastContainer position="top-right" autoClose={1500} />
-    <div className="main-container">
-       <div className="body-container">
-      <h2 className="heading">Password Reset Requests</h2>
-   </div>
-      <TableContainer component={Paper}>
-        <Table stickyHeader>
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell>Employee ID</StyledTableCell>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>New Password</StyledTableCell>
-              <StyledTableCell>Action</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {loading ? (
-              <StyledTableRow>
-                <StyledTableCell colSpan={4} className="text-center py-5">
-                  <Spinner />
-                </StyledTableCell>
-              </StyledTableRow>
-            ) : requests.length > 0 ? (
-              (rowsPerPage > 0
-                ? requests.slice(
-                    page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
-                  )
-                : requests
-              ).map((req) => (
-                <StyledTableRow key={req.transactionID}>
-                  <StyledTableCell>{req.employeeID}</StyledTableCell>
-                  <StyledTableCell>{`${req.firstName} ${req.lastName}`}</StyledTableCell>
-                  <StyledTableCell>
-                    <input
-                      type="password"
-                      className="border border-gray-300 px-2 py-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                      value={passwords[req.transactionID] || ""}
-                      onChange={(e) =>
-                        handlePasswordChange(req.transactionID, e.target.value)
-                      }
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <button
-                      className="bg-cyan-600 text-white p-2 rounded hover:bg-cyan-700"
-                      onClick={() => handleReset(req.transactionID)}
-                    >
-                      <MdResetTv size={20} />
-                    </button>
-                  </StyledTableCell>
+      <div className="main-container">
+        {/* White card container */}
+        <div className="tableWhiteCardContainer">
+          <div className="tableHeaderLayout">
+            <h2 className="heading">Password Reset Requests</h2>
+          </div>
+          <TableContainer component={Paper}>
+            <Table stickyHeader>
+              <TableHead>
+                <StyledTableRow>
+                  <StyledTableCell>Employee ID</StyledTableCell>
+                  <StyledTableCell>Name</StyledTableCell>
+                  <StyledTableCell>New Password</StyledTableCell>
+                  <StyledTableCell>Action</StyledTableCell>
                 </StyledTableRow>
-              ))
-            ) : (
-              <StyledTableRow>
-                <StyledTableCell colSpan={4}>
-                  <div className="flex justify-center items-center w-full h-full">
-                    No password reset requests.
-                  </div>
-                </StyledTableCell>
-              </StyledTableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <StyledTableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                count={requests.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </StyledTableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </div>
- 
+              </TableHead>
+              <TableBody>
+                {loading ? (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={4} className="text-center py-5">
+                      <Spinner />
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ) : requests.length > 0 ? (
+                  (rowsPerPage > 0
+                    ? requests.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                    : requests
+                  ).map((req) => (
+                    <StyledTableRow key={req.transactionID}>
+                      <StyledTableCell>{req.employeeID}</StyledTableCell>
+                      <StyledTableCell>{`${req.firstName} ${req.lastName}`}</StyledTableCell>
+                      <StyledTableCell>
+                        <input
+                          type="password"
+                          className="border border-gray-300 px-2 py-1 rounded w-full focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                          value={passwords[req.transactionID] || ""}
+                          onChange={(e) =>
+                            handlePasswordChange(
+                              req.transactionID,
+                              e.target.value
+                            )
+                          }
+                        />
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <button
+                          className="bg-cyan-600 text-white p-2 rounded hover:bg-cyan-700"
+                          onClick={() => handleReset(req.transactionID)}
+                        >
+                          <MdResetTv size={20} />
+                        </button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={4}>
+                      <div className="flex justify-center items-center w-full h-full">
+                        No password reset requests.
+                      </div>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <StyledTableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={requests.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: { "aria-label": "rows per page" },
+                      native: true,
+                    }}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </StyledTableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </div>
+      </div>
     </>
   );
 };
