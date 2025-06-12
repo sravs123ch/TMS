@@ -130,7 +130,6 @@ const Login = () => {
     }
   };
 
-
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
     setForgotLoading(true);
@@ -278,34 +277,28 @@ const Login = () => {
 
       {/* Main Content */}
       <div className="relative z-20 flex flex-1 gap-80 w-full">
-        
         <div className="flex-1 pl-8 -mt-7  hidden md:block ">
           <div className="flex flex-col h-full">
-           
             <div className="mb-0">
-              <div className="h-32 w-32 rounded-lg flex items-center  font-bold">
+              <div className="h-40 w-40 rounded-lg flex items-center  font-bold">
                 <img src={logo} alt="Logo" />
               </div>
             </div>
 
-           
             <div className="max-w-xl">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-                Welcome to <br />
-                Training Management
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary whitespace-nowrap">
+                Welcome to Training Management
               </h1>
+
               <p className="text-lg text-[var(--color-gray-dark)] mb-12">
                 Streamline your organization's learning and development programs
               </p>
             </div>
-
           </div>
         </div>
 
-        
-
         <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-primary md:bg-transparent">
-          <div className="bg-primary rounded-2xl p-8 w-full max-w-md shadow-lg border border-[var(--color-gray-medium)]">
+          <div className="bg-primary rounded-2xl p-8 w-full max-w-lg shadow-lg border border-[var(--color-gray-medium)]">
             <div className="mb-8 text-center">
               <h2 className="text-2xl font-bold text-white">
                 Sign In to Your Account

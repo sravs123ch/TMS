@@ -634,7 +634,7 @@ const EditUser = () => {
           pauseOnHover
         />
         <div className="main-container p-8">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-8">Edit User Master</h3>
+          <h3 className="heading">Edit User Master</h3>
         </div>
       </>
     );
