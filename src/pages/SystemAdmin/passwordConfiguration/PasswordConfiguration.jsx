@@ -156,108 +156,111 @@ const PasswordConfiguration = () => {
 
   return (
     <div className="main-container">
-      {isLoading ? (
-        <div className="text-center">
-          <div className="w-10 h-10 border-4 border-gray-200 border-t-primary-500 rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4">Loading Password Configuration...</p>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <h3 className="heading">Password Configuration</h3>
+      {/* White card container */}
+      <div className="tableWhiteCardContainer">
+        {isLoading ? (
+          <div className="text-center">
+            <div className="w-10 h-10 border-4 border-gray-200 border-t-primary-500 rounded-full animate-spin mx-auto"></div>
+            <p className="mt-4">Loading Password Configuration...</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <h3 className="heading">Password Configuration</h3>
 
-          {fieldMeta.map(({ name, label, desc }) => (
-            <div key={name} className="mb-6 flex items-start gap-6">
+            {fieldMeta.map(({ name, label, desc }) => (
+              <div key={name} className="mb-6 flex items-start gap-6">
+                <div className="w-1/2">
+                  <label className="block font-medium">
+                    {label}
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <p className="text-xs text-gray-500 mt-1">{desc}</p>
+                </div>
+                <div className="w-1/2">
+                  <input
+                    type="number"
+                    name={name}
+                    value={config[name]}
+                    onChange={handleChange}
+                    className={`w-full p-2 border rounded-md text-center ${
+                      errors[name] ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors[name] && (
+                    <p className="text-sm text-red-600 mt-1">{errors[name]}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            <div className="mb-6 flex gap-6">
               <div className="w-1/2">
                 <label className="block font-medium">
-                  {label}
-                  <span className="text-red-500">*</span>
+                  Password Complexity<span className="text-red-500">*</span>
                 </label>
-                <p className="text-xs text-gray-500 mt-1">{desc}</p>
               </div>
               <div className="w-1/2">
-                <input
-                  type="number"
-                  name={name}
-                  value={config[name]}
-                  onChange={handleChange}
-                  className={`w-full p-2 border rounded-md text-center ${
-                    errors[name] ? "border-red-500" : "border-gray-300"
-                  }`}
-                />
-                {errors[name] && (
-                  <p className="text-sm text-red-600 mt-1">{errors[name]}</p>
+                <div className="flex justify-between">
+                  {["Low", "Medium", "High"].map((level) => (
+                    <label
+                      key={level}
+                      className="flex flex-col items-center gap-1 cursor-pointer w-full text-center"
+                    >
+                      <div className="flex items-center gap-2 justify-center">
+                        <div className="relative">
+                          <input
+                            type="checkbox"
+                            name="pwdComplexity"
+                            value={level}
+                            checked={config.pwdComplexity?.includes(level)}
+                            onChange={() => handleComplexityChange(level)}
+                            className="peer appearance-none w-5 h-5 rounded-full border border-gray-400 checked:bg-cyan-600 checked:border-cyan-600 cursor-pointer"
+                          />
+                          <svg
+                            className="absolute top-0 left-0 w-5 h-5 text-white scale-75 hidden peer-checked:block pointer-events-none"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={3}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </div>
+                        <span className="font-medium">{level}</span>
+                      </div>
+                      <div className="text-xs text-gray-500 px-1">
+                        {
+                          {
+                            Low: "Only letters & numbers",
+                            Medium: "Letters, numbers & one special char",
+                            High: "Upper, lower, numbers & special char",
+                          }[level]
+                        }
+                      </div>
+                    </label>
+                  ))}
+                </div>
+                {errors.pwdComplexity && (
+                  <p className="text-sm text-red-600 mt-1">
+                    {errors.pwdComplexity}
+                  </p>
                 )}
               </div>
             </div>
-          ))}
 
-          <div className="mb-6 flex gap-6">
-            <div className="w-1/2">
-              <label className="block font-medium">
-                Password Complexity<span className="text-red-500">*</span>
-              </label>
-            </div>
-            <div className="w-1/2">
-              <div className="flex justify-between">
-                {["Low", "Medium", "High"].map((level) => (
-                  <label
-                    key={level}
-                    className="flex flex-col items-center gap-1 cursor-pointer w-full text-center"
-                  >
-                    <div className="flex items-center gap-2 justify-center">
-                      <div className="relative">
-                        <input
-                          type="checkbox"
-                          name="pwdComplexity"
-                          value={level}
-                          checked={config.pwdComplexity?.includes(level)}
-                          onChange={() => handleComplexityChange(level)}
-                          className="peer appearance-none w-5 h-5 rounded-full border border-gray-400 checked:bg-cyan-600 checked:border-cyan-600 cursor-pointer"
-                        />
-                        <svg
-                          className="absolute top-0 left-0 w-5 h-5 text-white scale-75 hidden peer-checked:block pointer-events-none"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={3}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span className="font-medium">{level}</span>
-                    </div>
-                    <div className="text-xs text-gray-500 px-1">
-                      {
-                        {
-                          Low: "Only letters & numbers",
-                          Medium: "Letters, numbers & one special char",
-                          High: "Upper, lower, numbers & special char",
-                        }[level]
-                      }
-                    </div>
-                  </label>
-                ))}
-              </div>
-              {errors.pwdComplexity && (
-                <p className="text-sm text-red-600 mt-1">
-                  {errors.pwdComplexity}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-60 bg-cyan-700 hover:bg-cyan-900 text-white py-3 rounded-lg transition duration-200"
-          >
-            Save Configuration
-          </button>
-        </form>
-      )}
+            <button
+              type="submit"
+              className="w-60 bg-cyan-700 hover:bg-cyan-900 text-white py-3 rounded-lg transition duration-200"
+            >
+              Save Configuration
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

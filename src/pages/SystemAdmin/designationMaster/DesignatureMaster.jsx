@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { DesignationContext } from '../../../context/DesignationContext';
-import { fetchAllDesignations, deleteDesignation } from '../../../services/systemAdmin/DesignationMasterService';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { FaEdit } from 'react-icons/fa';
-import { FcCancel } from 'react-icons/fc';
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { DesignationContext } from "../../../context/DesignationContext";
+import {
+  fetchAllDesignations,
+  deleteDesignation,
+} from "../../../services/systemAdmin/DesignationMasterService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaEdit } from "react-icons/fa";
+import { FcCancel } from "react-icons/fc";
 import Spinner from "../../../components/common/Spinner";
 import {
   StyledTableCell,
@@ -20,14 +23,14 @@ import {
   Paper,
 } from "../../../components/common/Table/CustomTablePagination";
 import TableRow from "@mui/material/TableRow";
-import Modal from '../../../components/common/Modal';
+import Modal from "../../../components/common/Modal";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
 
 const DesignationMaster = () => {
   const navigate = useNavigate();
   const [designations, setDesignations] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -51,12 +54,16 @@ const DesignationMaster = () => {
     const loadDesignations = async () => {
       setIsLoading(true);
       try {
-        const data = await fetchAllDesignations(page + 1, rowsPerPage, debouncedSearchTerm);
-        
+        const data = await fetchAllDesignations(
+          page + 1,
+          rowsPerPage,
+          debouncedSearchTerm
+        );
+
         const message = data.header?.messages?.[0];
-        if (message?.messageLevel?.toLowerCase() === 'warning') {
+        if (message?.messageLevel?.toLowerCase() === "warning") {
           toast.warning(message.messageText);
-        } else if (message?.messageLevel?.toLowerCase() === 'error') {
+        } else if (message?.messageLevel?.toLowerCase() === "error") {
           toast.error(message.messageText);
         }
 
@@ -64,11 +71,11 @@ const DesignationMaster = () => {
           setDesignations(data.designations);
           setTotalRecords(data.totalRecord);
         } else {
-          console.error('Failed to load designations:', data.header?.message);
+          console.error("Failed to load designations:", data.header?.message);
         }
       } catch (error) {
-        toast.error('Error fetching designations');
-        console.error('Error fetching designations:', error);
+        toast.error("Error fetching designations");
+        console.error("Error fetching designations:", error);
       } finally {
         setIsLoading(false);
       }
@@ -91,13 +98,16 @@ const DesignationMaster = () => {
   };
 
   const handleAddDesignationClick = () => {
-    navigate('/system-admin/designation-master/add-designation');
+    navigate("/system-admin/designation-master/add-designation");
   };
 
   const handleEditDesignation = (designation) => {
-    setDesignationDetails(designation.designationID, designation.designationName);
-    navigate('/system-admin/designation-master/edit-designation', { 
-      state: { designationData: designation } 
+    setDesignationDetails(
+      designation.designationID,
+      designation.designationName
+    );
+    navigate("/system-admin/designation-master/edit-designation", {
+      state: { designationData: designation },
     });
   };
 
@@ -110,14 +120,17 @@ const DesignationMaster = () => {
     try {
       const res = await deleteDesignation(selectedDesignation.designationID);
       if (res.header?.errorCount === 0) {
-        toast.success('Designation deleted successfully');
-        setRefreshKey(prev => prev + 1);
+        toast.success("Designation deleted successfully");
+        setRefreshKey((prev) => prev + 1);
       } else {
-        toast.error(res.header?.messages?.[0]?.messageText || 'Failed to delete designation');
+        toast.error(
+          res.header?.messages?.[0]?.messageText ||
+            "Failed to delete designation"
+        );
       }
     } catch (err) {
-      toast.error('Error deleting designation');
-      console.error('Delete Error:', err);
+      toast.error("Error deleting designation");
+      console.error("Delete Error:", err);
     } finally {
       setShowDeleteModal(false);
       setSelectedDesignation(null);
@@ -143,14 +156,15 @@ const DesignationMaster = () => {
       />
 
       <div className="main-container">
-         <div className="body-container">
-          <h2 className="heading">Designation Master</h2>
-          <SearchAddBar
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-            onAddClick={handleAddDesignationClick}
-          />
-        </div>
+        <div className="tableWhiteCardContainer">
+          <div className="body-container">
+            <h2 className="heading">Designation Master</h2>
+            <SearchAddBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+              onAddClick={handleAddDesignationClick}
+            />
+          </div>
 
           <TableContainer component={Paper} className="shadow-none">
             <Table stickyHeader aria-label="designation table">
@@ -193,7 +207,7 @@ const DesignationMaster = () => {
                   ))
                 ) : (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
+                    <StyledTableCell colSpan={2} className="noData">
                       No Records found.
                     </StyledTableCell>
                   </StyledTableRow>
@@ -216,7 +230,7 @@ const DesignationMaster = () => {
             </Table>
           </TableContainer>
         </div>
-
+      </div>
 
       {showDeleteModal && (
         <Modal

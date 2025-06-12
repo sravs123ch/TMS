@@ -1,4 +1,4 @@
-import  { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
@@ -120,7 +120,11 @@ const PlantMaster = () => {
         );
         setPage(0);
         // Reload plants after deletion
-        const data = await fetchAllPlants(page + 1, rowsPerPage, debouncedSearchTerm);
+        const data = await fetchAllPlants(
+          page + 1,
+          rowsPerPage,
+          debouncedSearchTerm
+        );
         setPlants(data.plants);
         setTotalRecords(data.totalRecord);
       } else {
@@ -154,8 +158,10 @@ const PlantMaster = () => {
       />
 
       <div className="main-container">
-        <div className="body-container">
-          <h2 className="heading">Plant Master</h2>
+        {/* White card container */}
+        <div className="tableWhiteCardContainer">
+          <div className="tableHeaderLayout">
+            <h2 className="heading">Plant Master</h2>
             <SearchAddBar
               searchTerm={searchTerm}
               onSearchChange={handleSearchChange}
@@ -163,69 +169,70 @@ const PlantMaster = () => {
             />
           </div>
 
-        <TableContainer component={Paper} className="shadow-none">
-          <Table stickyHeader aria-label="plant table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Plant Name</StyledTableCell>
-                <StyledTableCell>Actions</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {isLoading ? (
-                <StyledTableRow>
-                  <StyledTableCell colSpan={2} className="text-center py-5">
-                    <Spinner />
-                  </StyledTableCell>
-                </StyledTableRow>
-              ) : plants.length > 0 ? (
-                plants.map((item) => (
-                  <StyledTableRow key={item.plantID}>
-                    <StyledTableCell>{item.plantName}</StyledTableCell>
-                    <StyledTableCell>
-                      <div className="flex gap-3 items-center h-full">
-                        <button
-                          onClick={() => handleEditPlant(item)}
-                          className="icon-btn edit"
-                          title="Edit Plant"
-                        >
-                          <FaEdit className="icon-md" />
-                        </button>
-                        <button
-                          onClick={() => handleDeletePlant(item)}
-                          className="icon-btn delete"
-                          title="Delete Plant"
-                        >
-                          <FcCancel className="icon-md" />
-                        </button>
-                      </div>
+          <TableContainer component={Paper} className="shadow-none">
+            <Table stickyHeader aria-label="plant table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Plant Name</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {isLoading ? (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={2} className="text-center py-5">
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
-                ))
-              ) : (
-                <StyledTableRow>
-                  <StyledTableCell colSpan={2} className="text-center py-5">
-                    No Records found.
-                  </StyledTableCell>
-                </StyledTableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  count={totalRecords}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                  className="border-none"
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+                ) : plants.length > 0 ? (
+                  plants.map((item) => (
+                    <StyledTableRow key={item.plantID}>
+                      <StyledTableCell>{item.plantName}</StyledTableCell>
+                      <StyledTableCell>
+                        <div className="flex gap-3 items-center h-full">
+                          <button
+                            onClick={() => handleEditPlant(item)}
+                            className="icon-btn edit"
+                            title="Edit Plant"
+                          >
+                            <FaEdit className="icon-md" />
+                          </button>
+                          <button
+                            onClick={() => handleDeletePlant(item)}
+                            className="icon-btn delete"
+                            title="Delete Plant"
+                          >
+                            <FcCancel className="icon-md" />
+                          </button>
+                        </div>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={2} className="noData">
+                      No Records found.
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={totalRecords}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                    className="border-none"
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
 
       {showDeleteModal && (
