@@ -231,7 +231,7 @@ const UserPersonalDetails = () => {
                     })
                   ) : (
                     <TableRow>
-                      <StyledTableCell colSpan={7} className="text-center py-4">
+                      <StyledTableCell colSpan={7} className="noData">
                         No users found.
                       </StyledTableCell>
                     </TableRow>

@@ -278,7 +278,7 @@ const UserMaster = () => {
                 ) : (
                   <StyledTableRow>
                     <StyledTableCell colSpan={5}>
-                      <div className="text-center py-4 text-sm text-gray-500">
+                      <div className="noData">
                         No users found.
                       </div>
                     </StyledTableCell>

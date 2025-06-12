@@ -207,7 +207,7 @@ const DesignationMaster = () => {
                   ))
                 ) : (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
+                    <StyledTableCell colSpan={2} className="noData">
                       No Records found.
                     </StyledTableCell>
                   </StyledTableRow>

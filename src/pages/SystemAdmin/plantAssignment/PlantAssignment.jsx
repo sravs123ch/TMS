@@ -142,7 +142,7 @@ const PlantAssignment = () => {
                   ))
                 ) : (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={3} align="center">
+                    <StyledTableCell className="noData" colSpan={3} align="center">
                       No records found.
                     </StyledTableCell>
                   </StyledTableRow>

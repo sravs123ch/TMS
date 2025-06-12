@@ -134,7 +134,7 @@ const RoleAssignment = () => {
                 ))
               ) : (
                 <StyledTableRow>
-                  <StyledTableCell colSpan={4} align="center">
+                  <StyledTableCell className="noData" colSpan={4} align="center">
                     No role assignments found.
                   </StyledTableCell>
                 </StyledTableRow>

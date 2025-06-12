@@ -188,9 +188,7 @@ const PasswordReset = () => {
                 ) : (
                   <StyledTableRow>
                     <StyledTableCell colSpan={4}>
-                      <div className="flex justify-center items-center w-full h-full">
-                        No password reset requests.
-                      </div>
+                      <div className="noData">No password reset requests.</div>
                     </StyledTableCell>
                   </StyledTableRow>
                 )}
