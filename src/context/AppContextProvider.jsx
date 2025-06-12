@@ -5,6 +5,7 @@ import { DesignationProvider } from './DesignationContext';
 import { RoleProvider } from './RoleContext';
 import { PlantProvider } from './PlantContext';
 import { PlantAssignProvider } from './PlantAssignContext';
+import { JobResponsibilityProvider } from './induction/JobResponsibilityContext';
 const AppContextProvider = ({ children }) => {
   return (
     <UserProvider>
@@ -13,7 +14,9 @@ const AppContextProvider = ({ children }) => {
         <RoleProvider>
           <PlantProvider>
             <PlantAssignProvider>
+              <JobResponsibilityProvider>
       {children}
+      </JobResponsibilityProvider>
       </PlantAssignProvider>
       </PlantProvider>
       </RoleProvider>

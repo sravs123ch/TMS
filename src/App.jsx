@@ -59,24 +59,59 @@ const EditPlant = lazy(() =>
   import("./pages/SystemAdmin/plantMaster/EditPlant.jsx")
 );
 
-
 // User Personal Details
-const UserProfile = lazy(() => import('./pages/SystemAdmin/userPersonalDetails/UserPersonalDetails.jsx'));
-const UserProfileAddUser = lazy(() => import('./pages/SystemAdmin/userPersonalDetails/AddUserPersonalDetails.jsx'));
-const UserProfileEditUser = lazy(() => import('./pages/SystemAdmin/userPersonalDetails/EditUserPersonalDetails.jsx'));
+const UserProfile = lazy(() =>
+  import("./pages/SystemAdmin/userPersonalDetails/UserPersonalDetails.jsx")
+);
+const UserProfileAddUser = lazy(() =>
+  import("./pages/SystemAdmin/userPersonalDetails/AddUserPersonalDetails.jsx")
+);
+const UserProfileEditUser = lazy(() =>
+  import("./pages/SystemAdmin/userPersonalDetails/EditUserPersonalDetails.jsx")
+);
 // Role Assignment
-const RoleAssignment = lazy(() => import('./pages/SystemAdmin/roleAssignment/RoleAssignment.jsx'));
-const AddRoleAssignment = lazy(() => import('./pages/SystemAdmin/roleAssignment/AddRoleAssignment.jsx'));
-const EditRoleAssignment = lazy(() => import('./pages/SystemAdmin/roleAssignment/EditRoleAssignment.jsx'));
+const RoleAssignment = lazy(() =>
+  import("./pages/SystemAdmin/roleAssignment/RoleAssignment.jsx")
+);
+const AddRoleAssignment = lazy(() =>
+  import("./pages/SystemAdmin/roleAssignment/AddRoleAssignment.jsx")
+);
+const EditRoleAssignment = lazy(() =>
+  import("./pages/SystemAdmin/roleAssignment/EditRoleAssignment.jsx")
+);
 
 // Plant Assign
-const PlantAssign = lazy(() => import('./pages/SystemAdmin/plantAssignment/PlantAssignment.jsx'));
-const AddPlantAssign = lazy(() => import('./pages/SystemAdmin/plantAssignment/AddPlantAssignment.jsx'));
-const EditPlantAssign = lazy(() => import('./pages/SystemAdmin/plantAssignment/EditPlantAssignment.jsx'));
+const PlantAssign = lazy(() =>
+  import("./pages/SystemAdmin/plantAssignment/PlantAssignment.jsx")
+);
+const AddPlantAssign = lazy(() =>
+  import("./pages/SystemAdmin/plantAssignment/AddPlantAssignment.jsx")
+);
+const EditPlantAssign = lazy(() =>
+  import("./pages/SystemAdmin/plantAssignment/EditPlantAssignment.jsx")
+);
 // Password Configuration
-const PasswordConfiguration = lazy(() => import('./pages/SystemAdmin/passwordConfiguration/PasswordConfiguration.jsx'));
+const PasswordConfiguration = lazy(() =>
+  import("./pages/SystemAdmin/passwordConfiguration/PasswordConfiguration.jsx")
+);
 //Password Reset
-const PasswordReset = lazy(() => import('./pages/SystemAdmin/passwordReset/PasswordReset.jsx'));
+const PasswordReset = lazy(() =>
+  import("./pages/SystemAdmin/passwordReset/PasswordReset.jsx")
+);
+
+// Induction Assign
+const InductionAssign = lazy(() => import('./pages/Induction/inductionAssign/InductionAssign.jsx'));
+const AddInductionAssign = lazy(() => import('./pages/Induction/inductionAssign/AddInductionAssign.jsx'));
+const EditInductionAssign = lazy(() => import('./pages/Induction/inductionAssign/EditInductionAssign.jsx'));
+
+// Induction Module
+const JobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/JobResponsibility.jsx'));
+const AddJobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/AddJobResponsibility.jsx'));
+const EditJobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/EditJobResponsibility.jsx'));
+
+//Induction Sign
+const InductionSign = lazy(() => import('./pages/Induction/inductionSign/InductionSign.jsx'));
+
 // Fallback spinner
 const fallbackSpinner = (
   <div
@@ -238,64 +273,135 @@ const AppWithNavigation = () => {
             </Suspense>
           }
         />
- {/* User Personal Details Routes */}
-          <Route path="/system-admin/user-personal-details" element={
+        {/* User Personal Details Routes */}
+        <Route
+          path="/system-admin/user-personal-details"
+          element={
             <Suspense fallback={fallbackSpinner}>
-              <UserProfile/>
+              <UserProfile />
             </Suspense>
-          } />
-          <Route path="/system-admin/user-personal-details/add-user" element={
+          }
+        />
+        <Route
+          path="/system-admin/user-personal-details/add-user"
+          element={
             <Suspense fallback={fallbackSpinner}>
-              <UserProfileAddUser/>
+              <UserProfileAddUser />
             </Suspense>
-          } />
-          <Route path="/system-admin/user-personal-details/edit-user" element={
+          }
+        />
+        <Route
+          path="/system-admin/user-personal-details/edit-user"
+          element={
             <Suspense fallback={fallbackSpinner}>
               <UserProfileEditUser />
             </Suspense>
+          }
+        />
+        {/* Role Assignment */}
+        <Route
+          path="/system-admin/role-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <RoleAssignment />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/system-admin/role-assignment/add-role-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <AddRoleAssignment />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/system-admin/role-assignment/edit-role-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <EditRoleAssignment />
+            </Suspense>
+          }
+        />
+        {/* Plant Assign */}
+        <Route
+          path="/system-admin/plant-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <PlantAssign />
+            </Suspense>
+          }
+        />
+        <Route
+          path="system-admin/plant-assignment/add-plant-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <AddPlantAssign />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/system-admin/plant-assignment/edit-plant-assignment"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <EditPlantAssign />
+            </Suspense>
+          }
+        />
+        {/* Password Configuration Routes */}
+        <Route
+          path="/system-admin/password-configuration"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <PasswordConfiguration />
+            </Suspense>
+          }
+        />
+        {/* Password Reset */}
+        <Route
+          path="/system-admin/password-reset"
+          element={
+            <Suspense fallback={fallbackSpinner}>
+              <PasswordReset />
+            </Suspense>
+          }
+        />
+        {/* Induction Assign */}
+          <Route path="/induction/induction-assign" element={
+            <Suspense fallback={fallbackSpinner}>
+              <InductionAssign/>
+            </Suspense>
           } />
-  {/* Role Assignment */}
-          <Route path='/system-admin/role-assignment' element={
+          <Route path="/induction/induction-assign/add-induction-assign" element={
             <Suspense fallback={fallbackSpinner}>
-              <RoleAssignment/>
-            </Suspense>
-          }/>
-          <Route path='/system-admin/role-assignment/add-role-assignment' element={
-            <Suspense fallback={fallbackSpinner}>
-              <AddRoleAssignment/>
-            </Suspense>
-          }/>
-          <Route path='/system-admin/role-assignment/edit-role-assignment' element={
-            <Suspense fallback={fallbackSpinner}>
-              <EditRoleAssignment/>
-            </Suspense>
-          }/>
-             {/* Plant Assign */}
-          <Route path='/system-admin/plant-assignment' element={
-            <Suspense fallback={fallbackSpinner}>
-              <PlantAssign/>
-            </Suspense>
-          }/>
-          <Route path='system-admin/plant-assignment/add-plant-assignment' element={
-            <Suspense fallback={fallbackSpinner}>
-              <AddPlantAssign/>
-            </Suspense>
-          }/>
-          <Route path='/system-admin/plant-assignment/edit-plant-assignment' element={
-            <Suspense fallback={fallbackSpinner}>
-              <EditPlantAssign/>
-            </Suspense>
-          }/>
-  {/* Password Configuration Routes */}
-          <Route path="/system-admin/password-configuration" element={
-            <Suspense fallback={fallbackSpinner}>
-              <PasswordConfiguration/>
+              <AddInductionAssign/>
             </Suspense>
           } />
-             {/* Password Reset */}
-          <Route path="/system-admin/password-reset" element={
+          <Route path="/induction/induction-assign/edit-induction-assign" element={
             <Suspense fallback={fallbackSpinner}>
-              <PasswordReset/>
+              <EditInductionAssign/>
+            </Suspense>
+          } />
+            {/* Induction Module */}
+          <Route path="/induction/job-responsibility" element={
+            <Suspense fallback={fallbackSpinner}>
+              <JobResposibility />
+            </Suspense>
+          } />
+          <Route path="/induction/job-responsibility/add-job-responsibility" element={
+            <Suspense fallback={fallbackSpinner}>
+              <AddJobResposibility/>
+            </Suspense>
+          } />
+          <Route path="/induction/job-responsibility/edit-job-responsibility" element={
+            <Suspense fallback={fallbackSpinner}>
+              <EditJobResposibility />
+            </Suspense>
+          } />
+   {/* Induction Sign */}
+          <Route path="/induction/induction-sign" element={
+            <Suspense fallback={fallbackSpinner}>
+              <InductionSign/>
             </Suspense>
           } />
       </Route>
