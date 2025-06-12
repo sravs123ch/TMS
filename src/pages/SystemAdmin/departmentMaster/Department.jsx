@@ -175,8 +175,8 @@ const DepartmentMaster = () => {
               <TableBody>
                 {isLoading ? (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
-                      <div className="border-4 border-gray-200 border-t-teal-600 rounded-full w-10 h-10 animate-spin mx-auto"></div>
+                    <StyledTableCell colSpan={5}>
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
                 ) : departments.length > 0 ? (

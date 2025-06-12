@@ -47,7 +47,9 @@ const EditPlant = () => {
     }
 
     const currentData = { ...formData };
-    if (JSON.stringify(currentData) === JSON.stringify(initialFormDataRef.current)) {
+    if (
+      JSON.stringify(currentData) === JSON.stringify(initialFormDataRef.current)
+    ) {
       toast.info("No changes made to update.");
       return;
     }
@@ -74,10 +76,16 @@ const EditPlant = () => {
     try {
       const response = await updatePlant(payload);
       if (response.header?.errorCount === 0) {
-        toast.success(response.header?.messages?.[0]?.messageText || "Plant updated successfully!");
+        toast.success(
+          response.header?.messages?.[0]?.messageText ||
+            "Plant updated successfully!"
+        );
         setTimeout(() => navigate("/system-admin/plant-master"), 1500);
       } else {
-        toast.error(response.header?.messages?.[0]?.messageText || "Failed to update plant");
+        toast.error(
+          response.header?.messages?.[0]?.messageText ||
+            "Failed to update plant"
+        );
       }
     } catch (error) {
       console.error("Error updating plant:", error);
@@ -95,43 +103,42 @@ const EditPlant = () => {
   };
 
   return (
-      <div className="main-container">
+    <div className="main-container">
       <ToastContainer position="top-right" autoClose={1500} />
       {loading && <Spinner />}
+      <div className="tableWhiteCardContainer">
+        <form onSubmit={handleSubmit}>
+          <h3 className="heading">Edit Plant</h3>
+          <div className="relative mt-6 mb-6">
+            <InputField
+              label="Plant Name"
+              name="plantName"
+              value={formData.plantName}
+              onChange={handleChange}
+              placeholder="Enter Plant Name"
+              required
+            />
 
-      <form
-        onSubmit={handleSubmit}
-      >
-         <h3 className="heading">Edit Plant</h3>
-   <div className="relative mt-6 mb-6">
-        <InputField
-          label="Plant Name"
-          name="plantName"
-          value={formData.plantName}
-          onChange={handleChange}
-          placeholder="Enter Plant Name"
-          required
-        />
-
-        <div className="flex justify-end gap-4 pt-4">
-          <button
-            type="submit"
-            disabled={loading}
-             className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-            {loading ? "Updating..." : "Update"}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-          className="btn-cancel"
-            disabled={loading}
-          >
-            Cancel
-          </button>
-        </div>
-        </div>
-      </form>
+            <div className="flex justify-end gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+                disabled={loading}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
 
       {/* Reason Modal */}
       {showReasonModal && (
@@ -141,7 +148,10 @@ const EditPlant = () => {
             <div>
               <p className="mb-2">
                 Please provide a reason for updating the plant{" "}
-                <span className="font-semibold text-blue-700">"{formData.plantName}"</span>:
+                <span className="font-semibold text-blue-700">
+                  "{formData.plantName}"
+                </span>
+                :
               </p>
               <textarea
                 className="w-full border border-gray-300 rounded-lg p-2 mt-2"

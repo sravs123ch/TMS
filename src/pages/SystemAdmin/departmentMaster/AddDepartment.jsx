@@ -75,46 +75,48 @@ const AddDepartment = () => {
         pauseOnHover
       />
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-          <h3 className="heading">Add Department</h3>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>
+            <h3 className="heading">Add Department</h3>
 
-          <div className="relative mt-6 mb-6">
-            {loading && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50">
-                <Spinner />
-              </div>
-            )}
-            <InputField
-              label="Department Name"
-              name="departmentName"
-              type="text"
-              value={formData.departmentName}
-              onChange={handleChange}
-              placeholder="Enter Department Name"
-              required
-              labelSuffix={<span className="text-red-500">*</span>}
-            />
-          </div>
+            <div className="relative mt-6 mb-6">
+              {loading && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50">
+                  <Spinner />
+                </div>
+              )}
+              <InputField
+                label="Department Name"
+                name="departmentName"
+                type="text"
+                value={formData.departmentName}
+                onChange={handleChange}
+                placeholder="Enter Department Name"
+                required
+                labelSuffix={<span className="text-red-500">*</span>}
+              />
+            </div>
 
-          {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
+            {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
 
-          <div className="flex justify-end gap-3 mt-6">
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Creating..." : "Submit"}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Creating..." : "Submit"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

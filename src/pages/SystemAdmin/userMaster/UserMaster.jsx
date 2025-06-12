@@ -26,6 +26,7 @@ import {
 import TableRow from "@mui/material/TableRow";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
 import { constants } from "../../../utils/constants";
+import Spinner from "../../../components/common/Spinner";
 
 const UserMaster = () => {
   const navigate = useNavigate();
@@ -68,7 +69,10 @@ const UserMaster = () => {
           toast.error(message.messageText);
         }
 
-        if (data.header?.errorCount === 0 && Array.isArray(data.usersBasicInfo)) {
+        if (
+          data.header?.errorCount === 0 &&
+          Array.isArray(data.usersBasicInfo)
+        ) {
           setUsers(data.usersBasicInfo);
           setTotalRecords(data.totalRecord || 0);
         } else {
@@ -98,7 +102,8 @@ const UserMaster = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleAddUserClick = () => navigate("/system-admin/user-master/add-user");
+  const handleAddUserClick = () =>
+    navigate("/system-admin/user-master/add-user");
 
   const handleEditUserClick = (user) => {
     try {
@@ -156,7 +161,8 @@ const UserMaster = () => {
         setRefreshKey((prev) => prev + 1);
       } else {
         const errorMsg =
-          response.header?.messages?.[0]?.messageText || "Failed to deactivate user.";
+          response.header?.messages?.[0]?.messageText ||
+          "Failed to deactivate user.";
         toast.error(errorMsg);
       }
     } catch (error) {
@@ -215,7 +221,7 @@ const UserMaster = () => {
 
           <TableContainer component={Paper} className="shadow-none">
             <Table className="min-w-full">
-              <TableHead >
+              <TableHead>
                 <TableRow>
                   <StyledTableCell>Name</StyledTableCell>
                   <StyledTableCell>Department</StyledTableCell>
@@ -228,17 +234,16 @@ const UserMaster = () => {
                 {loading ? (
                   <StyledTableRow>
                     <StyledTableCell colSpan={5}>
-                      <div className="flex justify-center p-4">
-                        <div className="loader"></div>
-                      </div>
+                      <Spinner/>
+                     
                     </StyledTableCell>
                   </StyledTableRow>
                 ) : users.length > 0 ? (
                   users.map((user, index) => (
                     <StyledTableRow key={index}>
                       <StyledTableCell>
-                        <div className="flex items-center gap-2">
-                          <div className="shrink-0 relative">
+                        <div className="profile-info">
+                          <div>
                             <img
                               src={profile}
                               alt="profile"
@@ -278,9 +283,7 @@ const UserMaster = () => {
                 ) : (
                   <StyledTableRow>
                     <StyledTableCell colSpan={5}>
-                      <div className="noData">
-                        No users found.
-                      </div>
+                      <div className="noData">No users found.</div>
                     </StyledTableCell>
                   </StyledTableRow>
                 )}
@@ -303,7 +306,6 @@ const UserMaster = () => {
           </TableContainer>
         </div>
       </div>
-     
     </>
   );
 };

@@ -1,11 +1,14 @@
-import { useState, useEffect, useContext, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { DepartmentContext } from '../../../context/DepartmentContext';
-import { updateDepartment } from '../../../services/systemAdmin/DepartmentMasterService';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Modal from '../../../components/common/Modal';
-import { InputField, EnhancedInputField } from '../../../components/common/ui/FormFields';
+import { useState, useEffect, useContext, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { DepartmentContext } from "../../../context/DepartmentContext";
+import { updateDepartment } from "../../../services/systemAdmin/DepartmentMasterService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "../../../components/common/Modal";
+import {
+  InputField,
+  EnhancedInputField,
+} from "../../../components/common/ui/FormFields";
 import Spinner from "../../../components/common/Spinner";
 const EditDepartment = () => {
   const navigate = useNavigate();
@@ -15,11 +18,11 @@ const EditDepartment = () => {
 
   const [loading, setLoading] = useState(false);
   const [showReasonModal, setShowReasonModal] = useState(false);
-  const [reasonForChange, setReasonForChange] = useState('');
+  const [reasonForChange, setReasonForChange] = useState("");
 
   const [formData, setFormData] = useState({
-    departmentID: selectedDepartment?.departmentId || '',
-    departmentName: selectedDepartment?.departmentName || '',
+    departmentID: selectedDepartment?.departmentId || "",
+    departmentName: selectedDepartment?.departmentName || "",
   });
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const EditDepartment = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -43,8 +46,10 @@ const EditDepartment = () => {
 
     // Check if form data has changed
     const currentData = { ...formData };
-    if (JSON.stringify(currentData) === JSON.stringify(initialFormDataRef.current)) {
-      toast.info('No changes made to update.');
+    if (
+      JSON.stringify(currentData) === JSON.stringify(initialFormDataRef.current)
+    ) {
+      toast.info("No changes made to update.");
       return;
     }
 
@@ -54,7 +59,7 @@ const EditDepartment = () => {
 
   const handleConfirmUpdate = async () => {
     if (!reasonForChange.trim()) {
-      toast.error('Reason for change is required.');
+      toast.error("Reason for change is required.");
       return;
     }
 
@@ -68,34 +73,38 @@ const EditDepartment = () => {
         plantID: 1,
         reasonForChange: reasonForChange,
         electronicSignature: "Admin",
-        signatureDate: new Date().toISOString().split('T')[0],
+        signatureDate: new Date().toISOString().split("T")[0],
       };
 
       const response = await updateDepartment(departmentData);
 
       if (response.header?.errorCount === 0) {
-        const infoMsg = response.header?.messages?.[0]?.messageText || 'Department updated successfully';
+        const infoMsg =
+          response.header?.messages?.[0]?.messageText ||
+          "Department updated successfully";
         toast.success(infoMsg);
         setTimeout(() => {
-          navigate('/system-admin/department-master');
+          navigate("/system-admin/department-master");
         }, 1200);
       } else {
-        const errorMsg = response.header?.messages?.[0]?.messageText || 'Failed to update department';
+        const errorMsg =
+          response.header?.messages?.[0]?.messageText ||
+          "Failed to update department";
         toast.error(errorMsg);
       }
     } catch (error) {
-      console.error('Error updating department:', error);
+      console.error("Error updating department:", error);
       toast.error("An error occurred while updating the department");
     } finally {
       setLoading(false);
       setShowReasonModal(false);
-      setReasonForChange('');
+      setReasonForChange("");
     }
   };
 
   const handleCancelUpdate = () => {
     setShowReasonModal(false);
-    setReasonForChange('');
+    setReasonForChange("");
   };
 
   return (
@@ -111,36 +120,37 @@ const EditDepartment = () => {
         pauseOnHover
       />
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-        <h3 className="heading">Edit Department</h3>
- <div className="mb-4 mt-6">
-          <InputField
-            label="Department Name"
-            name="departmentName"
-            value={formData.departmentName}
-            onChange={handleChange}
-            placeholder="Enter Department Name"
-            required
-          />
-</div>
-          <div className="flex justify-end gap-4 mt-8">
-           
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-2 bg-[--primary-color] text-white rounded-lg hover:bg-[--primary-color] focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Updating...' : 'Update'}
-            </button>
-               <button
-              type="button"
-              onClick={() => navigate(-1)}
-             className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>
+            <h3 className="heading">Edit Department</h3>
+            <div className="mb-4 mt-6">
+              <InputField
+                label="Department Name"
+                name="departmentName"
+                value={formData.departmentName}
+                onChange={handleChange}
+                placeholder="Enter Department Name"
+                required
+              />
+            </div>
+            <div className="flex justify-end gap-4 mt-8">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-6 py-2 bg-[--primary-color] text-white rounded-lg hover:bg-[--primary-color] focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {showReasonModal && (
@@ -153,7 +163,10 @@ const EditDepartment = () => {
                   <Spinner />
                 </div>
               )}
-              <p className="mb-4">Please provide a reason for updating the department "{formData.departmentName}"</p>
+              <p className="mb-4">
+                Please provide a reason for updating the department "
+                {formData.departmentName}"
+              </p>
               <EnhancedInputField
                 name="reasonForChange"
                 value={reasonForChange}

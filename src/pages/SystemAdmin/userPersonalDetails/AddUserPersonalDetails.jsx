@@ -10,7 +10,7 @@ import {
   InputField,
   EnhancedInputField,
 } from "../../../components/common/ui/FormFields";
-import DatePicker from "../../../components/common/ui/DatePicker";
+import DatePicker, { phoneInputStyles } from "../../../components/common/ui/DatePicker";
 import Spinner from "../../../components/common/Spinner";
 
 const AddUserPersonalDetails = () => {
@@ -191,7 +191,7 @@ const AddUserPersonalDetails = () => {
               onChange={(phone) =>
                 setFormData((prev) => ({ ...prev, contactNo: phone }))
               }
-              inputClass="w-full p-2 border rounded-md"
+             inputStyle={phoneInputStyles.input}
               containerClass="w-full"
               enableSearch
               required
@@ -214,14 +214,7 @@ const AddUserPersonalDetails = () => {
               containerStyle={{
                 width: "100%",
               }}
-              inputStyle={{
-                width: "100%",
-                height: "48px",
-                fontSize: "1rem",
-                borderRadius: "0.5rem",
-                border: "1px solid #d1d5db",
-                paddingLeft: "48px",
-              }}
+              inputStyle={phoneInputStyles.input}
               buttonStyle={{
                 border: "none",
                 background: "transparent",
@@ -233,6 +226,7 @@ const AddUserPersonalDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           {/* DOB */}
           <DatePicker
+          
             label="Date of Birth"
             value={formData.dob}
             onChange={(date) => setFormData((prev) => ({ ...prev, dob: date }))}

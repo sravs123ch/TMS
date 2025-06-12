@@ -47,6 +47,11 @@
 .noData {
   @apply flex justify-center items-center w-full h-full;
 }
+
+.profile-info {
+  @apply flex items-center gap-2;
+}
+
 /* You can also define utility classes if needed */
 .bg-brown-primary {
   background-color: var(--color-brown-primary);

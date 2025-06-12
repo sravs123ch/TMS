@@ -101,44 +101,46 @@ const EditDesignation = () => {
     <>
       <ToastContainer />
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-          <h3 className="heading">Edit Designation</h3>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>
+            <h3 className="heading">Edit Designation</h3>
 
-          <div className="mb-4 mt-4">
-            <InputField
-              label="Designation Name"
-              name="DesignationName"
-              value={formData.DesignationName}
-              onChange={handleChange}
-              placeholder="Enter Designation Name"
-              required
-            />
-          </div>
+            <div className="mb-4 mt-4">
+              <InputField
+                label="Designation Name"
+                name="DesignationName"
+                value={formData.DesignationName}
+                onChange={handleChange}
+                placeholder="Enter Designation Name"
+                required
+              />
+            </div>
 
-          <div className="flex justify-end gap-3 mt-6">
-            <button
-              type="submit"
-              disabled={loading}
-             className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
-            >
-              {loading ? "Updating..." : "Update"}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {showReasonModal && (
         <Modal
           title="Reason for Change"
           message={
-           <div className="relative">
+            <div className="relative">
               {loading && (
                 <div className="absolute inset-0 bg-white bg-opacity-60 z-10 flex items-center justify-center">
                   <Spinner />

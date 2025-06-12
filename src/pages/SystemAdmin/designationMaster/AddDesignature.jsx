@@ -62,42 +62,44 @@ const AddDesignation = () => {
   return (
     <div className="main-container">
       <ToastContainer position="top-right" autoClose={1500} />
-      <form onSubmit={handleSubmit}>
-        <h3 className="heading">Add Designation</h3>
+      <div className="tableWhiteCardContainer">
+        <form onSubmit={handleSubmit}>
+          <h2 className="heading">Add Designation</h2>
 
-        <div className="relative mt-6 mb-6">
+          <div className="relative mt-6 mb-6">
             {loading && (
               <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/50">
-                <Spinner/>
+                <Spinner />
               </div>
             )}
-          <InputField
-            label="Designation Name"
-            name="DesignationName"
-            value={formData.DesignationName}
-            onChange={handleChange}
-            placeholder="Enter Designation Name"
-            required
-          />
-        </div>
+            <InputField
+              label="Designation Name"
+              name="DesignationName"
+              value={formData.DesignationName}
+              onChange={handleChange}
+              placeholder="Enter Designation Name"
+              required
+            />
+          </div>
 
-        <div className="flex justify-end gap-4 mt-6">
-          <button
-            type="submit"
-            disabled={loading}
-             className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
-          >
-            {loading ? "Creating..." : "Submit"}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="btn-cancel"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
+            >
+              {loading ? "Creating..." : "Submit"}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="btn-cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

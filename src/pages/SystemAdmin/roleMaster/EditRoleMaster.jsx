@@ -112,53 +112,55 @@ const EditRole = () => {
     <>
       <ToastContainer />
       <div className="main-container p-4 md:p-6">
-        <form onSubmit={handleSubmit}>
-          <h3 className="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-6">
-            Edit Role
-          </h3>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>
+            <h3 className="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-6">
+              Edit Role
+            </h3>
 
-          <div className="mb-6">
-            <InputField
-              label="Role Name"
-              name="roleName"
-              value={formData.roleName}
-              onChange={handleChange}
-              placeholder="Enter role name"
-              required
-              className="w-full"
-            />
-          </div>
+            <div className="mb-6">
+              <InputField
+                label="Role Name"
+                name="roleName"
+                value={formData.roleName}
+                onChange={handleChange}
+                placeholder="Enter role name"
+                required
+                className="w-full"
+              />
+            </div>
 
-          <div className="mb-6">
-            <EnhancedInputField
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Enter description (optional)"
-              className="w-full"
-              rows={4}
-            />
-          </div>
+            <div className="mb-6">
+              <EnhancedInputField
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Enter description (optional)"
+                className="w-full"
+                rows={4}
+              />
+            </div>
 
-          <div className="flex justify-end gap-4 mt-8">
-            <button
-              type="submit"
-              className="bg-[--primary-color] text-white px-4 py-2 rounded-lg hover:bg-[--primary-color] transition-colors font-medium"
-              disabled={loading}
-            >
-              {loading ? "Updating..." : "Update"}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium"
-              disabled={loading}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-4 mt-8">
+              <button
+                type="submit"
+                className="bg-[--primary-color] text-white px-4 py-2 rounded-lg hover:bg-[--primary-color] transition-colors font-medium"
+                disabled={loading}
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+                disabled={loading}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {/* Popup Modal */}

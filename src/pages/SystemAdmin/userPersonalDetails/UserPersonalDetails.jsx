@@ -3,7 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import avatar from "../../../assets/images/profile.png";
+import profile from "../../../assets/images/profile.png";
 import { fetchAllUserPersonalDetails } from "../../../services/systemAdmin/UserPersonalDetailsService";
 import {
   StyledTableCell,
@@ -163,7 +163,7 @@ const UserPersonalDetails = () => {
           </div>
 
           {loading ? (
-            <div className="flex justify-center items-center h-64">
+            <div>
               <Spinner />
             </div>
           ) : (
@@ -187,15 +187,19 @@ const UserPersonalDetails = () => {
                       return (
                         <StyledTableRow key={index} hover>
                           <StyledTableCell>
-                            <div className="flex items-center  gap-2">
-                              <img
-                                src={avatar}
-                                alt="avatar"
-                                className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
-                              />
-                              {`${user.firstName || ""} ${
-                                user.lastName || ""
-                              }`.trim() || "-"}
+                            <div className="profile-info">
+                              <div>
+                                <img
+                                  src={profile}
+                                  alt="profile"
+                                  className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "default-profile.png";
+                                  }}
+                                />
+                              </div>
+                              <span>{`${user.firstName} ${user.lastName}`}</span>
                             </div>
                           </StyledTableCell>
                           <StyledTableCell>

@@ -7,9 +7,7 @@ import {
   updateRoleAssignment,
 } from "../../../services/systemAdmin/RoleAssignmentService";
 
-import {
-  CustomAsyncSelect,
-} from "../../../components/common/ui/FormFields";
+import { CustomAsyncSelect } from "../../../components/common/ui/FormFields";
 import Modal from "../../../components/common/Modal";
 
 const EditRoleAssignment = () => {
@@ -149,53 +147,53 @@ const EditRoleAssignment = () => {
   };
 
   return (
-     <div className="main-container">
+    <div className="main-container">
       <ToastContainer position="top-right" autoClose={1500} />
-        <h3 className="heading">
-        Edit Role Assignment
-      </h3>
+      <div className="tableWhiteCardContainer">
+        <h3 className="heading">Edit Role Assignment</h3>
 
-      <form onSubmit={handleSubmit}>
-        {/* User (Disabled) */}
-        <CustomAsyncSelect
+        <form onSubmit={handleSubmit}>
+          {/* User (Disabled) */}
+          <CustomAsyncSelect
             label="Select User"
-          name="userID"
-          options={usersOptions}
-          value={usersOptions.find((u) => u.value === formData.userID)}
-          isDisabled
-          placeholder="-- Select User --"
-        />
+            name="userID"
+            options={usersOptions}
+            value={usersOptions.find((u) => u.value === formData.userID)}
+            isDisabled
+            placeholder="-- Select User --"
+          />
 
-        {/* Role (Editable) */}
-        <CustomAsyncSelect
-          label="Select Role"
-          name="roleID"
-          options={rolesOptions}
-          value={rolesOptions.find((r) => r.value === formData.roleID)}
-          onChange={(selected) =>
-            setFormData({ ...formData, roleID: selected?.value || "" })
-          }
-          placeholder="-- Select Role --"
-          isClearable
-        />
+          {/* Role (Editable) */}
+          <CustomAsyncSelect
+            label="Select Role"
+            name="roleID"
+            options={rolesOptions}
+            value={rolesOptions.find((r) => r.value === formData.roleID)}
+            onChange={(selected) =>
+              setFormData({ ...formData, roleID: selected?.value || "" })
+            }
+            placeholder="-- Select Role --"
+            isClearable
+          />
 
-        <div className="flex justify-end gap-4 pt-4">
-          <button
-            type="submit"
-            className="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-60"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Updating..." : "Update"}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-end gap-4 pt-4">
+            <button
+              type="submit"
+              className="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-60"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating..." : "Update"}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
 
       {/* Modal for Reason */}
       {showReasonModal && (
