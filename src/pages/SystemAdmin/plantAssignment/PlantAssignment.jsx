@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "../../../components/common/Spinner";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
+import profile from "../../../assets/images/profile.png";
+
 import {
   StyledTableCell,
   StyledTableRow,
@@ -122,9 +124,20 @@ const PlantAssignment = () => {
                   plants.map((assignment, index) => (
                     <StyledTableRow key={index}>
                       <StyledTableCell>
-                        {`${assignment.firstName || "N/A"} ${
-                          assignment.lastName || "N/A"
-                        }`}
+                        <div className="flex items-center gap-2">
+                          <div >
+                            <img
+                              src={profile}
+                              alt="profile"
+                              className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "default-profile.png";
+                              }}
+                            />
+                          </div>
+                          <span>{`${assignment.firstName} ${assignment.lastName}`}</span>
+                        </div>
                       </StyledTableCell>
                       <StyledTableCell>
                         {assignment.plantName || "Not Assigned"}
@@ -142,7 +155,11 @@ const PlantAssignment = () => {
                   ))
                 ) : (
                   <StyledTableRow>
-                    <StyledTableCell className="noData" colSpan={3} align="center">
+                    <StyledTableCell
+                      className="noData"
+                      colSpan={3}
+                      align="center"
+                    >
                       No records found.
                     </StyledTableCell>
                   </StyledTableRow>

@@ -177,7 +177,7 @@ const DesignationMaster = () => {
               <TableBody>
                 {isLoading ? (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
+                    <StyledTableCell colSpan={5} >
                       <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>

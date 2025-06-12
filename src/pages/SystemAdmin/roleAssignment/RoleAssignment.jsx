@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
+import profile from "../../../assets/images/profile.png";
 
 import Spinner from "../../../components/common/Spinner";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
@@ -116,9 +117,22 @@ const RoleAssignment = () => {
               ) : roleAssignments.length > 0 ? (
                 roleAssignments.map((assignment, index) => (
                   <StyledTableRow key={index}>
-                    <StyledTableCell>{`${assignment.firstName || ""} ${
-                      assignment.lastName || ""
-                    }`}</StyledTableCell>
+                    <StyledTableCell>
+                      <div className="flex items-center gap-2">
+                        <div >
+                          <img
+                            src={profile}
+                            alt="profile"
+                            className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "default-profile.png";
+                            }}
+                          />
+                        </div>
+                        <span>{`${assignment.firstName} ${assignment.lastName}`}</span>
+                      </div>
+                    </StyledTableCell>
                     <StyledTableCell>{assignment.roleName}</StyledTableCell>
                     <StyledTableCell>{assignment.plantName}</StyledTableCell>
                     <StyledTableCell>
@@ -134,7 +148,11 @@ const RoleAssignment = () => {
                 ))
               ) : (
                 <StyledTableRow>
-                  <StyledTableCell className="noData" colSpan={4} align="center">
+                  <StyledTableCell
+                    className="noData"
+                    colSpan={4}
+                    align="center"
+                  >
                     No role assignments found.
                   </StyledTableCell>
                 </StyledTableRow>
