@@ -562,281 +562,282 @@ const AddUser = () => {
         pauseOnHover
       />
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-          <h3 className="heading">Add User Master</h3>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>
+            <h3 className="heading">Add User Master</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <InputField
+                label="First Name"
+                name="FirstName"
+                value={formData.FirstName}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Last Name"
+                name="LastName"
+                value={formData.LastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <InputField
-              label="First Name"
-              name="FirstName"
-              value={formData.FirstName}
-              onChange={handleChange}
+            <CustomAsyncSelect
+              label="Gender"
+              options={[
+                { value: "M", label: "Male" },
+                { value: "F", label: "Female" },
+                { value: "O", label: "Other" },
+              ]}
+              value={
+                ["M", "F", "O"].includes(formData.Gender)
+                  ? {
+                      value: formData.Gender,
+                      label: { M: "Male", F: "Female", O: "Other" }[
+                        formData.Gender
+                      ],
+                    }
+                  : null
+              }
+              onChange={(selected) =>
+                setFormData({
+                  ...formData,
+                  Gender: selected ? selected.value : "",
+                })
+              }
+              placeholder="-- Select Gender --"
               required
             />
-            <InputField
-              label="Last Name"
-              name="LastName"
-              value={formData.LastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
-          <CustomAsyncSelect
-            label="Gender"
-            options={[
-              { value: "M", label: "Male" },
-              { value: "F", label: "Female" },
-              { value: "O", label: "Other" },
-            ]}
-            value={
-              ["M", "F", "O"].includes(formData.Gender)
-                ? {
-                    value: formData.Gender,
-                    label: { M: "Male", F: "Female", O: "Other" }[
-                      formData.Gender
-                    ],
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <InputField
+                label="Employee ID"
+                name="EmployeeID"
+                value={formData.EmployeeID}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Category Type"
+                name="CategoryType"
+                value={formData.CategoryType}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CustomAsyncSelect
+                label="Role"
+                options={roleOptions}
+                value={roleOptions.find(
+                  (r) => r.value.toString() === formData.RoleID
+                )}
+                loadOptions={loadRoles}
+                onChange={(selected) =>
+                  setFormData({
+                    ...formData,
+                    RoleID: selected ? selected.value : "",
+                  })
+                }
+                onMenuOpen={handleRoleMenuOpen}
+                onMenuScrollToBottom={loadMoreRoles}
+                onInputChange={(value) => {
+                  setRoleSearch(value);
+                  if (!value) {
+                    setRolePage(0);
+                    loadInitialRoles();
+                  } else {
+                    setRolePage(0);
+                    setRoleOptions([]);
+                    setHasMoreRoles(true);
                   }
-                : null
-            }
-            onChange={(selected) =>
-              setFormData({
-                ...formData,
-                Gender: selected ? selected.value : "",
-              })
-            }
-            placeholder="-- Select Gender --"
-            required
-          />
+                }}
+                isLoading={isLoadingRoles}
+                placeholder="-- Select Role --"
+                required
+              />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <InputField
-              label="Employee ID"
-              name="EmployeeID"
-              value={formData.EmployeeID}
-              onChange={handleChange}
-              required
-            />
-            <InputField
-              label="Category Type"
-              name="CategoryType"
-              value={formData.CategoryType}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <CustomAsyncSelect
-              label="Role"
-              options={roleOptions}
-              value={roleOptions.find(
-                (r) => r.value.toString() === formData.RoleID
-              )}
-              loadOptions={loadRoles}
-              onChange={(selected) =>
-                setFormData({
-                  ...formData,
-                  RoleID: selected ? selected.value : "",
-                })
-              }
-              onMenuOpen={handleRoleMenuOpen}
-              onMenuScrollToBottom={loadMoreRoles}
-              onInputChange={(value) => {
-                setRoleSearch(value);
-                if (!value) {
-                  setRolePage(0);
-                  loadInitialRoles();
-                } else {
-                  setRolePage(0);
-                  setRoleOptions([]);
-                  setHasMoreRoles(true);
+              <CustomAsyncSelect
+                label="Department"
+                options={departmentOptions}
+                value={departmentOptions.find(
+                  (d) => d.value.toString() === formData.DepartmentID
+                )}
+                loadOptions={loadDepartments}
+                onChange={(selected) =>
+                  setFormData({
+                    ...formData,
+                    DepartmentID: selected ? selected.value : "",
+                  })
                 }
-              }}
-              isLoading={isLoadingRoles}
-              placeholder="-- Select Role --"
-              required
-            />
+                onMenuOpen={handleDepartmentMenuOpen}
+                onMenuScrollToBottom={loadMoreDepartments}
+                onInputChange={(value) => {
+                  setDepartmentSearch(value);
+                  if (!value) {
+                    setDepartmentPage(0);
+                    loadInitialDepartments();
+                  } else {
+                    setDepartmentPage(0);
+                    setDepartmentOptions([]);
+                    setHasMoreDepartments(true);
+                  }
+                }}
+                isLoading={isLoadingDepartments}
+                placeholder="-- Select Department --"
+                required
+              />
+            </div>
 
-            <CustomAsyncSelect
-              label="Department"
-              options={departmentOptions}
-              value={departmentOptions.find(
-                (d) => d.value.toString() === formData.DepartmentID
-              )}
-              loadOptions={loadDepartments}
-              onChange={(selected) =>
-                setFormData({
-                  ...formData,
-                  DepartmentID: selected ? selected.value : "",
-                })
-              }
-              onMenuOpen={handleDepartmentMenuOpen}
-              onMenuScrollToBottom={loadMoreDepartments}
-              onInputChange={(value) => {
-                setDepartmentSearch(value);
-                if (!value) {
-                  setDepartmentPage(0);
-                  loadInitialDepartments();
-                } else {
-                  setDepartmentPage(0);
-                  setDepartmentOptions([]);
-                  setHasMoreDepartments(true);
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CustomAsyncSelect
+                label="Designation"
+                options={designationOptions}
+                value={designationOptions.find(
+                  (d) => d.value.toString() === formData.DesignationID
+                )}
+                loadOptions={loadDesignations}
+                onChange={(selected) =>
+                  setFormData({
+                    ...formData,
+                    DesignationID: selected ? selected.value : "",
+                  })
                 }
-              }}
-              isLoading={isLoadingDepartments}
-              placeholder="-- Select Department --"
-              required
-            />
-          </div>
+                onMenuOpen={handleMenuOpen}
+                onMenuScrollToBottom={loadMoreDesignations}
+                onInputChange={(value) => {
+                  setDesignationSearch(value);
+                  if (!value) {
+                    setDesignationPage(0);
+                    loadInitialDesignations();
+                  } else {
+                    setDesignationPage(0);
+                    setDesignationOptions([]);
+                    setHasMoreDesignations(true);
+                  }
+                }}
+                isLoading={isLoadingDesignations}
+                placeholder="-- Select Designation --"
+                required
+              />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <CustomAsyncSelect
-              label="Designation"
-              options={designationOptions}
-              value={designationOptions.find(
-                (d) => d.value.toString() === formData.DesignationID
-              )}
-              loadOptions={loadDesignations}
-              onChange={(selected) =>
-                setFormData({
-                  ...formData,
-                  DesignationID: selected ? selected.value : "",
-                })
-              }
-              onMenuOpen={handleMenuOpen}
-              onMenuScrollToBottom={loadMoreDesignations}
-              onInputChange={(value) => {
-                setDesignationSearch(value);
-                if (!value) {
-                  setDesignationPage(0);
-                  loadInitialDesignations();
-                } else {
-                  setDesignationPage(0);
-                  setDesignationOptions([]);
-                  setHasMoreDesignations(true);
+              <CustomAsyncSelect
+                label="Reports To"
+                options={userOptions}
+                value={userOptions.find((u) => u.value === formData.ReportsTo)}
+                loadOptions={loadUsers}
+                onChange={(selected) =>
+                  setFormData({
+                    ...formData,
+                    ReportsTo: selected ? selected.value : "",
+                  })
                 }
-              }}
-              isLoading={isLoadingDesignations}
-              placeholder="-- Select Designation --"
-              required
-            />
+                onMenuOpen={handleUserMenuOpen}
+                onMenuScrollToBottom={loadMoreUsers}
+                onInputChange={(value) => {
+                  setUserSearch(value);
+                  if (!value) {
+                    setUserPage(0);
+                    loadInitialUsers();
+                  } else {
+                    setUserPage(0);
+                    setUserOptions([]);
+                    setHasMoreUsers(true);
+                  }
+                }}
+                isLoading={isLoadingUsers}
+                placeholder="-- Select Manager --"
+                required
+              />
+            </div>
 
-            <CustomAsyncSelect
-              label="Reports To"
-              options={userOptions}
-              value={userOptions.find((u) => u.value === formData.ReportsTo)}
-              loadOptions={loadUsers}
-              onChange={(selected) =>
-                setFormData({
-                  ...formData,
-                  ReportsTo: selected ? selected.value : "",
-                })
-              }
-              onMenuOpen={handleUserMenuOpen}
-              onMenuScrollToBottom={loadMoreUsers}
-              onInputChange={(value) => {
-                setUserSearch(value);
-                if (!value) {
-                  setUserPage(0);
-                  loadInitialUsers();
-                } else {
-                  setUserPage(0);
-                  setUserOptions([]);
-                  setHasMoreUsers(true);
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <InputField
+                label="Email"
+                name="EmailID"
+                type="email"
+                value={formData.EmailID}
+                onChange={handleChange}
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                title="Please enter a valid email address"
+              />
+              <InputField
+                label="Login ID"
+                name="LoginID"
+                value={formData.LoginID}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <PasswordInput
+                label="Password"
+                name="Password"
+                value={formData.Password}
+                onChange={handleChange}
+                showPassword={showPassword}
+                toggleShowPassword={() => setShowPassword(!showPassword)}
+                required
+                error={
+                  formData.Password &&
+                  formData.ConfirmPassword &&
+                  formData.Password !== formData.ConfirmPassword
+                    ? "Passwords do not match"
+                    : ""
                 }
-              }}
-              isLoading={isLoadingUsers}
-              placeholder="-- Select Manager --"
-              required
-            />
-          </div>
+              />
+              <PasswordInput
+                label="Confirm Password"
+                name="ConfirmPassword"
+                value={formData.ConfirmPassword}
+                onChange={handleChange}
+                showPassword={showConfirmPassword}
+                toggleShowPassword={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+                required
+                error={
+                  formData.Password &&
+                  formData.ConfirmPassword &&
+                  formData.Password !== formData.ConfirmPassword
+                    ? "Passwords do not match"
+                    : ""
+                }
+              />
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <InputField
-              label="Email"
-              name="EmailID"
-              type="email"
-              value={formData.EmailID}
-              onChange={handleChange}
-              required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              title="Please enter a valid email address"
-            />
-            <InputField
-              label="Login ID"
-              name="LoginID"
-              value={formData.LoginID}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <PasswordInput
-              label="Password"
-              name="Password"
-              value={formData.Password}
-              onChange={handleChange}
-              showPassword={showPassword}
-              toggleShowPassword={() => setShowPassword(!showPassword)}
-              required
-              error={
-                formData.Password &&
-                formData.ConfirmPassword &&
-                formData.Password !== formData.ConfirmPassword
-                  ? "Passwords do not match"
-                  : ""
+            <RadioGroup
+              label="Induction Required"
+              name="InductionRequire"
+              value={formData.InductionRequire}
+              onChange={(value) =>
+                setFormData({ ...formData, InductionRequire: value })
               }
+              options={[
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
+              ]}
             />
-            <PasswordInput
-              label="Confirm Password"
-              name="ConfirmPassword"
-              value={formData.ConfirmPassword}
-              onChange={handleChange}
-              showPassword={showConfirmPassword}
-              toggleShowPassword={() =>
-                setShowConfirmPassword(!showConfirmPassword)
-              }
-              required
-              error={
-                formData.Password &&
-                formData.ConfirmPassword &&
-                formData.Password !== formData.ConfirmPassword
-                  ? "Passwords do not match"
-                  : ""
-              }
-            />
-          </div>
 
-          <RadioGroup
-            label="Induction Required"
-            name="InductionRequire"
-            value={formData.InductionRequire}
-            onChange={(value) =>
-              setFormData({ ...formData, InductionRequire: value })
-            }
-            options={[
-              { value: true, label: "Yes" },
-              { value: false, label: "No" },
-            ]}
-          />
-
-          <div className="flex justify-end gap-2 mt-6 flex-wrap">
-            <button
-              type="submit"
-              className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end gap-2 mt-6 flex-wrap">
+              <button
+                type="submit"
+                className="primaryButton"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="secondaryButton"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

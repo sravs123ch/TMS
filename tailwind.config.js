@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontSize: {
         inputFieldLabelSize: "1rem",
+        tableHeading:"2rem"
       },
       colors: {
         primary: "var(--primary-color)",
@@ -12,6 +13,7 @@ module.exports = {
         light: "var(--light-color)",
         white: "var(--color-white)",
         inputFieldLabelColor: "black",
+        tableHeading: "red",
         submit: "",
         cancel: {
           50:"#a64932",

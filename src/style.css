@@ -25,9 +25,24 @@
   @apply bg-white rounded-xl p-1 font-sans text-black flex flex-col h-full overflow-hidden box-border;
 }
 .heading {
-  @apply text-2xl font-semibold text-[--primary-color];
+  @apply text-2xl font-semibold text-[--primary-color] mb-4;
 }
 
+.tableHeaderLayout {
+  @apply flex justify-between items-center mb-8;
+}
+
+.tableWhiteCardContainer {
+  @apply bg-white p-3 rounded-2xl shadow mb-6;
+}
+
+.primaryButton{
+  @apply bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium
+}
+
+.secondaryButton{
+  @apply bg-gray-300  text-black px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium
+}
 /* You can also define utility classes if needed */
 .bg-brown-primary {
   background-color: var(--color-brown-primary);
@@ -54,9 +69,9 @@
 }
 
 .icon-md {
-  @apply w-4 h-4; 
+  @apply w-4 h-4;
 }
 
- .btn-cancel {
-    @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium;
-  }
+.btn-cancel {
+  @apply bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium;
+}
