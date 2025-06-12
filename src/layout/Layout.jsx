@@ -15,10 +15,14 @@ const Layout = () => {
       <Header toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-[5px]">
         <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className="flex-1 h-full overflow-y-auto">
-          <div className="container mx-auto">
-            <Outlet />
-          </div>
+
+        {/* Main Content */}
+        <main
+          className={`flex-1 h-full mt-1 overflow-y-auto   md:pl-0 transition-all duration-300 ${
+            sidebarOpen ? "mx-auto max-w-[1280px]" : "ml-0"
+          }`}
+        >
+          <Outlet />
         </main>
       </div>
     </div>

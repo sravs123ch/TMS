@@ -13,7 +13,7 @@ import {
   forgotPassword,
 } from "../../services/auth/LoginService";
 import AnimationFile from "../../assets/Animation.lottie";
-
+ 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -38,13 +38,13 @@ const Login = () => {
     long: "0",
   });
   const [showAnimation, setShowAnimation] = useState(false);
-
+ 
   useEffect(() => {
     // Delay animation load after initial render
     const timer = setTimeout(() => setShowAnimation(true), 300);
     return () => clearTimeout(timer);
   }, []);
-
+ 
   // Fetch location data when component mounts
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -60,25 +60,25 @@ const Login = () => {
         // Keep default values if location fetch fails
       }
     };
-
+ 
     fetchLocationData();
   }, []);
-
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors({ username: "", password: "", general: "" });
-
+ 
     const newErrors = {};
     if (!username.trim()) newErrors.username = "Username is required";
     if (!password) newErrors.password = "Password is required";
-
+ 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setIsLoading(false);
       return;
     }
-
+ 
     try {
       const response = await login(
         username,
@@ -87,13 +87,13 @@ const Login = () => {
         locationData.lat,
         locationData.long
       );
-
+ 
       if (response) {
         sessionStorage.setItem("userData", JSON.stringify(response.userMaster));
         sessionStorage.setItem("authToken", response.token);
         sessionStorage.setItem("plantId", response.userMaster.plantID);
         sessionStorage.setItem("userId", response.userMaster.userID);
-
+ 
         toast.success("Login successful!", {
           position: "top-right",
           autoClose: 2000,
@@ -102,7 +102,7 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
         });
-
+ 
         // Check if password reset is required
         if (response.userMaster.isReset === true) {
           setTimeout(() => navigate("/profile/password-change"), 2000);
@@ -116,10 +116,10 @@ const Login = () => {
         error.response?.data?.header?.messages?.[0]?.messageText ||
         "Login failed";
       const currentFailedAttempts = error.response?.data?.failedAttempts || 0;
-
+ 
       setFailedAttempts(currentFailedAttempts);
       setErrors((prev) => ({ ...prev, general: errorMessage }));
-
+ 
       toast.error(errorMessage, {
         position: "top-right",
         autoClose: currentFailedAttempts < 0 ? 5000 : 3000,
@@ -129,13 +129,12 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
-
+ 
   const handleForgotSubmit = async (e) => {
     e.preventDefault();
     setForgotLoading(true);
     setErrors((prev) => ({ ...prev, general: "" }));
-
+ 
     try {
       const res = await forgotPassword(forgotUsername);
       const messages = res.header?.messages || [];
@@ -145,7 +144,7 @@ const Login = () => {
       const infoMessages = messages
         .filter((msg) => msg.messageLevel === "Information")
         .map((msg) => msg.messageText);
-
+ 
       if (res.header?.errorCount === 0) {
         infoMessages.forEach((msg, idx) =>
           toast.success(msg, {
@@ -181,18 +180,18 @@ const Login = () => {
       setForgotLoading(false);
     }
   };
-
+ 
   const handleResetSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors((prev) => ({ ...prev, reset: "" }));
-
+ 
     try {
       const response = await resetPassword(resetUsername);
-
+ 
       const errorCount = response?.header?.errorCount;
       const errorMsg = response?.header?.messages?.[0]?.messageText;
-
+ 
       if (errorCount && errorCount > 0) {
         setErrors((prev) => ({
           ...prev,
@@ -232,11 +231,11 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
+ 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleLogin(e);
   };
-
+ 
   return (
     <div
       className="min-h-screen w-screen relative flex flex-col overflow-hidden bg-primary"
@@ -270,12 +269,12 @@ const Login = () => {
           </div>
         )}
       </div>
-
+ 
       {/* Mobile Top Logo */}
       <div className="w-full flex justify-center py-4 md:hidden z-20 relative">
         <img src={logo} alt="Logo" className="h-16" />
       </div>
-
+ 
       {/* Main Content */}
       <div className="relative z-20 flex flex-1 gap-80 w-full">
         
@@ -283,35 +282,34 @@ const Login = () => {
           <div className="flex flex-col h-full">
            
             <div className="mb-0">
-              <div className="h-32 w-32 rounded-lg flex items-center  font-bold">
+              <div className="h-40 w-40 rounded-lg flex items-center  font-bold">
                 <img src={logo} alt="Logo" />
               </div>
             </div>
 
            
             <div className="max-w-xl">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
-                Welcome to <br />
-                Training Management
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-primary whitespace-nowrap">
+                Welcome to Training Management
               </h1>
+ 
               <p className="text-lg text-[var(--color-gray-dark)] mb-12">
                 Streamline your organization's learning and development programs
               </p>
             </div>
-
           </div>
         </div>
 
         
 
         <div className="flex-1 flex items-center justify-center p-4 sm:p-8 bg-primary md:bg-transparent">
-          <div className="bg-primary rounded-2xl p-8 w-full max-w-md shadow-lg border border-[var(--color-gray-medium)]">
+          <div className="bg-primary rounded-2xl p-8 w-full max-w-lg shadow-lg border border-[var(--color-gray-medium)]">
             <div className="mb-8 text-center">
               <h2 className="text-2xl font-bold text-white">
                 Sign In to Your Account
               </h2>
             </div>
-
+ 
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-white">
@@ -337,7 +335,7 @@ const Login = () => {
                   </div>
                 )}
               </div>
-
+ 
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-medium text-white">
@@ -373,7 +371,7 @@ const Login = () => {
                   </div>
                 )}
               </div>
-
+ 
               {errors.general && (
                 <div className="p-3 bg-[var(--color-error-light)] text-[var(--color-error-dark)] rounded-lg text-sm">
                   {errors.general}
@@ -385,7 +383,7 @@ const Login = () => {
                   {failedAttempts === 1 ? "attempt" : "attempts"} remaining
                 </div>
               )}
-
+ 
               <div className="flex justify-end">
                 <button
                   type="button"
@@ -396,7 +394,7 @@ const Login = () => {
                   Forgot password?
                 </button>
               </div>
-
+ 
               <button
                 type="submit"
                 className="w-full py-3 px-4 bg-white text-primary font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary isabled:opacity-50"
@@ -430,7 +428,7 @@ const Login = () => {
                   "Sign In"
                 )}
               </button>
-
+ 
               {failedAttempts < 0 && (
                 <button
                   type="button"
@@ -442,7 +440,7 @@ const Login = () => {
                 </button>
               )}
             </form>
-
+ 
             <div className="mt-8 text-center text-sm text-white">
               <p>
                 Don't have an account?{" "}
@@ -457,7 +455,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-
+ 
       {/* Forgot Password Modal */}
       {showForgotModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -512,7 +510,7 @@ const Login = () => {
           </div>
         </div>
       )}
-
+ 
       {/* Reset Password Modal */}
       {showResetModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -582,5 +580,5 @@ const Login = () => {
     </div>
   );
 };
-
+ 
 export default Login;

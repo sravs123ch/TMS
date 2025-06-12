@@ -25,7 +25,8 @@ import {
 } from "../../../components/common/Table/CustomTablePagination";
 import TableRow from "@mui/material/TableRow";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
-import Spinner from "../../../components/common/Spinner";
+import { constants } from "../../../utils/constants";
+
 const UserMaster = () => {
   const navigate = useNavigate();
   const { setUserId, setUserDetails } = useContext(UserContext);
@@ -33,8 +34,8 @@ const UserMaster = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [page, setPage] = useState(0); 
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(constants.rowsPerPage);
   const [loading, setLoading] = useState(true);
   const [totalRecords, setTotalRecords] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -44,9 +45,8 @@ const UserMaster = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-      setPage(0); 
-    }, 500); 
-
+      setPage(0);
+    }, 500);
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
@@ -68,10 +68,7 @@ const UserMaster = () => {
           toast.error(message.messageText);
         }
 
-        if (
-          data.header?.errorCount === 0 &&
-          Array.isArray(data.usersBasicInfo)
-        ) {
+        if (data.header?.errorCount === 0 && Array.isArray(data.usersBasicInfo)) {
           setUsers(data.usersBasicInfo);
           setTotalRecords(data.totalRecord || 0);
         } else {
@@ -94,15 +91,14 @@ const UserMaster = () => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); 
+    setPage(0);
   };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleAddUserClick = () =>
-    navigate("/system-admin/user-master/add-user");
+  const handleAddUserClick = () => navigate("/system-admin/user-master/add-user");
 
   const handleEditUserClick = (user) => {
     try {
@@ -160,8 +156,7 @@ const UserMaster = () => {
         setRefreshKey((prev) => prev + 1);
       } else {
         const errorMsg =
-          response.header?.messages?.[0]?.messageText ||
-          "Failed to deactivate user.";
+          response.header?.messages?.[0]?.messageText || "Failed to deactivate user.";
         toast.error(errorMsg);
       }
     } catch (error) {
@@ -207,105 +202,108 @@ const UserMaster = () => {
       )}
 
       <div className="main-container">
-          <div className="container">
-        <div className="body-container">
-          <h2 className="heading">User Master</h2>
-          <SearchAddBar
-            searchTerm={searchTerm}
-            onSearchChange={handleSearchChange}
-            onAddClick={handleAddUserClick}
-          />
-        </div>
+        {/* White card container */}
+        <div className="tableWhiteCardContainer">
+          <div className="tableHeaderLayout">
+            <h2 className="heading">User Master</h2>
+            <SearchAddBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+              onAddClick={handleAddUserClick}
+            />
+          </div>
 
-        <TableContainer component={Paper}>
-          <Table className="min-w-full">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell>Department</StyledTableCell>
-                <StyledTableCell>Designation</StyledTableCell>
-                <StyledTableCell>Role</StyledTableCell>
-                <StyledTableCell>Actions</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {loading ? (
-                <StyledTableRow>
-                  <StyledTableCell colSpan={5}>
-                       <Spinner />
-                  </StyledTableCell>
-                </StyledTableRow>
-              ) : users.length > 0 ? (
-                users.map((user, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="shrink-0 relative">
-                          <img
-                            src={profile}
-                            alt="profile"
-                            className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
-                            onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = "default-profile.png";
-                            }}
-                          />
-                        </div>
-                        <span>{`${user.firstName} ${user.lastName}`}</span>
-                      </div>
-                    </StyledTableCell>
-                    <StyledTableCell>{user.departmentName}</StyledTableCell>
-                    <StyledTableCell>{user.designationName}</StyledTableCell>
-                    <StyledTableCell>{user.roleName || "-"}</StyledTableCell>
-                    <StyledTableCell>
-                      <div className="flex space-x-2 items-center h-10">
-                        <button
-                          onClick={() => handleEditUserClick(user)}
-                          className="icon-btn edit"
-                          title="Edit User"
-                        >
-                          <FaEdit className="icon-md" />
-                        </button>
-                        <button
-                          onClick={() => handleDeactivateClick(user)}
-                          className="icon-btn delete"
-                          title="Deactivate User"
-                        >
-                          <FcCancel className="icon-md" />
-                        </button>
+          <TableContainer component={Paper} className="shadow-none">
+            <Table className="min-w-full">
+              <TableHead >
+                <TableRow>
+                  <StyledTableCell>Name</StyledTableCell>
+                  <StyledTableCell>Department</StyledTableCell>
+                  <StyledTableCell>Designation</StyledTableCell>
+                  <StyledTableCell>Role</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading ? (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={5}>
+                      <div className="flex justify-center p-4">
+                        <div className="loader"></div>
                       </div>
                     </StyledTableCell>
                   </StyledTableRow>
-                ))
-              ) : (
-                <StyledTableRow>
-                  <StyledTableCell colSpan={5}>
-                    <div className="text-center py-4 text-sm text-gray-500">
-                      No users found.
-                    </div>
-                  </StyledTableCell>
-                </StyledTableRow>
-              )}
-            </TableBody>
-
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  rowsPerPageOptions={[5, 10, 25]}
-                  count={totalRecords}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActions}
-                  colSpan={5}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </TableContainer>
+                ) : users.length > 0 ? (
+                  users.map((user, index) => (
+                    <StyledTableRow key={index}>
+                      <StyledTableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="shrink-0 relative">
+                            <img
+                              src={profile}
+                              alt="profile"
+                              className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "default-profile.png";
+                              }}
+                            />
+                          </div>
+                          <span>{`${user.firstName} ${user.lastName}`}</span>
+                        </div>
+                      </StyledTableCell>
+                      <StyledTableCell>{user.departmentName}</StyledTableCell>
+                      <StyledTableCell>{user.designationName}</StyledTableCell>
+                      <StyledTableCell>{user.roleName || "-"}</StyledTableCell>
+                      <StyledTableCell>
+                        <div className="flex space-x-2 items-center h-10">
+                          <button
+                            onClick={() => handleEditUserClick(user)}
+                            className="icon-btn edit"
+                            title="Edit User"
+                          >
+                            <FaEdit className="icon-md" />
+                          </button>
+                          <button
+                            onClick={() => handleDeactivateClick(user)}
+                            className="icon-btn delete"
+                            title="Deactivate User"
+                          >
+                            <FcCancel className="icon-md" />
+                          </button>
+                        </div>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={5}>
+                      <div className="text-center py-4 text-sm text-gray-500">
+                        No users found.
+                      </div>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={totalRecords}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                    colSpan={5}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
-      </div>
+     
     </>
   );
 };

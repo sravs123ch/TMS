@@ -21,6 +21,8 @@ import {
   TablePagination,
   Paper,
 } from "../../../components/common/Table/CustomTablePagination";
+import { constants } from "../../../utils/constants";
+
 import Modal from "../../../components/common/Modal";
 import TableRow from "@mui/material/TableRow";
 import SearchAddBar from "../../../components/common/ui/SearchButton";
@@ -31,7 +33,7 @@ const DepartmentMaster = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(constants.rowsPerPage);
   const [totalRecords, setTotalRecords] = useState(0);
   const { setDepartmentDetails } = useContext(DepartmentContext);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -149,83 +151,85 @@ const DepartmentMaster = () => {
         pauseOnHover
       />
 
-      <div className="main-container">
-         <div className="body-container">
-            <h2 className="heading">Department Master</h2>
-            <div className="flex gap-2.5 flex-wrap">
-              <SearchAddBar
-                searchTerm={searchTerm}
-                onSearchChange={handleSearchChange}
-                onAddClick={handleAddDeaprtmentClick}
-              />
-            </div>
+      <div className="main-container ">
+        <div className="flex justify-between items-center flex-wrap gap-4">
+          <h2 className="heading">Department Master</h2>
+          <div className="flex gap-2.5 flex-wrap">
+            <SearchAddBar
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+              onAddClick={handleAddDeaprtmentClick}
+            />
           </div>
+        </div>
 
-            <TableContainer component={Paper} className="shadow-none">
-              <Table stickyHeader aria-label="department table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Department Name</StyledTableCell>
-                    <StyledTableCell>Actions</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {isLoading ? (
-                    <StyledTableRow>
-                      <StyledTableCell colSpan={2} className="text-center py-5">
-                       <Spinner />
+        <div className="mt-5 flex-grow h-[70%] overflow-auto relative scrollbar-thin scrollbar-thumb-teal-600 scrollbar-track-gray-100 pb-5">
+          <TableContainer component={Paper} className="shadow-none">
+            <Table stickyHeader aria-label="department table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Department Name</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {isLoading ? (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={2} className="text-center py-5">
+                      <div className="border-4 border-gray-200 border-t-teal-600 rounded-full w-10 h-10 animate-spin mx-auto"></div>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ) : departments.length > 0 ? (
+                  departments.map((item, index) => (
+                    <StyledTableRow key={index}>
+                      <StyledTableCell>{item.departmentName}</StyledTableCell>
+                      <StyledTableCell>
+                        <div className="flex gap-3 items-center h-full">
+                          <button
+                            onClick={() => handleEditDepartment(item)}
+                            className="icon-btn edit"
+                            title="Edit User"
+                          >
+                            <FaEdit className="icon-md" />
+                          </button>
+
+                          <button
+                            onClick={() => handleDeleteDepartment(item)}
+                            className="icon-btn delete"
+                            title="Deactivate User"
+                          >
+                            <FcCancel className="icon-md" />
+                          </button>
+                        </div>
                       </StyledTableCell>
                     </StyledTableRow>
-                  ) : departments.length > 0 ? (
-                    departments.map((item, index) => (
-                      <StyledTableRow key={index}>
-                        <StyledTableCell>{item.departmentName}</StyledTableCell>
-                        <StyledTableCell>
-                          <div className="flex gap-3 items-center h-full">
-                            <button
-                              onClick={() => handleEditDepartment(item)}
-                              className="icon-btn edit"
-                              title="Edit User"
-                            >
-                              <FaEdit className="icon-md" />
-                            </button>
-
-                            <button
-                              onClick={() => handleDeleteDepartment(item)}
-                              className="icon-btn delete"
-                              title="Deactivate User"
-                            >
-                              <FcCancel className="icon-md" />
-                            </button>
-                          </div>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))
-                  ) : (
-                    <StyledTableRow>
-                      <StyledTableCell colSpan={2} className="text-center py-5">
-                        No Records found.
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  )}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25]}
-                      count={totalRecords}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActions}
-                      className="border-none"
-                    />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </TableContainer>
-          </div>
+                  ))
+                ) : (
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={2} className="text-center py-5">
+                      No Records found.
+                    </StyledTableCell>
+                  </StyledTableRow>
+                )}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={totalRecords}
+                    rowsPerPage={constants.rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                    className="border-none"
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
+        </div>
+      </div>
 
       {showDeleteModal && (
         <Modal

@@ -14,8 +14,8 @@ import {
   LogOut,
 } from "lucide-react";
 import { motion } from "framer-motion";
-
-
+ 
+ 
 const menuItems = [
   {
     name: "Dashboard",
@@ -93,20 +93,20 @@ const menuItems = [
     ],
   },
 ];
-
+ 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [isMinimized, setIsMinimized] = useState(false);
-const [timeLeft, setTimeLeft] = useState(0); 
-
+const [timeLeft, setTimeLeft] = useState(0);
+ 
   useEffect(() => {
     const userData = localStorage.getItem("userData");
     if (userData) {
       setLogindata(JSON.parse(userData));
     }
-
+ 
     const selectedPlant = localStorage.getItem("selectedPlant");
     if (selectedPlant) {
       try {
@@ -116,15 +116,15 @@ const [timeLeft, setTimeLeft] = useState(0);
       }
     }
   }, []);
-
-
+ 
+ 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
+ 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768 && isOpen) {
@@ -134,7 +134,7 @@ const [timeLeft, setTimeLeft] = useState(0);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [isOpen, toggleSidebar]);
-
+ 
   useEffect(() => {
     menuItems.forEach((item) => {
       if (item.subItems) {
@@ -156,19 +156,19 @@ const [timeLeft, setTimeLeft] = useState(0);
       }
     });
   }, [location.pathname]);
-
-
+ 
+ 
   const toggleSubmenu = (name) => {
     setOpenSubmenu(openSubmenu === name ? null : name);
   };
-
+ 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
     localStorage.removeItem("selectedPlant");
     navigate("/");
   };
-
+ 
   const getPath = (main, sub = null) => {
     const mainSlug = main
       .toLowerCase()
@@ -183,7 +183,7 @@ const [timeLeft, setTimeLeft] = useState(0);
     }
     return `/${mainSlug}`;
   };
-
+ 
   const submenuVariants = {
     open: {
       height: "auto",
@@ -205,7 +205,7 @@ const [timeLeft, setTimeLeft] = useState(0);
           onClick={toggleSidebar}
         />
       )}
-
+ 
       {/* Sidebar */}
       <aside
         className={`rounded-lg fixed top-0 left-0 z-30 bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 ${
@@ -233,10 +233,10 @@ const [timeLeft, setTimeLeft] = useState(0);
               </button>
             </div>
           </div>
-
+ 
           <nav className="flex-1 space-y-1 px-2 py-4 overflow-auto">
             {menuItems.map((item) => {
-              const IconComponent = item.icon; 
+              const IconComponent = item.icon;
               const mainSlug = item.name
                 .toLowerCase()
                 .replace(/\s+/g, '-')
@@ -253,7 +253,7 @@ const [timeLeft, setTimeLeft] = useState(0);
                     return location.pathname.startsWith(subPath);
                   }));
               const isSubmenuOpen = openSubmenu === item.name;
-
+ 
               if (isMinimized) {
                 return (
                   <div key={item.name} className="relative">
@@ -270,7 +270,7 @@ const [timeLeft, setTimeLeft] = useState(0);
                           ? 'bg-[--light-color] text-[--primary-color] dark:bg-gray-700 dark:text-blue-300'
                           : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
                       }`}
-                      title={item.name} 
+                      title={item.name}
                     >
                       <IconComponent
                         className={`h-5 w-5 ${
@@ -280,7 +280,7 @@ const [timeLeft, setTimeLeft] = useState(0);
                         }`}
                       />
                     </button>
-
+ 
                     {/* Show submenu indicator if open in minimized mode */}
                     {isSubmenuOpen && item.subItems && (
                       <div className="absolute top-1 right-1 w-2 h-2 bg-[--primary-color] rounded-full"></div>
@@ -288,7 +288,7 @@ const [timeLeft, setTimeLeft] = useState(0);
                   </div>
                 );
               }
-
+ 
               return (
                 <div key={item.name}>
                   <div
@@ -325,7 +325,7 @@ const [timeLeft, setTimeLeft] = useState(0);
                       />
                     )}
                   </div>
-
+ 
                   {item.subItems && (
                     <motion.div
                       variants={submenuVariants}
@@ -363,7 +363,7 @@ const [timeLeft, setTimeLeft] = useState(0);
               );
             })}
           </nav>
-
+ 
           <div className="p-4 border-t dark:border-gray-700">
             <button
               className="flex items-center w-full px-4 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors duration-150"
@@ -382,5 +382,5 @@ const [timeLeft, setTimeLeft] = useState(0);
     </>
   );
 };
-
+ 
 export default Sidebar;
