@@ -189,7 +189,7 @@ const PlantMaster = () => {
                     <StyledTableRow key={item.plantID}>
                       <StyledTableCell>{item.plantName}</StyledTableCell>
                       <StyledTableCell>
-                        <div className="flex gap-3 items-center h-full">
+                        <div className="icon-btn-div">
                           <button
                             onClick={() => handleEditPlant(item)}
                             className="icon-btn edit"

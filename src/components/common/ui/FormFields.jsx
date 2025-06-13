@@ -18,6 +18,7 @@ export const InputField = ({
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <input
+   
       type={type}
       name={name}
       value={value}
@@ -26,7 +27,7 @@ export const InputField = ({
       pattern={pattern}
       title={title}
       placeholder={placeholder}
-      className={`w-full p-2 border ${
+      className={`w-full p-2 border h-12 ${
         error ? "border-red-500" : "border-gray-300"
       } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm ${
         error ? "ring-1 ring-red-500" : ""
@@ -217,7 +218,7 @@ export const EnhancedInputField = ({
         required={required}
         placeholder={placeholder}
         rows={rows}
-        className={`w-full p-2 border ${
+        className={`w-full p-2 border h-12 ${
           error ? "border-red-500" : "border-gray-300"
         } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm ${
           error ? "ring-1 ring-red-500" : ""

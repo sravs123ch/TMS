@@ -25,14 +25,14 @@
   @apply bg-white rounded-xl p-1 font-sans text-black flex flex-col h-full overflow-hidden box-border;
 }
 .heading {
-  @apply text-2xl font-semibold text-[--primary-color] mb-4;
+  @apply text-2xl font-semibold text-[--primary-color] 
 }
 .sub-heading {
   @apply text-lg font-semibold text-[--primary-color] mb-2;
 }
 
 .tableHeaderLayout {
-  @apply flex justify-between items-center mb-8;
+  @apply flex justify-between items-center mb-8  ;
 }
 
 .tableWhiteCardContainer {
@@ -44,7 +44,7 @@
 }
 
 .secondaryButton {
-  @apply bg-gray-300  text-black px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium;
+  @apply bg-gray-300  text-black px-4 py-2 rounded-lg hover:bg-gray-100  transition-colors font-medium;
 }
 
 .noData {
@@ -55,6 +55,9 @@
   @apply flex items-center gap-2;
 }
 
+.profile-avatar {
+  @apply h-8 w-8 rounded-full object-cover border border-[var(--primary-color)];
+}
 /* You can also define utility classes if needed */
 .bg-brown-primary {
   background-color: var(--color-brown-primary);
@@ -70,6 +73,10 @@
 
 .icon-btn {
   @apply p-1 rounded transition-colors duration-200;
+}
+
+.icon-btn-div {
+  @apply flex space-x-2 items-center h-8;
 }
 
 .icon-btn.edit {

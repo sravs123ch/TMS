@@ -184,7 +184,7 @@ const DepartmentMaster = () => {
                     <StyledTableRow key={index}>
                       <StyledTableCell>{item.departmentName}</StyledTableCell>
                       <StyledTableCell>
-                        <div className="flex gap-3 items-center h-full">
+                        <div className="icon-btn-div">
                           <button
                             onClick={() => handleEditDepartment(item)}
                             className="icon-btn edit"

@@ -189,14 +189,14 @@ const AddPlantAssignment = () => {
             <div className="flex space-x-4 justify-end">
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="primaryButton"
               >
                 Submit
               </button>
               <button
                 type="button"
                 onClick={handleCancel}
-                className="btn-cancel"
+                className="secondaryButton"
               >
                 Cancel
               </button>

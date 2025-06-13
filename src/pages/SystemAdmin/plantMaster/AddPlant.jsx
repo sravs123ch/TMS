@@ -52,45 +52,44 @@ const AddPlant = () => {
   };
 
   return (
-      <div className="main-container">
+    <div className="main-container">
       <ToastContainer position="top-right" autoClose={1500} />
 
       {loading && <Spinner />}
-
-      <form
-        onSubmit={handleSubmit}
-      >
+      <div className="tableWhiteCardContainer">
+        <form onSubmit={handleSubmit}>
           <h3 className="heading">Add Plant</h3>
-   <div className="relative mt-6 mb-6">
-        <InputField
-          label="Plant Name"
-          name="plantName"
-          placeholder="Enter Plant Name"
-          required
-          value={formData.plantName}
-          onChange={handleChange}
-        />
+          <div className="relative mt-6 mb-6">
+            <InputField
+              label="Plant Name"
+              name="plantName"
+              placeholder="Enter Plant Name"
+              required
+              value={formData.plantName}
+              onChange={handleChange}
+            />
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+            {error && <p className="text-red-600 text-sm">{error}</p>}
 
-        <div className="flex justify-end gap-4 pt-4">
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-            {loading ? "Creating..." : "Submit"}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-             className="btn-cancel"
-          >
-            Cancel
-          </button>
-        </div>
-        </div>
-      </form>
+            <div className="flex justify-end gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="primaryButton"
+              >
+                {loading ? "Creating..." : "Submit"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="secondaryButton"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

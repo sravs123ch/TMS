@@ -13,13 +13,6 @@ module.exports = {
         light: "var(--light-color)",
         white: "var(--color-white)",
         inputFieldLabelColor: "black",
-        tableHeading: "red",
-        submit: "",
-        cancel: {
-          50:"#a64932",
-          100:"#FF0000"
-        },
-
         gray: {
           light: "var(--color-gray-light)",
           medium: "var(--color-gray-medium)",

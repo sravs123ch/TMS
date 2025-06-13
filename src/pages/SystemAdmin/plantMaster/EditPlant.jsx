@@ -123,14 +123,14 @@ const EditPlant = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="primaryButton"
               >
                 {loading ? "Updating..." : "Update"}
               </button>
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-cancel"
+                className="secondaryButton"
                 disabled={loading}
               >
                 Cancel

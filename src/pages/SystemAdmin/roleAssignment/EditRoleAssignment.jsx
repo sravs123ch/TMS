@@ -179,7 +179,7 @@ const EditRoleAssignment = () => {
           <div className="flex justify-end gap-4 pt-4">
             <button
               type="submit"
-              className="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition disabled:opacity-60"
+              className="primaryButton"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Updating..." : "Update"}
@@ -187,7 +187,7 @@ const EditRoleAssignment = () => {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+              className="secondaryButton"
             >
               Cancel
             </button>
