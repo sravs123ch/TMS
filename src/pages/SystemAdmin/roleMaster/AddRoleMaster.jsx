@@ -114,14 +114,14 @@ const AddRole = () => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-[--primary-color] text-white px-4 py-2 rounded-lg hover:bg-[--primary-color] transition-colors font-medium"
+              className="primaryButton"
             >
               {loading ? "Submitting..." : "Submit"}
             </button>
             <button
               onClick={() => navigate(-1)}
               disabled={loading}
-              className="btn-cancel"
+              className="secondaryButton"
             >
               Cancel
             </button>

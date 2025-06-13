@@ -186,7 +186,7 @@ const DesignationMaster = () => {
                     <StyledTableRow key={item.designationID}>
                       <StyledTableCell>{item.designationName}</StyledTableCell>
                       <StyledTableCell>
-                        <div className="flex gap-3 items-center h-full">
+                        <div className="icon-btn-div">
                           <button
                             onClick={() => handleEditDesignation(item)}
                             className="icon-btn edit"

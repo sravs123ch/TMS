@@ -123,7 +123,7 @@ const RoleAssignment = () => {
                           <img
                             src={profile}
                             alt="profile"
-                            className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                            className="profile-avatar"
                             onError={(e) => {
                               e.target.onerror = null;
                               e.target.src = "default-profile.png";
