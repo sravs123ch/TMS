@@ -132,7 +132,6 @@ const UserMaster = () => {
         userProfileID: user.userProfileID,
       };
 
-      localStorage.setItem("editUserFormData", JSON.stringify(userDataToStore));
       navigate("/system-admin/user-master/edit-user");
     } catch (error) {
       console.error("Error preparing user data for edit:", error);

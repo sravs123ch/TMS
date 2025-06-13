@@ -19,7 +19,7 @@ const Modal = ({ title, message, onConfirm, onCancel }) => {
           >
             Confirm
           </button>
-          <button onClick={onCancel} className="secodnaryButton">
+          <button onClick={onCancel} className="btn-cancel">
             Cancel
           </button>
         </div>

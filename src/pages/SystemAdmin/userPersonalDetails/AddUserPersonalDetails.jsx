@@ -71,13 +71,6 @@ const AddUserPersonalDetails = () => {
 
     try {
       setLoading(true);
-
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        toast.error("Authorization token missing");
-        return;
-      }
-
       const payload = {
         userID: formData.userID,
         address: formData.address,

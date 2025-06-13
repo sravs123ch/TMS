@@ -29,6 +29,7 @@ import {
   EnhancedInputField,
 } from "../../../components/common/ui/FormFields";
 import Spinner from "../../../components/common/Spinner";
+
 const EditUser = () => {
   const navigate = useNavigate();
   const { userDetails } = useContext(UserContext);
@@ -219,27 +220,22 @@ const EditUser = () => {
           loadInitialUsers(),
         ]);
 
-        const storedFormData = JSON.parse(
-          localStorage.getItem("editUserFormData")
-        );
-        const initialData = storedFormData || userDetails;
-
-        if (initialData) {
+        if (userDetails) {
           const formattedData = {
-            userID: initialData.userID || "",
-            EmployeeID: initialData.employeeID || "",
-            FirstName: initialData.firstName || "",
-            LastName: initialData.lastName || "",
-            Gender: initialData.gender || "",
-            CategoryType: initialData.categoryType || "",
-            RoleID: initialData.roleID || "",
-            DepartmentID: initialData.departmentID || "",
-            DesignationID: initialData.designationID || "",
-            ReportsTo: initialData.reportsTo || "",
-            EmailID: initialData.emailID || "",
-            LoginID: initialData.loginID || "",
-            InductionRequire: initialData.inductionRequire === "True" || false,
-            UserProfileID: initialData.userProfileID || "",
+            userID: userDetails.userID || "",
+            EmployeeID: userDetails.employeeID || "",
+            FirstName: userDetails.firstName || "",
+            LastName: userDetails.lastName || "",
+            Gender: userDetails.gender || "",
+            CategoryType: userDetails.categoryType || "",
+            RoleID: userDetails.roleID || "",
+            DepartmentID: userDetails.departmentID || "",
+            DesignationID: userDetails.designationID || "",
+            ReportsTo: userDetails.reportsTo || "",
+            EmailID: userDetails.emailID || "",
+            LoginID: userDetails.loginID || "",
+            InductionRequire: userDetails.inductionRequire === "True" || false,
+            UserProfileID: userDetails.userProfileID || "",
           };
 
           setFormData(formattedData);
@@ -524,12 +520,17 @@ const EditUser = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const updatedFormData = {
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    };
-    setFormData(updatedFormData);
-    localStorage.setItem("editUserFormData", JSON.stringify(updatedFormData));
+    }));
+  };
+
+  const handleSelectChange = (name, selected) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: selected ? selected.value : "",
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -602,7 +603,6 @@ const EditUser = () => {
       const response = await updateUserBasicInfo(payload);
       if (response.header?.errorCount === 0) {
         toast.success("User details updated successfully!");
-        localStorage.removeItem("editUserFormData");
         setTimeout(() => {
           navigate("/system-admin/user-master");
         }, 3000);
@@ -626,30 +626,6 @@ const EditUser = () => {
     setShowReasonModal(false);
     setReasonForChange("");
   };
-
-  if (loading) {
-    return (
-      <>
-        <ToastContainer
-          position="top-right"
-          autoClose={1500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <div className="main-container">
-          <div className="tableWhiteCardContainer">
-          <h3 className="heading">Edit User Master</h3>
-           {loading && <Spinner />}
-        </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -706,17 +682,7 @@ const EditUser = () => {
                       }
                     : null
                 }
-                onChange={(selected) => {
-                  const updatedFormData = {
-                    ...formData,
-                    Gender: selected ? selected.value : "",
-                  };
-                  setFormData(updatedFormData);
-                  localStorage.setItem(
-                    "editUserFormData",
-                    JSON.stringify(updatedFormData)
-                  );
-                }}
+                onChange={(selected) => handleSelectChange("Gender", selected)}
                 className="text-sm"
                 styles={customStyles}
                 placeholder="-- Select Gender --"
@@ -742,17 +708,7 @@ const EditUser = () => {
                   (r) => r.value === Number(formData.RoleID)
                 )}
                 loadOptions={loadRoles}
-                onChange={(selected) => {
-                  const updatedFormData = {
-                    ...formData,
-                    RoleID: selected ? selected.value : "",
-                  };
-                  setFormData(updatedFormData);
-                  localStorage.setItem(
-                    "editUserFormData",
-                    JSON.stringify(updatedFormData)
-                  );
-                }}
+                onChange={(selected) => handleSelectChange("RoleID", selected)}
                 onMenuOpen={() => {
                   if (roleOptions.length === 0) loadInitialRoles();
                 }}
@@ -775,17 +731,7 @@ const EditUser = () => {
                   (d) => d.value === Number(formData.DepartmentID)
                 )}
                 loadOptions={loadDepartments}
-                onChange={(selected) => {
-                  const updatedFormData = {
-                    ...formData,
-                    DepartmentID: selected ? selected.value : "",
-                  };
-                  setFormData(updatedFormData);
-                  localStorage.setItem(
-                    "editUserFormData",
-                    JSON.stringify(updatedFormData)
-                  );
-                }}
+                onChange={(selected) => handleSelectChange("DepartmentID", selected)}
                 onMenuOpen={() => {
                   if (departmentOptions.length === 0) loadInitialDepartments();
                 }}
@@ -811,20 +757,9 @@ const EditUser = () => {
                   (d) => d.value === Number(formData.DesignationID)
                 )}
                 loadOptions={loadDesignations}
-                onChange={(selected) => {
-                  const updatedFormData = {
-                    ...formData,
-                    DesignationID: selected ? selected.value : "",
-                  };
-                  setFormData(updatedFormData);
-                  localStorage.setItem(
-                    "editUserFormData",
-                    JSON.stringify(updatedFormData)
-                  );
-                }}
+                onChange={(selected) => handleSelectChange("DesignationID", selected)}
                 onMenuOpen={() => {
-                  if (designationOptions.length === 0)
-                    loadInitialDesignations();
+                  if (designationOptions.length === 0) loadInitialDesignations();
                 }}
                 onMenuScrollToBottom={loadMoreDesignations}
                 onInputChange={(value) => {
@@ -843,17 +778,7 @@ const EditUser = () => {
                 options={userOptions}
                 value={userOptions.find((u) => u.value === formData.ReportsTo)}
                 loadOptions={loadUsers}
-                onChange={(selected) => {
-                  const updatedFormData = {
-                    ...formData,
-                    ReportsTo: selected ? selected.value : "",
-                  };
-                  setFormData(updatedFormData);
-                  localStorage.setItem(
-                    "editUserFormData",
-                    JSON.stringify(updatedFormData)
-                  );
-                }}
+                onChange={(selected) => handleSelectChange("ReportsTo", selected)}
                 onMenuOpen={() => {
                   if (userOptions.length === 0) loadInitialUsers();
                 }}
@@ -867,7 +792,6 @@ const EditUser = () => {
                 }}
                 isLoading={isLoadingUsers}
                 placeholder="-- Select Manager --"
-                required
               />
             </div>
 
@@ -895,15 +819,10 @@ const EditUser = () => {
               name="InductionRequire"
               value={formData.InductionRequire}
               onChange={(value) => {
-                const updatedFormData = {
-                  ...formData,
+                setFormData(prev => ({
+                  ...prev,
                   InductionRequire: value,
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
+                }));
               }}
               options={[
                 { value: true, label: "Yes" },
@@ -922,7 +841,7 @@ const EditUser = () => {
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="secondaryButton"
+                className="btn-cancel"
               >
                 Cancel
               </button>
@@ -935,6 +854,8 @@ const EditUser = () => {
         <Modal
           title="Reason for Change"
           message={
+              <div className="relative">
+              {loading && <Spinner />}
             <div>
               <p className="mb-4">
                 Please provide a reason for updating the user "
@@ -949,6 +870,7 @@ const EditUser = () => {
                 rows={4}
                 required
               />
+            </div>
             </div>
           }
           onConfirm={handleConfirmUpdate}
