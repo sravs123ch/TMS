@@ -10,7 +10,7 @@ import {
   CustomAsyncSelect,
   EnhancedInputField,
 } from "../../../components/common/ui/FormFields";
-import CustomSelect from "../../../components/common/ui/CustomSelect"
+import CustomSelect from "../../../components/common/ui/CustomSelect";
 import {
   getInductionAssignmentById,
   updateInductionAssignment,
@@ -53,7 +53,7 @@ const EditInductionAssign = () => {
               inductionID: result.inductionID,
               userID: result.userID,
               userName: `${result.firstName} ${result.lastName}`,
-             dueDate: result.dueDate ? new Date(result.dueDate) : null,
+              dueDate: result.dueDate ? new Date(result.dueDate) : null,
               remarks: result.remarks || "",
               inductionStatus: result.inductionStatus || "",
             };
@@ -145,8 +145,6 @@ const EditInductionAssign = () => {
       <div className="max-container">
         <div className="tableWhiteCardContainer">
           <form onSubmit={handleSubmit}>
-            {loading && <Spinner />}
-
             <h3 className="heading">Edit Induction Assignment</h3>
 
             <div className="mb-4">
@@ -183,47 +181,25 @@ const EditInductionAssign = () => {
               placeholder="Optional remarks"
             />
 
-            {/* <div className="mb-4">
+            <div className="mb-4">
               <label className="block text-sm font-medium mb-1">
                 Induction Status
               </label>
-              <CustomAsyncSelect
-                value={
-                  formData.inductionStatus
-                    ? {
-                        label: formData.inductionStatus,
-                        value: formData.inductionStatus,
-                      }
-                    : null
+              <CustomSelect
+                value={formData.inductionStatus}
+                onChange={(value) =>
+                  setFormData((prev) => ({ ...prev, inductionStatus: value }))
                 }
-                onChange={(option) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    inductionStatus: option?.value || "",
-                  }))
-                }
-                options={statusOptions}
+                options={["Assigned", "InProgress", "Completed", "Overdue"]}
                 placeholder="--Select Status--"
               />
-            </div> */}
-            <div className="mb-4">
-  <label className="block text-sm font-medium mb-1">Induction Status</label>
-  <CustomSelect
-    value={formData.inductionStatus}
-    onChange={(value) =>
-      setFormData((prev) => ({ ...prev, inductionStatus: value }))
-    }
-    options={["Assigned", "InProgress", "Completed", "Overdue"]}
-    placeholder="--Select Status--"
-  />
-</div>
-
+            </div>
 
             <div className="flex justify-end gap-3 mt-6">
               <button
                 type="submit"
                 disabled={loading}
-                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-submit"
               >
                 {loading ? "Updating..." : "Update"}
               </button>
@@ -242,19 +218,26 @@ const EditInductionAssign = () => {
         <Modal
           title="Reason for Change"
           message={
-            <div>
-              <p className="text-sm text-gray-600 mb-2">
-                Please provide a reason for updating the Induction Assignment
-                for "{formData.userName}"
-              </p>
-              <textarea
-                value={reasonForChange}
-                onChange={(e) => setReasonForChange(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 mt-2"
-                placeholder="Please provide a reason for this change..."
-                rows={4}
-                required
-              />
+            <div className="relative">
+              {loading && (
+                <div className="spinner-position-addpages">
+                  <Spinner />
+                </div>
+              )}
+              <div>
+                <p className="text-sm text-gray-600 mb-2">
+                  Please provide a reason for updating the Induction Assignment
+                  for "{formData.userName}"
+                </p>
+                <textarea
+                  value={reasonForChange}
+                  onChange={(e) => setReasonForChange(e.target.value)}
+                  className="w-full border border-gray-300 rounded px-3 py-2 mt-2"
+                  placeholder="Please provide a reason for this change..."
+                  rows={4}
+                  required
+                />
+              </div>
             </div>
           }
           onConfirm={handleConfirmUpdate}

@@ -152,18 +152,18 @@ const DepartmentMaster = () => {
       />
 
       <div className="main-container ">
-        <div className="flex justify-between items-center flex-wrap gap-4">
-          <h2 className="heading">Department Master</h2>
-          <div className="flex gap-2.5 flex-wrap">
-            <SearchAddBar
-              searchTerm={searchTerm}
-              onSearchChange={handleSearchChange}
-              onAddClick={handleAddDeaprtmentClick}
-            />
+        <div className="tableWhiteCardContainer">
+          <div className="body-container">
+            <h2 className="heading">Department Master</h2>
+            <div className="flex gap-2.5 flex-wrap">
+              <SearchAddBar
+                searchTerm={searchTerm}
+                onSearchChange={handleSearchChange}
+                onAddClick={handleAddDeaprtmentClick}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="mt-5 flex-grow h-[70%] overflow-auto relative scrollbar-thin scrollbar-thumb-teal-600 scrollbar-track-gray-100 pb-5">
           <TableContainer component={Paper} className="shadow-none">
             <Table stickyHeader aria-label="department table">
               <TableHead>
@@ -175,8 +175,8 @@ const DepartmentMaster = () => {
               <TableBody>
                 {isLoading ? (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
-                      <div className="border-4 border-gray-200 border-t-teal-600 rounded-full w-10 h-10 animate-spin mx-auto"></div>
+                    <StyledTableCell colSpan={5}>
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
                 ) : departments.length > 0 ? (
@@ -206,7 +206,7 @@ const DepartmentMaster = () => {
                   ))
                 ) : (
                   <StyledTableRow>
-                    <StyledTableCell colSpan={2} className="text-center py-5">
+                    <StyledTableCell colSpan={2} className="noData">
                       No Records found.
                     </StyledTableCell>
                   </StyledTableRow>

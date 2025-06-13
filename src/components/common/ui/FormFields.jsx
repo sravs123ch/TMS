@@ -106,15 +106,19 @@ export const CustomAsyncSelect = ({
       placeholder={placeholder}
       className="text-sm"
       styles={{
-        control: (base) => ({
-          ...base,
-          border: "1px solid #d1d5db",
-          borderRadius: "0.5rem",
-          padding: "0.25rem",
-          fontSize: "0.875rem",
-          minHeight: "38px",
-          "&:hover": { borderColor: "#3b82f6" },
-        }),
+        control: (base, state) => ({
+    ...base,
+    minHeight: "40px",
+    height: "40px",
+    fontSize: "0.875rem",
+    border: "1px solid #d1d5db",
+    borderRadius: "0.5rem",
+    padding: "0 0.5rem",
+    boxShadow: state.isFocused ? "0 0 0 2px #3b82f6" : "none",
+    "&:hover": {
+      borderColor: "#3b82f6",
+    },
+  }),
         menu: (base) => ({
           ...base,
           maxHeight: "200px",
@@ -163,7 +167,9 @@ export const CustomAsyncSelect = ({
 
 export const RadioGroup = ({ label, name, value, onChange, options }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-inputFieldLabelSize font-medium text-gray-900 mb-1">{label}</label>
+    <label className="text-inputFieldLabelSize font-medium text-gray-900 mb-1">
+      {label}
+    </label>
     <div className="flex items-center gap-4">
       {options.map((option) => (
         <label
@@ -238,3 +244,61 @@ export const EnhancedInputField = ({
     {error && <span className="text-red-500 text-xs mt-1">{error}</span>}
   </div>
 );
+
+
+export const FileUploadField = ({ label, name, onChange, accept, file, description, currentFile }) => {
+  return (
+    <div className="flex flex-col">
+      <label className="text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
+      <input
+        type="file"
+        name={name}
+        onChange={onChange}
+        accept={accept}
+        className="block w-full text-sm text-gray-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-md file:border-0
+          file:text-sm file:font-semibold
+          file:bg-blue-50 file:text-blue-700
+          hover:file:bg-blue-100"
+      />
+      {currentFile && (
+        <p className="mt-1 text-sm text-gray-500">Current file: {currentFile}</p>
+      )}
+      {file && (
+        <p className="mt-1 text-sm text-gray-500">New file: {file.name}</p>
+      )}
+      <p className="mt-1 text-sm text-gray-500">{description}</p>
+    </div>
+  );
+};
+export const CheckboxField = ({
+  label,
+  checked,
+  onChange,
+  className = '',
+  disabled = false,
+  name = '',
+  id = '',
+}) => {
+  return (
+    <div className={`flex items-center ${className}`}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        name={name}
+        id={id || name}
+        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+      />
+      {label && (
+        <label htmlFor={id || name} className="ml-2 block text-sm text-gray-700">
+          {label}
+        </label>
+      )}
+    </div>
+  );
+};

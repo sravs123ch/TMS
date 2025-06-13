@@ -25,10 +25,10 @@ import Modal from "../../../components/common/Modal";
 import {
   InputField,
   RadioGroup,
-  CustomAsyncSelect, EnhancedInputField,
+  CustomAsyncSelect,
+  EnhancedInputField,
 } from "../../../components/common/ui/FormFields";
-
-
+import Spinner from "../../../components/common/Spinner";
 const EditUser = () => {
   const navigate = useNavigate();
   const { userDetails } = useContext(UserContext);
@@ -337,7 +337,11 @@ const EditUser = () => {
     if (!hasMoreRoles || isLoadingRoles) return;
     try {
       setIsLoadingRoles(true);
-      const response = await fetchRolesWithSearch(rolePage * 10, 10, roleSearch);
+      const response = await fetchRolesWithSearch(
+        rolePage * 10,
+        10,
+        roleSearch
+      );
       if (response.roles && response.roles.length > 0) {
         const newOptions = response.roles.map((r) => ({
           value: r.roleID,
@@ -369,7 +373,11 @@ const EditUser = () => {
     if (!hasMoreUsers || isLoadingUsers) return;
     try {
       setIsLoadingUsers(true);
-      const response = await fetchUsersWithSearch(userPage * 10, 10, userSearch);
+      const response = await fetchUsersWithSearch(
+        userPage * 10,
+        10,
+        userSearch
+      );
       if (response.usersBasicInfo && response.usersBasicInfo.length > 0) {
         const newOptions = response.usersBasicInfo.map((u) => ({
           value: u.userID.toString(),
@@ -633,8 +641,11 @@ const EditUser = () => {
           draggable
           pauseOnHover
         />
-        <div className="main-container p-8">
+        <div className="main-container">
+          <div className="tableWhiteCardContainer">
           <h3 className="heading">Edit User Master</h3>
+           {loading && <Spinner />}
+        </div>
         </div>
       </>
     );
@@ -654,265 +665,270 @@ const EditUser = () => {
         pauseOnHover
       />
       <div className="main-container">
-        <form onSubmit={handleSubmit}>
-        <h3 className="heading">Edit User Master</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-4">
-            <EnhancedInputField
-              label="First Name"
-              name="FirstName"
-              value={formData.FirstName}
-              onChange={handleChange}
-              required
-            />
-            <EnhancedInputField
-              label="Last Name"
-              name="LastName"
-              value={formData.LastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="tableWhiteCardContainer">
+          <form onSubmit={handleSubmit}>         
+            <h3 className="heading">Edit User Master</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mt-4">
+              <EnhancedInputField
+                label="First Name"
+                name="FirstName"
+                value={formData.FirstName}
+                onChange={handleChange}
+                required
+              />
+              <EnhancedInputField
+                label="Last Name"
+                name="LastName"
+                value={formData.LastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-900 mb-1">
-              Gender <span className="text-red-500">*</span>
-            </label>
-            <Select
-              name="Gender"
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-900 mb-1">
+                Gender <span className="text-red-500">*</span>
+              </label>
+              <Select
+                name="Gender"
+                options={[
+                  { value: "M", label: "Male" },
+                  { value: "F", label: "Female" },
+                  { value: "O", label: "Other" },
+                ]}
+                value={
+                  formData.Gender
+                    ? {
+                        value: formData.Gender,
+                        label: { M: "Male", F: "Female", O: "Other" }[
+                          formData.Gender
+                        ],
+                      }
+                    : null
+                }
+                onChange={(selected) => {
+                  const updatedFormData = {
+                    ...formData,
+                    Gender: selected ? selected.value : "",
+                  };
+                  setFormData(updatedFormData);
+                  localStorage.setItem(
+                    "editUserFormData",
+                    JSON.stringify(updatedFormData)
+                  );
+                }}
+                className="text-sm"
+                styles={customStyles}
+                placeholder="-- Select Gender --"
+                isSearchable={false}
+              />
+            </div>
+
+            <div className="mb-6">
+              <EnhancedInputField
+                label="Employee ID"
+                name="EmployeeID"
+                value={formData.EmployeeID}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <CustomAsyncSelect
+                label="Role"
+                options={roleOptions}
+                value={roleOptions.find(
+                  (r) => r.value === Number(formData.RoleID)
+                )}
+                loadOptions={loadRoles}
+                onChange={(selected) => {
+                  const updatedFormData = {
+                    ...formData,
+                    RoleID: selected ? selected.value : "",
+                  };
+                  setFormData(updatedFormData);
+                  localStorage.setItem(
+                    "editUserFormData",
+                    JSON.stringify(updatedFormData)
+                  );
+                }}
+                onMenuOpen={() => {
+                  if (roleOptions.length === 0) loadInitialRoles();
+                }}
+                onMenuScrollToBottom={loadMoreRoles}
+                onInputChange={(value) => {
+                  setRoleSearch(value);
+                  if (!value) {
+                    setRolePage(0);
+                    loadInitialRoles();
+                  }
+                }}
+                isLoading={isLoadingRoles}
+                placeholder="-- Select Role --"
+                required
+              />
+              <CustomAsyncSelect
+                label="Department"
+                options={departmentOptions}
+                value={departmentOptions.find(
+                  (d) => d.value === Number(formData.DepartmentID)
+                )}
+                loadOptions={loadDepartments}
+                onChange={(selected) => {
+                  const updatedFormData = {
+                    ...formData,
+                    DepartmentID: selected ? selected.value : "",
+                  };
+                  setFormData(updatedFormData);
+                  localStorage.setItem(
+                    "editUserFormData",
+                    JSON.stringify(updatedFormData)
+                  );
+                }}
+                onMenuOpen={() => {
+                  if (departmentOptions.length === 0) loadInitialDepartments();
+                }}
+                onMenuScrollToBottom={loadMoreDepartments}
+                onInputChange={(value) => {
+                  setDepartmentSearch(value);
+                  if (!value) {
+                    setDepartmentPage(0);
+                    loadInitialDepartments();
+                  }
+                }}
+                isLoading={isLoadingDepartments}
+                placeholder="-- Select Department --"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <CustomAsyncSelect
+                label="Designation"
+                options={designationOptions}
+                value={designationOptions.find(
+                  (d) => d.value === Number(formData.DesignationID)
+                )}
+                loadOptions={loadDesignations}
+                onChange={(selected) => {
+                  const updatedFormData = {
+                    ...formData,
+                    DesignationID: selected ? selected.value : "",
+                  };
+                  setFormData(updatedFormData);
+                  localStorage.setItem(
+                    "editUserFormData",
+                    JSON.stringify(updatedFormData)
+                  );
+                }}
+                onMenuOpen={() => {
+                  if (designationOptions.length === 0)
+                    loadInitialDesignations();
+                }}
+                onMenuScrollToBottom={loadMoreDesignations}
+                onInputChange={(value) => {
+                  setDesignationSearch(value);
+                  if (!value) {
+                    setDesignationPage(0);
+                    loadInitialDesignations();
+                  }
+                }}
+                isLoading={isLoadingDesignations}
+                placeholder="-- Select Designation --"
+                required
+              />
+              <CustomAsyncSelect
+                label="Reports To"
+                options={userOptions}
+                value={userOptions.find((u) => u.value === formData.ReportsTo)}
+                loadOptions={loadUsers}
+                onChange={(selected) => {
+                  const updatedFormData = {
+                    ...formData,
+                    ReportsTo: selected ? selected.value : "",
+                  };
+                  setFormData(updatedFormData);
+                  localStorage.setItem(
+                    "editUserFormData",
+                    JSON.stringify(updatedFormData)
+                  );
+                }}
+                onMenuOpen={() => {
+                  if (userOptions.length === 0) loadInitialUsers();
+                }}
+                onMenuScrollToBottom={loadMoreUsers}
+                onInputChange={(value) => {
+                  setUserSearch(value);
+                  if (!value) {
+                    setUserPage(0);
+                    loadInitialUsers();
+                  }
+                }}
+                isLoading={isLoadingUsers}
+                placeholder="-- Select Manager --"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <EnhancedInputField
+                label="Email"
+                name="EmailID"
+                type="email"
+                value={formData.EmailID}
+                onChange={handleChange}
+                required
+              />
+              <EnhancedInputField
+                label="Login ID"
+                name="LoginID"
+                value={formData.LoginID}
+                onChange={handleChange}
+                readOnly
+                required
+              />
+            </div>
+
+            <RadioGroup
+              label="Induction Required"
+              name="InductionRequire"
+              value={formData.InductionRequire}
+              onChange={(value) => {
+                const updatedFormData = {
+                  ...formData,
+                  InductionRequire: value,
+                };
+                setFormData(updatedFormData);
+                localStorage.setItem(
+                  "editUserFormData",
+                  JSON.stringify(updatedFormData)
+                );
+              }}
               options={[
-                { value: "M", label: "Male" },
-                { value: "F", label: "Female" },
-                { value: "O", label: "Other" },
+                { value: true, label: "Yes" },
+                { value: false, label: "No" },
               ]}
-              value={
-                formData.Gender
-                  ? {
-                      value: formData.Gender,
-                      label: { M: "Male", F: "Female", O: "Other" }[
-                        formData.Gender
-                      ],
-                    }
-                  : null
-              }
-              onChange={(selected) => {
-                const updatedFormData = {
-                  ...formData,
-                  Gender: selected ? selected.value : "",
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
-              }}
-              className="text-sm"
-              styles={customStyles}
-              placeholder="-- Select Gender --"
-              isSearchable={false}
             />
-          </div>
 
-          <div className="mb-6">
-            <EnhancedInputField
-              label="Employee ID"
-              name="EmployeeID"
-              value={formData.EmployeeID}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <CustomAsyncSelect
-              label="Role"
-              options={roleOptions}
-              value={roleOptions.find((r) => r.value === Number(formData.RoleID))}
-              loadOptions={loadRoles}
-              onChange={(selected) => {
-                const updatedFormData = {
-                  ...formData,
-                  RoleID: selected ? selected.value : "",
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
-              }}
-              onMenuOpen={() => {
-                if (roleOptions.length === 0) loadInitialRoles();
-              }}
-              onMenuScrollToBottom={loadMoreRoles}
-              onInputChange={(value) => {
-                setRoleSearch(value);
-                if (!value) {
-                  setRolePage(0);
-                  loadInitialRoles();
-                }
-              }}
-              isLoading={isLoadingRoles}
-              placeholder="-- Select Role --"
-              required
-            />
-            <CustomAsyncSelect
-              label="Department"
-              options={departmentOptions}
-              value={departmentOptions.find(
-                (d) => d.value === Number(formData.DepartmentID)
-              )}
-              loadOptions={loadDepartments}
-              onChange={(selected) => {
-                const updatedFormData = {
-                  ...formData,
-                  DepartmentID: selected ? selected.value : "",
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
-              }}
-              onMenuOpen={() => {
-                if (departmentOptions.length === 0) loadInitialDepartments();
-              }}
-              onMenuScrollToBottom={loadMoreDepartments}
-              onInputChange={(value) => {
-                setDepartmentSearch(value);
-                if (!value) {
-                  setDepartmentPage(0);
-                  loadInitialDepartments();
-                }
-              }}
-              isLoading={isLoadingDepartments}
-              placeholder="-- Select Department --"
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <CustomAsyncSelect
-              label="Designation"
-              options={designationOptions}
-              value={designationOptions.find(
-                (d) => d.value === Number(formData.DesignationID)
-              )}
-              loadOptions={loadDesignations}
-              onChange={(selected) => {
-                const updatedFormData = {
-                  ...formData,
-                  DesignationID: selected ? selected.value : "",
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
-              }}
-              onMenuOpen={() => {
-                if (designationOptions.length === 0) loadInitialDesignations();
-              }}
-              onMenuScrollToBottom={loadMoreDesignations}
-              onInputChange={(value) => {
-                setDesignationSearch(value);
-                if (!value) {
-                  setDesignationPage(0);
-                  loadInitialDesignations();
-                }
-              }}
-              isLoading={isLoadingDesignations}
-              placeholder="-- Select Designation --"
-              required
-            />
-            <CustomAsyncSelect
-              label="Reports To"
-              options={userOptions}
-              value={userOptions.find((u) => u.value === formData.ReportsTo)}
-              loadOptions={loadUsers}
-              onChange={(selected) => {
-                const updatedFormData = {
-                  ...formData,
-                  ReportsTo: selected ? selected.value : "",
-                };
-                setFormData(updatedFormData);
-                localStorage.setItem(
-                  "editUserFormData",
-                  JSON.stringify(updatedFormData)
-                );
-              }}
-              onMenuOpen={() => {
-                if (userOptions.length === 0) loadInitialUsers();
-              }}
-              onMenuScrollToBottom={loadMoreUsers}
-              onInputChange={(value) => {
-                setUserSearch(value);
-                if (!value) {
-                  setUserPage(0);
-                  loadInitialUsers();
-                }
-              }}
-              isLoading={isLoadingUsers}
-              placeholder="-- Select Manager --"
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <EnhancedInputField
-              label="Email"
-              name="EmailID"
-              type="email"
-              value={formData.EmailID}
-              onChange={handleChange}
-              required
-            />
-            <EnhancedInputField
-              label="Login ID"
-              name="LoginID"
-              value={formData.LoginID}
-              onChange={handleChange}
-              readOnly
-              required
-            />
-          </div>
-
-          <RadioGroup
-            label="Induction Required"
-            name="InductionRequire"
-            value={formData.InductionRequire}
-            onChange={(value) => {
-              const updatedFormData = {
-                ...formData,
-                InductionRequire: value,
-              };
-              setFormData(updatedFormData);
-              localStorage.setItem(
-                "editUserFormData",
-                JSON.stringify(updatedFormData)
-              );
-            }}
-            options={[
-              { value: true, label: "Yes" },
-              { value: false, label: "No" },
-            ]}
-          />
-
-          <div className="flex justify-end space-x-4 mt-8">
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-2 bg-[--primary-color]  text-white rounded-lg hover:bg-[--primary-color]  focus:outline-none focus:ring-2 focus:ring-[--primary-color] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Updating..." : "Update"}
-            </button>
-               <button
-              type="button"
-              onClick={() => navigate(-1)}
-               className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            <div className="flex justify-end space-x-4 mt-8">
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-6 py-2 bg-[--primary-color]  text-white rounded-lg hover:bg-[--primary-color]  focus:outline-none focus:ring-2 focus:ring-[--primary-color] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {showReasonModal && (

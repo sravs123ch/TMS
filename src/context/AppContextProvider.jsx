@@ -6,6 +6,8 @@ import { RoleProvider } from './RoleContext';
 import { PlantProvider } from './PlantContext';
 import { PlantAssignProvider } from './PlantAssignContext';
 import { JobResponsibilityProvider } from './induction/JobResponsibilityContext';
+import { DocumentProvider } from './sopOjt-Management/DocumentContext';
+import { QuestionPrepareProvider } from './sopOjt-Management/QuestionPrepareContext';
 const AppContextProvider = ({ children }) => {
   return (
     <UserProvider>
@@ -15,7 +17,11 @@ const AppContextProvider = ({ children }) => {
           <PlantProvider>
             <PlantAssignProvider>
               <JobResponsibilityProvider>
+                <DocumentProvider>
+                  <QuestionPrepareProvider>
       {children}
+      </QuestionPrepareProvider>
+      </DocumentProvider>
       </JobResponsibilityProvider>
       </PlantAssignProvider>
       </PlantProvider>

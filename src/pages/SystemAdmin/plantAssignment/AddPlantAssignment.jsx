@@ -7,7 +7,7 @@ import {
   fetchAllPlants,
 } from "../../../services/systemAdmin/PlantAssignService";
 import "react-toastify/dist/ReactToastify.css";
-import { CustomAsyncSelect } from '../../../components/common/ui/FormFields';
+import { CustomAsyncSelect } from "../../../components/common/ui/FormFields";
 const AddPlantAssignment = () => {
   const [formData, setFormData] = useState({
     employeeID: "",
@@ -128,80 +128,81 @@ const AddPlantAssignment = () => {
     <>
       <ToastContainer position="top-right" autoClose={1500} />
 
-   <div className="main-container">
-        <h3 className="heading">Assign Plants</h3>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* User Select */}
-        <div>
-  <CustomAsyncSelect
-    label="Select User"
-    options={users}
-    value={users.find((user) => user.value === formData.employeeID)}
-    onChange={(selected) =>
-      setFormData({
-        ...formData,
-        employeeID: selected?.value || "",
-      })
-    }
-    placeholder="-- Select User --"
-    isLoading={loading}
-    required
-  />
-  {formSubmitted && !formData.employeeID && (
-    <p className="text-sm text-red-600 mt-1">
-      User selection is required.
-    </p>
-  )}
-</div>
-
-
-          {/* Plants Checkbox */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Select Plants <span className="text-red-500">*</span>
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {plants.map((plant) => (
-                <label
-                  key={plant.value}
-                  className="flex items-center space-x-2 text-gray-700"
-                >
-                  <input
-                    type="checkbox"
-                    name="selectedPlant"
-                    value={plant.value}
-                    checked={formData.selectedPlant.includes(plant.value)}
-                    onChange={handleChange}
-                    className="form-checkbox text-blue-600"
-                  />
-                  <span>{plant.label}</span>
-                </label>
-              ))}
+      <div className="main-container">
+        <div className="tableWhiteCardContainer">
+          <h3 className="heading">Assign Plants</h3>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* User Select */}
+            <div>
+              <CustomAsyncSelect
+                label="Select User"
+                options={users}
+                value={users.find((user) => user.value === formData.employeeID)}
+                onChange={(selected) =>
+                  setFormData({
+                    ...formData,
+                    employeeID: selected?.value || "",
+                  })
+                }
+                placeholder="-- Select User --"
+                isLoading={loading}
+                required
+              />
+              {formSubmitted && !formData.employeeID && (
+                <p className="text-sm text-red-600 mt-1">
+                  User selection is required.
+                </p>
+              )}
             </div>
-            {formSubmitted && formData.selectedPlant.length === 0 && (
-              <p className="text-sm text-red-600 mt-1">
-                Select at least one plant.
-              </p>
-            )}
-          </div>
 
-          {/* Actions */}
-          <div className="flex space-x-4 justify-end">
-            <button
-              type="submit"
-             className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="btn-cancel"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            {/* Plants Checkbox */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Select Plants <span className="text-red-500">*</span>
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {plants.map((plant) => (
+                  <label
+                    key={plant.value}
+                    className="flex items-center space-x-2 text-gray-700"
+                  >
+                    <input
+                      type="checkbox"
+                      name="selectedPlant"
+                      value={plant.value}
+                      checked={formData.selectedPlant.includes(plant.value)}
+                      onChange={handleChange}
+                      className="form-checkbox text-blue-600"
+                    />
+                    <span>{plant.label}</span>
+                  </label>
+                ))}
+              </div>
+              {formSubmitted && formData.selectedPlant.length === 0 && (
+                <p className="text-sm text-red-600 mt-1">
+                  Select at least one plant.
+                </p>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="flex space-x-4 justify-end">
+              <button
+                type="submit"
+                className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="btn-cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

@@ -389,7 +389,7 @@ const InductionSign = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-[--primary-color] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-submit"
                 >
                   {loading ? "Signing Off..." : "Sign Off"}
                 </button>

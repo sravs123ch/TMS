@@ -11,6 +11,7 @@ import {
 import Modal from '../../../components/common/Modal';
 import {InputField, EnhancedInputField } from '../../../components/common/ui/FormFields';
 
+import Spinner from "../../../components/common/Spinner";
 
 const TOAST_CONFIG = {
   position: "top-right",
@@ -266,7 +267,7 @@ const EditJobResponsibility = () => {
 
          <div className="flex justify-end gap-4 mt-6">
             <button type="submit"
-            className="px-5 py-2.5 bg-[--primary-color] text-white rounded-lg text-sm hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-submit"
              disabled={isSubmitting}>
               {isSubmitting ? 'Updating...' : 'Update'}
             </button>
@@ -283,6 +284,12 @@ const EditJobResponsibility = () => {
         <Modal
           title="Reason for Change"
           message={
+             <div className="relative">
+              {isSubmitting && (
+                <div className="spinner-position-addpages">
+                  <Spinner />
+                </div>
+              )}
             <div>
               <p>Please provide a reason for updating the Job Responsibility for "{selectedUser?.label}"</p>
               <textarea
@@ -293,6 +300,7 @@ const EditJobResponsibility = () => {
                 placeholder="Please provide a reason for this change..."
               />
             </div>
+               </div>
           }
           onConfirm={handleConfirmUpdate}
           onCancel={() => setShowReasonModal(false)}
