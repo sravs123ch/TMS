@@ -120,14 +120,14 @@ const EditDesignation = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-[--primary-color]  text-white px-4 py-2 rounded-lg hover:bg-[--primary-color]  transition-colors font-medium"
+                className="primaryButton"
               >
                 {loading ? "Updating..." : "Update"}
               </button>
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-cancel"
+                className="secondaryButton"
               >
                 Cancel
               </button>

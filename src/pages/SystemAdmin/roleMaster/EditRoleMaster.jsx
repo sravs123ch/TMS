@@ -145,7 +145,7 @@ const EditRole = () => {
             <div className="flex justify-end gap-4 mt-8">
               <button
                 type="submit"
-                className="bg-[--primary-color] text-white px-4 py-2 rounded-lg hover:bg-[--primary-color] transition-colors font-medium"
+                className="primaryButton"
                 disabled={loading}
               >
                 {loading ? "Updating..." : "Update"}
@@ -153,7 +153,7 @@ const EditRole = () => {
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+                className="secondaryButton"
                 disabled={loading}
               >
                 Cancel

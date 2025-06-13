@@ -182,7 +182,7 @@ const RoleMaster = () => {
                     <StyledTableRow key={item.roleID}>
                       <StyledTableCell>{item.roleName}</StyledTableCell>
                       <StyledTableCell>
-                        <div className="flex gap-3 items-center h-full">
+                        <div className="icon-btn-div">
                           <button
                             onClick={() => handleEdit(item)}
                             className="icon-btn edit"

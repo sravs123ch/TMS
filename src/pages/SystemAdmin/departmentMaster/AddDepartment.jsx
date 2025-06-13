@@ -110,7 +110,7 @@ const AddDepartment = () => {
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-cancel"
+                className="secondaryButton"
               >
                 Cancel
               </button>

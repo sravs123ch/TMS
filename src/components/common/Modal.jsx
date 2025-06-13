@@ -5,7 +5,7 @@ const Modal = ({ title, message, onConfirm, onCancel }) => {
         <h2 className="text-xl font-semibold text-[#127C96] mb-4">{title}</h2>
 
         <div className="mb-5">
-          {typeof message === 'string' ? (
+          {typeof message === "string" ? (
             <p className="text-base leading-relaxed">{message}</p>
           ) : (
             message
@@ -15,14 +15,11 @@ const Modal = ({ title, message, onConfirm, onCancel }) => {
         <div className="flex justify-center gap-4">
           <button
             onClick={onConfirm}
-            className="min-w-[120px] px-4 py-2 rounded-lg bg-[#127C96] text-white font-medium hover:bg-[#0f6a83] transition-colors"
+            className="primaryButton"
           >
             Confirm
           </button>
-          <button
-            onClick={onCancel}
-            className="min-w-[120px] px-4 py-2 rounded-lg bg-gray-300 text-black font-medium hover:bg-gray-400 transition-colors"
-          >
+          <button onClick={onCancel} className="secodnaryButton">
             Cancel
           </button>
         </div>

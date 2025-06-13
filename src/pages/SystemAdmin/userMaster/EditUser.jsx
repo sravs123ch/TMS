@@ -912,14 +912,14 @@ const EditUser = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-[--primary-color]  text-white rounded-lg hover:bg-[--primary-color]  focus:outline-none focus:ring-2 focus:ring-[--primary-color] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="primaryButton"
               >
                 {loading ? "Updating..." : "Update"}
               </button>
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-cancel"
+                className="secondaryButton"
               >
                 Cancel
               </button>

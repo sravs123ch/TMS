@@ -210,7 +210,7 @@ const UserMaster = () => {
       <div className="main-container">
         {/* White card container */}
         <div className="tableWhiteCardContainer">
-          <div className="tableHeaderLayout">
+          <div className="tableHeaderLayout ">
             <h2 className="heading">User Master</h2>
             <SearchAddBar
               searchTerm={searchTerm}
@@ -247,7 +247,7 @@ const UserMaster = () => {
                             <img
                               src={profile}
                               alt="profile"
-                              className="h-8 w-8 rounded-full object-cover border border-[var(--primary-color)]"
+                              className="profile-avatar"
                               onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = "default-profile.png";
@@ -261,7 +261,7 @@ const UserMaster = () => {
                       <StyledTableCell>{user.designationName}</StyledTableCell>
                       <StyledTableCell>{user.roleName || "-"}</StyledTableCell>
                       <StyledTableCell>
-                        <div className="flex space-x-2 items-center h-10">
+                        <div className="icon-btn-div">
                           <button
                             onClick={() => handleEditUserClick(user)}
                             className="icon-btn edit"
