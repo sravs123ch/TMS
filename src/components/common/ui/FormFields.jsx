@@ -60,7 +60,7 @@ export const PasswordInput = ({
         onChange={onChange}
         required={required}
         minLength={8}
-        className={`w-full p-2 pr-10 border ${
+        className={`w-full p-2 pr-10 border h-12 ${
           error ? "border-red-500" : "border-gray-300"
         } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 text-sm ${
           error ? "ring-1 ring-red-500" : ""
@@ -91,7 +91,7 @@ export const CustomAsyncSelect = ({
   required,
 }) => (
   <div className="flex flex-col mb-4">
-    <label className="text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
+    <label className=" text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <AsyncSelect
@@ -109,7 +109,7 @@ export const CustomAsyncSelect = ({
       styles={{
         control: (base, state) => ({
     ...base,
-    minHeight: "40px",
+    minHeight: "48px",
     height: "40px",
     fontSize: "0.875rem",
     border: "1px solid #d1d5db",

@@ -233,8 +233,7 @@ const UserMaster = () => {
                 {loading ? (
                   <StyledTableRow>
                     <StyledTableCell colSpan={5}>
-                      <Spinner/>
-                     
+                      <Spinner />
                     </StyledTableCell>
                   </StyledTableRow>
                 ) : users.length > 0 ? (

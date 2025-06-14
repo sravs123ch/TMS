@@ -3,15 +3,19 @@ import { LocalizationProvider, DatePicker as MuiDatePicker } from "@mui/x-date-p
 import { TextField } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-const DatePicker = ({ label, value, onChange, ...props }) => {
+const DatePicker = ({ label, value, required, onChange, ...props }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
+       <label className="text-inputFieldLabelSize font-medium text-inputFieldLabelColor">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
       <MuiDatePicker
-        label={label}
+        // label={label}
         value={value}
         onChange={onChange}
         renderInput={(params) => <TextField fullWidth {...params} />}
         {...props}
+       
       />
     </LocalizationProvider>
   );

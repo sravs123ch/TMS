@@ -6,6 +6,7 @@ import Spinner from "../../../components/common/Spinner";
 import {
   CustomAsyncSelect,
   EnhancedInputField,
+  InputField,
 } from "../../../components/common/ui/FormFields";
 import DatePicker from "../../../components/common/ui/DatePicker";
 import {
@@ -97,7 +98,7 @@ const AddInductionAssign = () => {
 
             <h2 className="heading">Assign Induction</h2>
             {/* Select User */}
-            <div className="mb-4">
+            <div className="mb-4 mt-4">
               <CustomAsyncSelect
                 label="Select User"
                 options={users.map((user) => ({
@@ -125,7 +126,7 @@ const AddInductionAssign = () => {
             </div>
 
             {/* Due Date */}
-            <div className="mb-4">
+            <div className="mb-4 ">
               <DatePicker
                 label="Due Date"
                 value={formData.dueDate}
@@ -134,12 +135,13 @@ const AddInductionAssign = () => {
                 }
                 minDate={new Date()}
                 placeholder="Select due date"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%",}}
+                required
               />
             </div>
 
             {/* Remarks */}
-            <EnhancedInputField
+            <InputField
               name="remarks"
               label="Remarks"
               value={formData.remarks}

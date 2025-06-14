@@ -162,101 +162,101 @@ const UserPersonalDetails = () => {
             </div>
           </div>
 
-          {loading ? (
-            <div>
-              <Spinner />
-            </div>
-          ) : (
-            <TableContainer component={Paper} className="mb-4">
-              <Table className="min-w-full">
-                <TableHead className="bg-gray-100">
+         <TableContainer component={Paper} className="mb-4">
+            <Table className="min-w-full">
+              <TableHead className="bg-gray-100">
+                <TableRow>
+                  <StyledTableCell>Name</StyledTableCell>
+                  <StyledTableCell>Address</StyledTableCell>
+                  <StyledTableCell>Contact Info</StyledTableCell>
+                  <StyledTableCell>DOB</StyledTableCell>
+                  <StyledTableCell>DOJ</StyledTableCell>
+                  <StyledTableCell>Status</StyledTableCell>
+                  <StyledTableCell>Actions</StyledTableCell>
+                </TableRow>
+              </TableHead>
+ 
+              <TableBody>
+                {loading ? (
                   <TableRow>
-                    <StyledTableCell>Name</StyledTableCell>
-                    <StyledTableCell>Address</StyledTableCell>
-                    <StyledTableCell>Contact Info</StyledTableCell>
-                    <StyledTableCell>DOB</StyledTableCell>
-                    <StyledTableCell>DOJ</StyledTableCell>
-                    <StyledTableCell>Status</StyledTableCell>
-                    <StyledTableCell>Actions</StyledTableCell>
+                    <StyledTableCell colSpan={7} align="center">
+                      <Spinner />
+                    </StyledTableCell>
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {users.length > 0 ? (
-                    users.map((user, index) => {
-                      const { status, className } = getUserStatus(user);
-                      return (
-                        <StyledTableRow key={index} hover>
-                          <StyledTableCell>
-                            <div className="profile-info">
-                              <div>
-                                <img
-                                  src={profile}
-                                  alt="profile"
-                                  className="profile-avatar"
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "default-profile.png";
-                                  }}
-                                />
-                              </div>
-                              <span>{`${user.firstName} ${user.lastName}`}</span>
+                ) : users.length > 0 ? (
+                  users.map((user, index) => {
+                    const { status, className } = getUserStatus(user);
+                    return (
+                      <StyledTableRow key={index} hover>
+                        <StyledTableCell>
+                          <div className="profile-info">
+                            <div>
+                              <img
+                                src={profile}
+                                alt="profile"
+                                className="profile-avatar"
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = "default-profile.png";
+                                }}
+                              />
                             </div>
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {user.address || "-"}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {user.contactNo || "-"}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {formatDate(user.dob)}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {formatDate(user.doj)}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${className}`}
-                            >
-                              {status}
-                            </span>
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            <button
-                              onClick={() => handleEditUserClick(user)}
-                              className="icon-btn edit"
-                              title="Edit User"
-                            >
-                              <FaEdit className="icon-md" />
-                            </button>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      );
-                    })
-                  ) : (
-                    <TableRow>
-                      <StyledTableCell colSpan={7} className="noData">
-                        No users found.
-                      </StyledTableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-                <TableFooter>
+                            <span>{`${user.firstName} ${user.lastName}`}</span>
+                          </div>
+                        </StyledTableCell>
+                        <StyledTableCell>{user.address || "-"}</StyledTableCell>
+                        <StyledTableCell>
+                          {user.contactNo || "-"}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {formatDate(user.dob)}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {formatDate(user.doj)}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${className}`}
+                          >
+                            {status}
+                          </span>
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <button
+                            onClick={() => handleEditUserClick(user)}
+                            className="icon-btn edit"
+                            title="Edit User"
+                          >
+                            <FaEdit className="icon-md" />
+                          </button>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    );
+                  })
+                ) : (
                   <TableRow>
-                    <TablePagination
-                      rowsPerPageOptions={[5, 10, 25]}
-                      count={totalRecords}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActions}
-                    />
+                    <StyledTableCell colSpan={7} className="noData">
+                      No users found.
+                    </StyledTableCell>
                   </TableRow>
-                </TableFooter>
-              </Table>
-            </TableContainer>
-          )}
+                )}
+              </TableBody>
+ 
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    count={totalRecords}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     </div>

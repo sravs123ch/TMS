@@ -100,29 +100,15 @@ const PasswordReset = lazy(() =>
 );
 
 // Induction Assign
-const InductionAssign = lazy(() => import('./pages/Induction/inductionAssign/InductionAssign.jsx'));
-const AddInductionAssign = lazy(() => import('./pages/Induction/inductionAssign/AddInductionAssign.jsx'));
-const EditInductionAssign = lazy(() => import('./pages/Induction/inductionAssign/EditInductionAssign.jsx'));
-
-// Induction Module
-const JobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/JobResponsibility.jsx'));
-const AddJobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/AddJobResponsibility.jsx'));
-const EditJobResposibility = lazy(() => import('./pages/Induction/jobResponsibility/EditJobResponsibility.jsx'));
-
-//Induction Sign
-const InductionSign = lazy(() => import('./pages/Induction/inductionSign/InductionSign.jsx'));
-// Document Registration
-const DocumentRegistration = lazy(() => import('./pages/sopojt-Management/documentRegistration/DocumentRegistration.jsx'));
-const RegisterDocument = lazy(() => import('./pages/sopojt-Management/documentRegistration/RegisterDocument.jsx'));
-const EditDocument = lazy(() => import('./pages/sopojt-Management/documentRegistration/EditDocument.jsx'));
-
-// Document Review & Approval
-const DocumentReviewApproval = lazy(() => import('./pages/sopojt-Management/documentReview&Approval/documentReview&Approval.jsx'));
-
-const AddQuestionPrepare = lazy(() => import('./pages/sopojt-Management/questionPrepare/AddQuestionPrepare.jsx'));
-const QuestionPrepareGrid = lazy(() => import('./pages/sopojt-Management/questionPrepare/QuestionPrepareGrid.jsx'));
-const EditQuestionPrepare = lazy(() => import('./pages/sopojt-Management/questionPrepare/EditQuestionPrepare.jsx'));
-// const QuestionApprove = lazy(() => import('./pages/sopojt-Management/questionApprove/questionApprove.jsx'));
+const InductionAssign = lazy(() =>
+  import("./pages/Induction/inductionAssign/InductionAssign.jsx")
+);
+const AddInductionAssign = lazy(() =>
+  import("./pages/Induction/inductionAssign/AddInductionAssign.jsx")
+);
+const EditInductionAssign = lazy(() =>
+  import("./pages/Induction/inductionAssign/EditInductionAssign.jsx")
+);
 
 // Fallback spinner
 const fallbackSpinner = (
@@ -379,86 +365,31 @@ const AppWithNavigation = () => {
           }
         />
         {/* Induction Assign */}
-          <Route path="/induction/induction-assign" element={
+        <Route
+          path="/induction/induction-assign"
+          element={
             <Suspense fallback={fallbackSpinner}>
-              <InductionAssign/>
+              <InductionAssign />
             </Suspense>
-          } />
-          <Route path="/induction/induction-assign/add-induction-assign" element={
+          }
+        />
+        <Route
+          path="/induction/induction-assign/add-induction-assign"
+          element={
             <Suspense fallback={fallbackSpinner}>
-              <AddInductionAssign/>
+              <AddInductionAssign />
             </Suspense>
-          } />
-          <Route path="/induction/induction-assign/edit-induction-assign" element={
+          }
+        />
+        <Route
+          path="/induction/induction-assign/edit-induction-assign"
+          element={
             <Suspense fallback={fallbackSpinner}>
-              <EditInductionAssign/>
+              <EditInductionAssign />
             </Suspense>
-          } />
-            {/* Induction Module */}
-          <Route path="/induction/job-responsibility" element={
-            <Suspense fallback={fallbackSpinner}>
-              <JobResposibility />
-            </Suspense>
-          } />
-          <Route path="/induction/job-responsibility/add-job-responsibility" element={
-            <Suspense fallback={fallbackSpinner}>
-              <AddJobResposibility/>
-            </Suspense>
-          } />
-          <Route path="/induction/job-responsibility/edit-job-responsibility" element={
-            <Suspense fallback={fallbackSpinner}>
-              <EditJobResposibility />
-            </Suspense>
-          } />
-   {/* Induction Sign */}
-          <Route path="/induction/induction-sign" element={
-            <Suspense fallback={fallbackSpinner}>
-              <InductionSign/>
-            </Suspense>
-          } />
-
-            {/* SOP Module */}
-          <Route path="/document-management/document-registration" element={
-            <Suspense fallback={fallbackSpinner}>
-              <DocumentRegistration/>
-            </Suspense>
-          } />
-       <Route path="/document-management/document-registration/register-document" element={
-            <Suspense fallback={fallbackSpinner}>
-              <RegisterDocument/>
-            </Suspense>
-          } />
-         <Route path="/document-management/document-registration/edit-document" element={
-            <Suspense fallback={fallbackSpinner}>
-              <EditDocument/>
-            </Suspense>
-          } />
-    {/* Document Review & Approval */}
-          <Route path="/document-management/document-approval" element={
-            <Suspense fallback={fallbackSpinner}>
-              <DocumentReviewApproval/>
-            </Suspense>
-          } />
-         <Route path="/document-management/questioner-preparation" element={
-            <Suspense fallback={fallbackSpinner}>
-              <QuestionPrepareGrid />
-            </Suspense>
-          } />
-          <Route path="/document-management/questioner-preparation/add" element={
-            <Suspense fallback={fallbackSpinner}>
-              <AddQuestionPrepare />
-            </Suspense>
-          } />
-          <Route path="/document-management/questioner-preparation/edit/:id" element={
-            <Suspense fallback={fallbackSpinner}>
-              <EditQuestionPrepare />
-            </Suspense>
-          } />
-           {/*  <Route path="/document-management/questioner-approval" element={
-            <Suspense fallback={fallbackSpinner}>
-              <QuestionApprove/>
-            </Suspense>
-          } />  */}
+          }
+        />
+        {/* Induction Module */}
       </Route>
     </Routes>
   );
